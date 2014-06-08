@@ -114,6 +114,17 @@ swizzle<T, n, elems...>& swizzle<T, n, elems...>::operator=(T s) {
 }
 template <typename T, size_t n, size_t... elems>
 swizzle<T, n, elems...>& swizzle<T, n, elems...>::
+operator=(const swizzle<T, n, elems...>& u) {
+  static_assert(typefu::max<elems...>::value < n,
+                "vector swizzle out of bounds");
+
+  size_t es[sizeof...(elems)] = {elems...};
+  for (size_t i = 0; i < sizeof...(elems); ++i)
+    data[es[i]] = u.data[es[i]];
+  return *this;
+}
+template <typename T, size_t n, size_t... elems>
+swizzle<T, n, elems...>& swizzle<T, n, elems...>::
 operator=(const tvec<T, sizeof...(elems)>& u) {
   static_assert(typefu::max<elems...>::value < n,
                 "vector swizzle out of bounds");

@@ -243,29 +243,16 @@ namespace {
     ivec4 v = ivec4(1, 2, 3, 4);
     ivec4 u = ivec4(5, 6, 7, 8);
 
-    std::cout << "Here!" << std::endl;
-    std::cout << v << ".x = " << u << ".x" << std::endl;
-    std::cout << std::endl;
-
     v.x = u.x;
-
-    std::cout << std::endl;
-    std::cout << "v: " << v << std::endl;
-    std::cout << "u: " << u << std::endl;
-    std::cout << "Done!" << std::endl;
-
     if (v != ivec4(5, 2, 3, 4)) return false;
 
-    v.xy = u.yx;
-    print (v);
-    if (v != ivec4(6, 5, 3, 4)) return false;
+    v.xy = u.xy;
+    if (v != ivec4(5, 6, 3, 4)) return false;
 
-    v.xyz = u.zyx;
-    print (v);
-    if (v != ivec4(7, 6, 5, 4)) return false;
+    v.xyz = u.xyz;
+    if (v != ivec4(5, 6, 7, 4)) return false;
 
     v.xyzw = u.wzyx;
-    print (v);
     if (v != ivec4(8, 7, 6, 5)) return false;
 
     return true;

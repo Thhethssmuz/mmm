@@ -24,6 +24,7 @@ struct swizzle : vecType<T, sizeof...(elems), swizzle<T, n, elems...>> {
   swizzle<T, n, elems...>& operator/=(const tvec<T, sizeof...(elems)>& u);
 
   swizzle<T, n, elems...>& operator=(T s);
+  swizzle<T, n, elems...>& operator=(const swizzle<T, n, elems...>& u);
   swizzle<T, n, elems...>& operator=(const tvec<T, sizeof...(elems)>& u);
 };
 

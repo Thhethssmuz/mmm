@@ -11,6 +11,7 @@ struct swizzle<T, n, a> {
   T* operator&();
 
   T& operator=(T x);
+  T& operator=(const swizzle<T,n,a>&);
 };
 
 #endif
