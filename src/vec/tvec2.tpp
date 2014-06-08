@@ -15,6 +15,15 @@ constexpr tvec<T, 2>::tvec(T x)
 
 
 template <typename T>
+constexpr tvec<T, 2>::tvec(tvec<T, 2>&& v)
+  : recursive{std::move(v.recursive.head), std::move(v.recursive.tail)} {}
+
+template <typename T>
+constexpr tvec<T, 2>::tvec(const tvec<T, 2>& v)
+  : recursive{v.recursive.head, v.recursive.tail} {}
+
+
+template <typename T>
 constexpr T tvec<T, 2>::operator[](size_t i) const {
   return data[i];
 }
@@ -28,6 +37,14 @@ T& tvec<T, 2>::operator[](size_t i) {
 template <typename T>
 tvec<T, 2>::operator T*() {
   return data;
+}
+
+
+template <typename T>
+tvec<T, 2>& tvec<T, 2>::operator=(const tvec<T, 2>& v) {
+  recursive.head = v.recursive.head;
+  recursive.tail = v.recursive.tail;
+  return *this;
 }
 
 #endif

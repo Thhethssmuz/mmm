@@ -22,9 +22,14 @@ struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
   explicit constexpr tvec(T x);
   explicit constexpr tvec(T x, T y);
 
+  constexpr tvec(tvec<T, 2>&& v);
+  constexpr tvec(const tvec<T, 2>& v);
+
   constexpr T operator[](size_t i) const;
   T& operator[](size_t i);
   operator T*();
+
+  tvec<T, 2>& operator=(const tvec<T, 2>& v);
 };
 
 #endif

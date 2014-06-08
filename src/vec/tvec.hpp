@@ -26,6 +26,8 @@ struct tvec : vecType<T, n, tvec<T, n>> {
   explicit constexpr tvec(T x, tvec<T, n - 1>&& xs);
   explicit constexpr tvec(T x, const tvec<T, n - 1>& xs);
 
+  constexpr tvec(tvec<T, n>&& v);
+  constexpr tvec(const tvec<T, n>& v);
 
   template <typename... Ts, typename = typefu::for_components<n, T, Ts...>>
   explicit constexpr tvec(T x, Ts... xs);
@@ -43,6 +45,8 @@ struct tvec : vecType<T, n, tvec<T, n>> {
   constexpr T operator[](size_t i) const;
   T& operator[](size_t i);
   operator T*();
+
+  tvec<T, n>& operator=(const tvec<T, n>& v);
 };
 
 #endif
