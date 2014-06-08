@@ -3,7 +3,7 @@
 
 namespace {
 
-  auto constructors_1 = UnitTest("vector constructors 1", +[]() {
+  auto constructors_1 = UnitTest("vector constructors 1", +[] {
     vec4 v;
     vec4 u(0);
     vec4 t{0};
@@ -18,7 +18,7 @@ namespace {
 
     return true;
   });
-  auto constructors_2 = UnitTest("vector constructors 2", +[]() {
+  auto constructors_2 = UnitTest("vector constructors 2", +[] {
     vec2 v = vec2(3, 4);
     vec3 u = vec3(2, v);
     vec4 t = vec4(1, u);
@@ -27,7 +27,7 @@ namespace {
 
     return true;
   });
-  auto constructors_3 = UnitTest("vector constructors 3", +[]() {
+  auto constructors_3 = UnitTest("vector constructors 3", +[] {
     vec2 v = vec2(1, 2);
     vec2 u = vec2(3, 4);
     vec4 t = vec4(v, u);
@@ -38,7 +38,7 @@ namespace {
 
     return true;
   });
-  auto constructors_4 = UnitTest("vector constructors 4", +[]() {
+  auto constructors_4 = UnitTest("vector constructors 4", +[] {
     vec4 v = vec4(8, 7, 6, 1);
     vec4 u = vec4(2, 3, 5, 4);
     vec4 t = vec4(12, 10, 11, 13);
@@ -52,7 +52,7 @@ namespace {
     return true;
   });
 
-  auto index = UnitTest("vector index", +[]() {
+  auto index = UnitTest("vector index", +[] {
     vec4 v = vec4(1, 2, 3, 4);
 
     float& x = v[0];
@@ -72,7 +72,7 @@ namespace {
     return true;
   });
 
-  auto array_cast = UnitTest("vector array_cast", +[]() {
+  auto array_cast = UnitTest("vector array_cast", +[] {
     ivec4 v = ivec4(8, 7, 6, 5);
     int* i = v;
 
