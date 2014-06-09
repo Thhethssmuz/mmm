@@ -1,5 +1,4 @@
-# build test executable to run unittests
-TARGET   = tests
+# build tests executable to run unittests
 
 # dependencies
 DEP1     = deps/backward-cpp
@@ -19,17 +18,17 @@ DEP      = $(SRC:test/%.cpp=obj/%.d)
 
 # Compiler and compile flags
 CXX       = clang++
-CXXFLAGS  = -std=c++11 -g -pedantic -MMD -Wall -W $(INCDIRS)
+CXXFLAGS  = -std=c++11 -g -pedantic -W -Wall -Wextra $(INCDIRS)
 
 # Linker and link flags
 LINKER   = clang++
 LFLAGS   = $(DEP1FLGS)
 
-all: $(TARGET)
+all: tests
 	@echo "make: done"
 
-$(TARGET): $(OBJ)
-	@echo "make: linking $(TARGET)"
+tests: $(OBJ)
+	@echo "make: linking..."
 	@$(LINKER) $(LFLAGS) $(OBJ) -o $@
 
 $(OBJDIRS):
@@ -52,17 +51,10 @@ obj/%.o: test/%.cpp obj/%.d
 	@echo "make: compiling $(patsubst obj/%.o,%,$@)"
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-
-# Make options
-LONETEST = obj/swizzle/opr/asig.o
-
-run_tests: obj/main.o obj/unittest.o $(LONETEST)
-	@echo "make: linking $(TARGET)"
-	@$(LINKER) $(LFLAGS) obj/main.o obj/unittest.o $(LONETEST) -o $(TARGET)
+# quick build a lone test source file
+quick/test/%.cpp: obj/main.o obj/unittest.o obj/%.o
+	@echo "make: linking $(patsubst quick_test/%.cpp,%,$@)"
+	@$(LINKER) $(LFLAGS) $^ -o tests
 
 run: 
-	@echo "make: running $(TARGET)"
-	@echo
-	@./$(TARGET)
-	@echo
-	@echo "make: done"
+	@./tests
