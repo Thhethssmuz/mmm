@@ -77,15 +77,13 @@ namespace {
     return true;
   });
   auto v_atan2 = UnitTest("vector trigonometric function atan2", +[]() {
-    vec2 v = radians(vec2(1, 0));
-    vec3 r = radians(vec3(90, 45, 0));
+    vec2 v = vec2(1, 0);
+    vec3 r = vec3(90, 45, 0);
 
-    if (abs(atan(v, 0) - r.xz) > 0.0001) return false;
-    if (abs(atan(0, v)) > 0.0001) return false;
-    //if (abs(atan(v, v.yz) - r.xz) > 0.0001) return false;
-    // fix swizzle static_assert. note v.yz is out of bounds
-    // also fix whatever v.yz is supposed to be!
-    return false;
-    //return true;
+    if (degrees(atan(0, v)) != 0) return false;
+    if (degrees(atan(v, 0)) != r.xz) return false;
+    if (degrees(atan(v.xx, v.xy)) != r.yx) return false;
+
+    return true;
   });
 }
