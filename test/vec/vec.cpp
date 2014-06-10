@@ -80,4 +80,14 @@ namespace {
 
     return true;
   });
+
+  auto swiz_func = UnitTest("vector swizzleElems", +[] {
+    ivec<9> v = ivec<9>(0, 1, 2, 10, 11, 12, 20, 21, 22);
+
+    ivec3 u = v.swizzleElems<3, 4, 5>() += 100;
+    if (u != ivec3(110, 111, 112)) return false;
+    if (v != ivec<9>(0, 1, 2, 110, 111, 112, 20, 21, 22)) return false;
+
+    return true;
+  });
 }

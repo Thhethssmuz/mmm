@@ -65,4 +65,11 @@ tvec<T, n>& tvec<T, n>::operator=(const tvec<T, n>& v) {
   return *this;
 }
 
+
+template <typename T, size_t n>
+template <size_t... es>
+swizzle<T, n, es...>& tvec<T, n>::swizzleElems() {
+  return *(reinterpret_cast<swizzle<T, n, es...>*>(this));
+}
+
 #endif
