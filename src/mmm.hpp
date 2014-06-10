@@ -10,11 +10,13 @@
 
 
 #include <typefu/traits.hpp>
-#include <typefu/restrict.hpp>
-#include <typefu/promote.hpp>
-#include <typefu/components.hpp>
 #include <typefu/gen.hpp>
 
+#include <typefu/restrict.hpp>
+#include <typefu/promote.hpp>
+
+#include <typefu/components.hpp>
+#include <typefu/range.hpp>
 
 #include <vec/vecType.hpp>
 #include <swizzle/swizzle.hpp>

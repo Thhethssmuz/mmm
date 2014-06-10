@@ -67,9 +67,16 @@ tvec<T, n>& tvec<T, n>::operator=(const tvec<T, n>& v) {
 
 
 template <typename T, size_t n>
-template <size_t... es>
-swizzle<T, n, es...>& tvec<T, n>::swizzleElems() {
-  return *(reinterpret_cast<swizzle<T, n, es...>*>(this));
+template <size_t... elems>
+swizzle<T, n, elems...>& tvec<T, n>::swizzleElems() {
+  return *(reinterpret_cast<swizzle<T, n, elems...>*>(this));
+}
+
+template <typename T, size_t n>
+template <size_t start, size_t end>
+typefu::swizzle_range<T, n, start, end>& tvec<T, n>::swizzleRange() {
+  typedef typefu::swizzle_range<T, n, start, end> type;
+  return *(reinterpret_cast<type*>(this));
 }
 
 #endif
