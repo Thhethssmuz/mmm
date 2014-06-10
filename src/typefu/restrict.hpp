@@ -3,6 +3,10 @@
 
 namespace typefu {
 
+  template <bool... bs>
+  using for_ = typename std::enable_if<all<bs...>::value>::type;
+
+
   template <typename... Ts>
   using for_arithmetic =
     typename std::enable_if<is_arithmetic<Ts...>::value>::type;
