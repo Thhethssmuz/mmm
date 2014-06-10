@@ -81,11 +81,37 @@ namespace {
     return true;
   });
 
-  auto swiz_func = UnitTest("vector swizzleElems", +[] {
+  auto swiz_elems = UnitTest("vector swizzleElems", +[] {
     ivec<9> v = ivec<9>(0, 1, 2, 10, 11, 12, 20, 21, 22);
 
     ivec3 u = v.swizzleElems<3, 4, 5>() += 100;
     if (u != ivec3(110, 111, 112)) return false;
+    if (v != ivec<9>(0, 1, 2, 110, 111, 112, 20, 21, 22)) return false;
+
+    return true;
+  });
+  auto swiz_range1 = UnitTest("vector swizzleRange positive", +[] {
+    ivec<9> v = ivec<9>(0, 1, 2, 10, 11, 12, 20, 21, 22);
+
+    auto& u = v.swizzleRange<3, 5>();
+    if (u != ivec3(10, 11, 12)) return false;
+
+    u += 100;
+    if (u != ivec3(110, 111, 112)) return false;
+
+    if (v != ivec<9>(0, 1, 2, 110, 111, 112, 20, 21, 22)) return false;
+
+    return true;
+  });
+  auto swiz_range2 = UnitTest("vector swizzleRange negative", +[] {
+    ivec<9> v = ivec<9>(0, 1, 2, 10, 11, 12, 20, 21, 22);
+
+    auto& u = v.swizzleRange<5, 3>();
+    if (u != ivec3(12, 11, 10)) return false;
+
+    u += 100;
+    if (u != ivec3(112, 111, 110)) return false;
+
     if (v != ivec<9>(0, 1, 2, 110, 111, 112, 20, 21, 22)) return false;
 
     return true;
