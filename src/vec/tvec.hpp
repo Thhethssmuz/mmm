@@ -7,7 +7,7 @@ struct vecType;
 template <typename T, size_t n>
 struct tvec : vecType<T, n, tvec<T, n>> {
 
-  static_assert(n > 0, "vectors must have at least 2 elements");
+  static_assert(n > 1, "vectors must have at least 2 elements");
 
   struct R {
     T head;
