@@ -3,14 +3,19 @@
 
 namespace typefu {
 
-  template <size_t x, size_t y, size_t... xs>
+  template <size_t x, size_t... xs>
   struct max {
-    static constexpr size_t value = max<(x >= y ? x : y), xs...>::value;
+    static constexpr size_t value = max<x, max<xs...>::value>::value;
   };
 
   template <size_t x, size_t y>
   struct max<x, y> {
     static constexpr size_t value = x >= y ? x : y;
+  };
+
+  template <size_t x>
+  struct max<x> {
+    static constexpr size_t value = x;
   };
 
 

@@ -56,7 +56,7 @@ namespace typefu {
 
   template <size_t n, typename... Ts>
   using for_components =
-    typename std::enable_if<vec_components<Ts...>::value == n>::type;
+    typename std::enable_if<vec_components<Ts...>::value >= n>::type;
 }
 
 #endif

@@ -51,6 +51,75 @@ namespace {
 
     return true;
   });
+  auto constructors_5 = UnitTest("vector constructors 5", +[] {
+    vec4 v = vec4(1, 2, 3, 4);
+    vec2 u = vec2(1, 2);
+
+    u = vec2(v);
+    if (u != vec2(1, 2)) return false;
+
+    u = vec2(v.yzw);
+    if (u != vec2(2, 3)) return false;
+
+    u = vec2(v.zw);
+    if (u != vec2(3, 4)) return false;
+
+    u = vec2(v.x);
+    if (u != vec2(1, 1)) return false;
+
+    u = vec2(2);
+    if (u != vec2(2, 2)) return false;
+
+    u = vec2(0, v);
+    if (u != vec2(0, 1)) return false;
+
+    u = vec2(v.x, v.y, v.z);
+    if (u != vec2(1, 2)) return false;
+
+    u = vec2(2, v.z);
+    if (u != vec2(2, 3)) return false;
+
+    u = vec2(3, v.wzyx);
+    if (u != vec2(3, 4)) return false;
+
+    u = vec2(v.x, 2);
+    if (u != vec2(1, 2)) return false;
+
+    return true;
+  });
+  auto constructors_6 = UnitTest("vector constructors 6", +[] {
+    vec4 v = vec4(1, 2, 3, 4);
+    vec3 u = vec3(1, 2, 3);
+
+    u = vec3(v);
+    if (u != vec3(1, 2, 3)) return false;
+
+    u = vec3(v.wzyx);
+    if (u != vec3(4, 3, 2)) return false;
+
+    u = vec3(v.zyx);
+    if (u != vec3(3, 2, 1)) return false;
+
+    u = vec3(v.x);
+    if (u != vec3(1, 1, 1)) return false;
+
+    u = vec3(2);
+    if (u != vec3(2, 2, 2)) return false;
+
+    u = vec3(0, v);
+    if (u != vec3(0, 1, 2)) return false;
+
+    u = vec3(v.x, v.y, v.z, v.w);
+    if (u != vec3(1, 2, 3)) return false;
+
+    u = vec3(2, v.z, 4);
+    if (u != vec3(2, 3, 4)) return false;
+
+    u = vec3(5, v.wzyx);
+    if (u != vec3(5, 4, 3)) return false;
+
+    return true;
+  });
 
   auto index = UnitTest("vector index", +[] {
     vec4 v = vec4(1, 2, 3, 4);
