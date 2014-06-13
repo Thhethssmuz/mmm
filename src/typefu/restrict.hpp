@@ -3,8 +3,8 @@
 
 namespace typefu {
 
-  template <bool... bs>
-  using for_ = typename std::enable_if<all<bs...>::value>::type;
+  template <bool... Bs>
+  using for_ = typename std::enable_if<all<Bs...>::value>::type;
 
 
   template <typename... Ts>
