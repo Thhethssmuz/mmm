@@ -1,63 +1,63 @@
 #ifndef mmm_vec_opr_asig_hpp
 #define mmm_vec_opr_asig_hpp
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator+=(tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator+=(tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n,
+template <typename T, typename U, size_t N,
           typename = typefu::for_arithmetic<T, U>>
-tvec<T, n>& operator+=(tvec<T, n>& v, U s);
+tvec<T, N>& operator+=(tvec<T, N>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator+=(tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator+=(tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A,
+template <typename T, size_t N, typename A,
           typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator+=(tvec<T, n>& v, const vecType<T, n, A>& u);
+tvec<T, N>& operator+=(tvec<T, N>& v, const vecType<T, N, A>& u);
 
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator-=(tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator-=(tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n,
+template <typename T, typename U, size_t N,
           typename = typefu::for_arithmetic<T, U>>
-tvec<T, n>& operator-=(tvec<T, n>& v, U s);
+tvec<T, N>& operator-=(tvec<T, N>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator-=(tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator-=(tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A,
+template <typename T, size_t N, typename A,
           typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator-=(tvec<T, n>& v, const vecType<T, n, A>& u);
+tvec<T, N>& operator-=(tvec<T, N>& v, const vecType<T, N, A>& u);
 
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator*=(tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator*=(tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n,
+template <typename T, typename U, size_t N,
           typename = typefu::for_arithmetic<T, U>>
-tvec<T, n>& operator*=(tvec<T, n>& v, U s);
+tvec<T, N>& operator*=(tvec<T, N>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator*=(tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator*=(tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A,
+template <typename T, size_t N, typename A,
           typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator*=(tvec<T, n>& v, const vecType<T, n, A>& u);
+tvec<T, N>& operator*=(tvec<T, N>& v, const vecType<T, N, A>& u);
 
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator/=(tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator/=(tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n,
+template <typename T, typename U, size_t N,
           typename = typefu::for_arithmetic<T, U>>
-tvec<T, n>& operator/=(tvec<T, n>& v, U s);
+tvec<T, N>& operator/=(tvec<T, N>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator/=(tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+tvec<T, N>& operator/=(tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A,
+template <typename T, size_t N, typename A,
           typename = typefu::for_arithmetic<T>>
-tvec<T, n>& operator/=(tvec<T, n>& v, const vecType<T, n, A>& u);
+tvec<T, N>& operator/=(tvec<T, N>& v, const vecType<T, N, A>& u);
 
 #endif

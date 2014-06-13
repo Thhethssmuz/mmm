@@ -1,36 +1,36 @@
 #ifndef mmm_swizzle_swizzle_hpp
 #define mmm_swizzle_swizzle_hpp
 
-template <typename T, size_t n, typename A>
+template <typename T, size_t N, typename A>
 struct vecType;
 
-template <typename T, size_t n>
+template <typename T, size_t N>
 struct tvec;
 
-template <typename T, size_t n, size_t... elems>
-struct swizzle : vecType<T, sizeof...(elems), swizzle<T, n, elems...>> {
+template <typename T, size_t N, size_t... Elems>
+struct swizzle : vecType<T, sizeof...(Elems), swizzle<T, N, Elems...>> {
 
-  T data[n];
+  T data[N];
 
-  constexpr operator tvec<T, sizeof...(elems)>() const;
+  constexpr operator tvec<T, sizeof...(Elems)>() const;
 
-  swizzle<T, n, elems...>& operator+=(T s);
-  swizzle<T, n, elems...>& operator+=(const tvec<T, sizeof...(elems)>& u);
-  swizzle<T, n, elems...>& operator-=(T s);
-  swizzle<T, n, elems...>& operator-=(const tvec<T, sizeof...(elems)>& u);
-  swizzle<T, n, elems...>& operator*=(T s);
-  swizzle<T, n, elems...>& operator*=(const tvec<T, sizeof...(elems)>& u);
-  swizzle<T, n, elems...>& operator/=(T s);
-  swizzle<T, n, elems...>& operator/=(const tvec<T, sizeof...(elems)>& u);
+  swizzle<T, N, Elems...>& operator+=(T s);
+  swizzle<T, N, Elems...>& operator+=(const tvec<T, sizeof...(Elems)>& u);
+  swizzle<T, N, Elems...>& operator-=(T s);
+  swizzle<T, N, Elems...>& operator-=(const tvec<T, sizeof...(Elems)>& u);
+  swizzle<T, N, Elems...>& operator*=(T s);
+  swizzle<T, N, Elems...>& operator*=(const tvec<T, sizeof...(Elems)>& u);
+  swizzle<T, N, Elems...>& operator/=(T s);
+  swizzle<T, N, Elems...>& operator/=(const tvec<T, sizeof...(Elems)>& u);
 
-  swizzle<T, n, elems...>& operator=(T s);
-  swizzle<T, n, elems...>& operator=(const swizzle<T, n, elems...>& u);
-  swizzle<T, n, elems...>& operator=(const tvec<T, sizeof...(elems)>& u);
+  swizzle<T, N, Elems...>& operator=(T s);
+  swizzle<T, N, Elems...>& operator=(const swizzle<T, N, Elems...>& u);
+  swizzle<T, N, Elems...>& operator=(const tvec<T, sizeof...(Elems)>& u);
 
-  swizzle<T, n, elems...>& operator++();
-  tvec<T, sizeof...(elems)> operator++(int);
-  swizzle<T, n, elems...>& operator--();
-  tvec<T, sizeof...(elems)> operator--(int);
+  swizzle<T, N, Elems...>& operator++();
+  tvec<T, sizeof...(Elems)> operator++(int);
+  swizzle<T, N, Elems...>& operator--();
+  tvec<T, sizeof...(Elems)> operator--(int);
 };
 
 #endif

@@ -1,102 +1,102 @@
 #ifndef mmm_vec_opr_num_hpp
 #define mmm_vec_opr_num_hpp
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator+(T s, const tvec<T, n>& v);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator+(T s, const tvec<T, N>& v);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator+(U s, const vecType<T, n, A>& v);
+constexpr tvec<T, N> operator+(U s, const vecType<T, N, A>& v);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator+(const tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator+(const tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator+(const vecType<T, n, A>& v, U s);
+constexpr tvec<T, N> operator+(const vecType<T, N, A>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator+(const tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator+(const tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A, typename B,
+template <typename T, size_t N, typename A, typename B,
           typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator+(const vecType<T, n, A>& v,
-                               const vecType<T, n, B>& u);
+constexpr tvec<T, N> operator+(const vecType<T, N, A>& v,
+                               const vecType<T, N, B>& u);
 
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator-(const tvec<T, n>& v);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator-(const tvec<T, N>& v);
 
-template <typename T, size_t n, typename A,
+template <typename T, size_t N, typename A,
           typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator-(const vecType<T, n, A>& v);
+constexpr tvec<T, N> operator-(const vecType<T, N, A>& v);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator-(T s, const tvec<T, n>& v);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator-(T s, const tvec<T, N>& v);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator-(U s, const vecType<T, n, A>& v);
+constexpr tvec<T, N> operator-(U s, const vecType<T, N, A>& v);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator-(const tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator-(const tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator-(const vecType<T, n, A>& v, U s);
+constexpr tvec<T, N> operator-(const vecType<T, N, A>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator-(const tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator-(const tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A, typename B,
+template <typename T, size_t N, typename A, typename B,
           typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator-(const vecType<T, n, A>& v,
-                               const vecType<T, n, B>& u);
+constexpr tvec<T, N> operator-(const vecType<T, N, A>& v,
+                               const vecType<T, N, B>& u);
 
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator*(T s, const tvec<T, n>& v);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator*(T s, const tvec<T, N>& v);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator*(U s, const vecType<T, n, A>& v);
+constexpr tvec<T, N> operator*(U s, const vecType<T, N, A>& v);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator*(const tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator*(const tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator*(const vecType<T, n, A>& v, U s);
+constexpr tvec<T, N> operator*(const vecType<T, N, A>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator*(const tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator*(const tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A, typename B,
+template <typename T, size_t N, typename A, typename B,
           typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator*(const vecType<T, n, A>& v,
-                               const vecType<T, n, B>& u);
+constexpr tvec<T, N> operator*(const vecType<T, N, A>& v,
+                               const vecType<T, N, B>& u);
 
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator/(T s, const tvec<T, n>& v);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator/(T s, const tvec<T, N>& v);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator/(U s, const vecType<T, n, A>& v);
+constexpr tvec<T, N> operator/(U s, const vecType<T, N, A>& v);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator/(const tvec<T, n>& v, T s);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator/(const tvec<T, N>& v, T s);
 
-template <typename T, typename U, size_t n, typename A,
+template <typename T, typename U, size_t N, typename A,
           typename = typefu::for_arithmetic<T, U>>
-constexpr tvec<T, n> operator/(const vecType<T, n, A>& v, U s);
+constexpr tvec<T, N> operator/(const vecType<T, N, A>& v, U s);
 
-template <typename T, size_t n, typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator/(const tvec<T, n>& v, const tvec<T, n>& u);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tvec<T, N> operator/(const tvec<T, N>& v, const tvec<T, N>& u);
 
-template <typename T, size_t n, typename A, typename B,
+template <typename T, size_t N, typename A, typename B,
           typename = typefu::for_arithmetic<T>>
-constexpr tvec<T, n> operator/(const vecType<T, n, A>& v,
-                               const vecType<T, n, B>& u);
+constexpr tvec<T, N> operator/(const vecType<T, N, A>& v,
+                               const vecType<T, N, B>& u);
 
 #endif

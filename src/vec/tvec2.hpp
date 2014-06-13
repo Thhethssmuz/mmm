@@ -13,9 +13,9 @@ struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
     T data[2];
     R recursive;
 
-#define n 2
+#define N 2
 #include <swizzle/swizzle_declarations.tpp>
-#undef n
+#undef N
   };
 
   constexpr tvec();
@@ -29,17 +29,17 @@ struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
   template <typename... Ts>
   explicit constexpr tvec(T x, T y, Ts...);
 
-  template <size_t l, typename... Ts>
-  explicit constexpr tvec(T x, const tvec<T, l>& xs, Ts...);
+  template <size_t L, typename... Ts>
+  explicit constexpr tvec(T x, const tvec<T, L>& xs, Ts...);
 
-  template <size_t l, size_t elem, size_t... elems, typename... Ts>
-  explicit constexpr tvec(T x, const swizzle<T, l, elem, elems...>& xs, Ts...);
+  template <size_t L, size_t Elem, size_t... Elems, typename... Ts>
+  explicit constexpr tvec(T x, const swizzle<T, L, Elem, Elems...>& xs, Ts...);
 
-  template <size_t l, typename... Ts>
-  explicit constexpr tvec(const tvec<T, l>& xs, Ts...);
+  template <size_t L, typename... Ts>
+  explicit constexpr tvec(const tvec<T, L>& xs, Ts...);
 
-  template <size_t l, size_t... elems, typename... Ts>
-  explicit constexpr tvec(const swizzle<T, l, elems...>& xs, Ts... ys);
+  template <size_t L, size_t... Elems, typename... Ts>
+  explicit constexpr tvec(const swizzle<T, L, Elems...>& xs, Ts... ys);
 
 
   constexpr T operator[](size_t i) const;

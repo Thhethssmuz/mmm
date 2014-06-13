@@ -65,7 +65,7 @@ constexpr tvec<T, L - N> drop(const vecType<T, L, A>& v) {
 }
 template <size_t N, typename T, size_t L, typename>
 constexpr T drop(const tvec<T, L>& v) {
-  return v[L-1];
+  return v[L - 1];
 }
 template <size_t N, typename T, size_t L, typename A, typename>
 constexpr T drop(const vecType<T, L, A>& v) {

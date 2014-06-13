@@ -29,8 +29,7 @@ template <size_t N, typename T, size_t L, typename A,
           typename = typefu::for_<N <= L>, typename = typefu::for_<N >= 2>>
 constexpr tvec<T, N> take(const vecType<T, L, A>& v);
 
-template <size_t N, typename T, size_t L,
-          typename = typefu::for_<N == 1>>
+template <size_t N, typename T, size_t L, typename = typefu::for_<N == 1>>
 constexpr T take(const tvec<T, L>& v);
 
 template <size_t N, typename T, size_t L, typename A,
@@ -45,8 +44,7 @@ template <size_t N, typename T, size_t L,
           typename = typefu::for_<L - N >= 2, N >= 1>>
 constexpr tvec<T, L - N> drop(const tvec<T, L>& v);
 
-template <size_t N, typename T, size_t L,
-          typename = typefu::for_<L - N >= 2>,
+template <size_t N, typename T, size_t L, typename = typefu::for_<L - N >= 2>,
           typename = typefu::for_<N == 0>>
 constexpr tvec<T, L - N> drop(const tvec<T, L>& v);
 

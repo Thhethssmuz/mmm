@@ -7,13 +7,13 @@ constexpr typefu::promotef<T> length(T x) {
   return abs(type(x));
 }
 
-template <typename T, size_t n, typename>
-constexpr typefu::promotef<T> length(const tvec<T, n>& v) {
+template <typename T, size_t N, typename>
+constexpr typefu::promotef<T> length(const tvec<T, N>& v) {
   typedef typefu::promotef<T> type;
   return sqrt(type(dot(v, v)));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr typefu::promotef<T> length(const vecType<T, n, A>& v) {
+template <typename T, size_t N, typename A, typename>
+constexpr typefu::promotef<T> length(const vecType<T, N, A>& v) {
   return length(vec_cast(v));
 }
 
@@ -28,14 +28,14 @@ constexpr typefu::promote<T, U> distance(T p0, U p1) {
   return distance(type(p0), type(p1));
 }
 
-template <typename T, size_t n, typename>
-constexpr typefu::promotef<T> distance(const tvec<T, n>& p0,
-                                       const tvec<T, n>& p1) {
+template <typename T, size_t N, typename>
+constexpr typefu::promotef<T> distance(const tvec<T, N>& p0,
+                                       const tvec<T, N>& p1) {
   return length(p0 - p1);
 }
-template <typename T, size_t n, typename A, typename B, typename>
-constexpr typefu::promotef<T> distance(const vecType<T, n, A>& p0,
-                                       const vecType<T, n, B>& p1) {
+template <typename T, size_t N, typename A, typename B, typename>
+constexpr typefu::promotef<T> distance(const vecType<T, N, A>& p0,
+                                       const vecType<T, N, B>& p1) {
   return distance(vec_cast(p0), vec_cast(p1));
 }
 
@@ -50,12 +50,12 @@ constexpr typefu::promote<T, U> dot(T x, U y) {
   return dot(type(x), type(y));
 }
 
-template <typename T, size_t n, typename>
-constexpr T dot(const tvec<T, n>& v, const tvec<T, n>& u) {
+template <typename T, size_t N, typename>
+constexpr T dot(const tvec<T, N>& v, const tvec<T, N>& u) {
   return sum(v * u);
 }
-template <typename T, size_t n, typename A, typename B, typename>
-constexpr T dot(const vecType<T, n, A>& v, const vecType<T, n, B>& u) {
+template <typename T, size_t N, typename A, typename B, typename>
+constexpr T dot(const vecType<T, N, A>& v, const vecType<T, N, B>& u) {
   return dot(vec_cast(v), vec_cast(u));
 }
 
@@ -77,12 +77,12 @@ constexpr T normalize(T) {
   return T(1);
 }
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> normalize(const tvec<T, n>& v) {
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> normalize(const tvec<T, N>& v) {
   return v / length(v);
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> normalize(const vecType<T, n, A>& v) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> normalize(const vecType<T, N, A>& v) {
   return normalize(vec_cast(v));
 }
 

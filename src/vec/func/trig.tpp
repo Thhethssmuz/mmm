@@ -12,13 +12,13 @@ constexpr typefu::promotef<T> radians(T degrees) {
   return radians(type(degrees));
 }
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> radians(const tvec<T, n>& degrees) {
-  return tvec<T, n>(radians(degrees.recursive.head),
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> radians(const tvec<T, N>& degrees) {
+  return tvec<T, N>(radians(degrees.recursive.head),
                     radians(degrees.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> radians(const vecType<T, n, A>& degrees) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> radians(const vecType<T, N, A>& degrees) {
   return radians(vec_cast(degrees));
 }
 
@@ -34,74 +34,74 @@ constexpr typefu::promotef<T> degrees(T radians) {
   return degrees(type(radians));
 }
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> degrees(const tvec<T, n>& radians) {
-  return tvec<T, n>(degrees(radians.recursive.head),
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> degrees(const tvec<T, N>& radians) {
+  return tvec<T, N>(degrees(radians.recursive.head),
                     degrees(radians.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> degrees(const vecType<T, n, A>& radians) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> degrees(const vecType<T, N, A>& radians) {
   return degrees(vec_cast(radians));
 }
 
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> sin(const tvec<T, n>& angle) {
-  return tvec<T, n>(sin(angle.recursive.head), sin(angle.recursive.tail));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> sin(const tvec<T, N>& angle) {
+  return tvec<T, N>(sin(angle.recursive.head), sin(angle.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> sin(const vecType<T, n, A>& angle) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> sin(const vecType<T, N, A>& angle) {
   return sin(vec_cast(angle));
 }
 
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> cos(const tvec<T, n>& angle) {
-  return tvec<T, n>(cos(angle.recursive.head), cos(angle.recursive.tail));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> cos(const tvec<T, N>& angle) {
+  return tvec<T, N>(cos(angle.recursive.head), cos(angle.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> cos(const vecType<T, n, A>& angle) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> cos(const vecType<T, N, A>& angle) {
   return cos(vec_cast(angle));
 }
 
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> tan(const tvec<T, n>& angle) {
-  return tvec<T, n>(tan(angle.recursive.head), tan(angle.recursive.tail));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> tan(const tvec<T, N>& angle) {
+  return tvec<T, N>(tan(angle.recursive.head), tan(angle.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> tan(const vecType<T, n, A>& angle) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> tan(const vecType<T, N, A>& angle) {
   return tan(vec_cast(angle));
 }
 
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> asin(const tvec<T, n>& x) {
-  return tvec<T, n>(asin(x.recursive.head), asin(x.recursive.tail));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> asin(const tvec<T, N>& x) {
+  return tvec<T, N>(asin(x.recursive.head), asin(x.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> asin(const vecType<T, n, A>& x) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> asin(const vecType<T, N, A>& x) {
   return asin(vec_cast(x));
 }
 
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> acos(const tvec<T, n>& x) {
-  return tvec<T, n>(acos(x.recursive.head), acos(x.recursive.tail));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> acos(const tvec<T, N>& x) {
+  return tvec<T, N>(acos(x.recursive.head), acos(x.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> acos(const vecType<T, n, A>& x) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> acos(const vecType<T, N, A>& x) {
   return acos(vec_cast(x));
 }
 
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> atan(const tvec<T, n>& y_over_x) {
-  return tvec<T, n>(atan(y_over_x.recursive.head),
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> atan(const tvec<T, N>& y_over_x) {
+  return tvec<T, N>(atan(y_over_x.recursive.head),
                     atan(y_over_x.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename>
-constexpr tvec<T, n> atan(const vecType<T, n, A>& y_over_x) {
+template <typename T, size_t N, typename A, typename>
+constexpr tvec<T, N> atan(const vecType<T, N, A>& y_over_x) {
   return atan(vec_cast(y_over_x));
 }
 
@@ -116,30 +116,30 @@ constexpr typefu::promotef<T, U> atan(T y, U x) {
   return atan(type(y), type(x));
 }
 
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> atan(T y, const tvec<T, n>& x) {
-  return tvec<T, n>(atan(y, x.recursive.head), atan(y, x.recursive.tail));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> atan(T y, const tvec<T, N>& x) {
+  return tvec<T, N>(atan(y, x.recursive.head), atan(y, x.recursive.tail));
 }
-template <typename T, typename U, size_t n, typename A, typename, typename>
-constexpr tvec<T, n> atan(U y, const vecType<T, n, A>& x) {
+template <typename T, typename U, size_t N, typename A, typename, typename>
+constexpr tvec<T, N> atan(U y, const vecType<T, N, A>& x) {
   return atan(static_cast<T>(y), vec_cast(x));
 }
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> atan(const tvec<T, n>& y, T x) {
-  return tvec<T, n>(atan(y.recursive.head, x), atan(y.recursive.tail, x));
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> atan(const tvec<T, N>& y, T x) {
+  return tvec<T, N>(atan(y.recursive.head, x), atan(y.recursive.tail, x));
 }
-template <typename T, typename U, size_t n, typename A, typename, typename>
-constexpr tvec<T, n> atan(const vecType<T, n, A>& y, U x) {
+template <typename T, typename U, size_t N, typename A, typename, typename>
+constexpr tvec<T, N> atan(const vecType<T, N, A>& y, U x) {
   return atan(vec_cast(y), static_cast<T>(x));
 }
-template <typename T, size_t n, typename>
-constexpr tvec<T, n> atan(const tvec<T, n>& y, const tvec<T, n>& x) {
-  return tvec<T, n>(atan(y.recursive.head, x.recursive.head),
+template <typename T, size_t N, typename>
+constexpr tvec<T, N> atan(const tvec<T, N>& y, const tvec<T, N>& x) {
+  return tvec<T, N>(atan(y.recursive.head, x.recursive.head),
                     atan(y.recursive.tail, x.recursive.tail));
 }
-template <typename T, size_t n, typename A, typename B, typename>
-constexpr tvec<T, n> atan(const vecType<T, n, A>& y,
-                          const vecType<T, n, B>& x) {
+template <typename T, size_t N, typename A, typename B, typename>
+constexpr tvec<T, N> atan(const vecType<T, N, A>& y,
+                          const vecType<T, N, B>& x) {
   return atan(vec_cast(y), vec_cast(x));
 }
 

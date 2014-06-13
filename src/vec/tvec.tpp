@@ -1,84 +1,84 @@
 #ifndef mmm_vec_tvec_tpp
 #define mmm_vec_tvec_tpp
 
-template <typename T, size_t n>
-constexpr tvec<T, n>::tvec()
+template <typename T, size_t N>
+constexpr tvec<T, N>::tvec()
   : data{0} {}
 
-template <typename T, size_t n>
-constexpr tvec<T, n>::tvec(T x)
-  : recursive{x, tvec<T, n - 1>(x)} {}
+template <typename T, size_t N>
+constexpr tvec<T, N>::tvec(T x)
+  : recursive{x, tvec<T, N - 1>(x)} {}
 
-template <typename T, size_t n>
-constexpr tvec<T, n>::tvec(T x, tvec<T, n - 1>&& xs)
+template <typename T, size_t N>
+constexpr tvec<T, N>::tvec(T x, tvec<T, N - 1>&& xs)
   : recursive{x, std::move(xs)} {}
 
-template <typename T, size_t n>
-constexpr tvec<T, n>::tvec(T x, const tvec<T, n - 1>& xs)
+template <typename T, size_t N>
+constexpr tvec<T, N>::tvec(T x, const tvec<T, N - 1>& xs)
   : recursive{x, xs} {}
 
 
-template <typename T, size_t n>
-constexpr tvec<T, n>::tvec(tvec<T, n>&& v)
+template <typename T, size_t N>
+constexpr tvec<T, N>::tvec(tvec<T, N>&& v)
   : recursive{std::move(v.recursive.head), std::move(v.recursive.tail)} {}
 
-template <typename T, size_t n>
-constexpr tvec<T, n>::tvec(const tvec<T, n>& v)
+template <typename T, size_t N>
+constexpr tvec<T, N>::tvec(const tvec<T, N>& v)
   : recursive{v.recursive.head, v.recursive.tail} {}
 
 
-template <typename T, size_t n>
+template <typename T, size_t N>
 template <typename... Ts, typename>
-constexpr tvec<T, n>::tvec(T x, Ts... xs)
-  : recursive{x, tvec<T, n - 1>(xs...)} {}
+constexpr tvec<T, N>::tvec(T x, Ts... xs)
+  : recursive{x, tvec<T, N - 1>(xs...)} {}
 
-template <typename T, size_t n>
-template <size_t l, typename... Ts, typename>
-constexpr tvec<T, n>::tvec(const tvec<T, l>& xs, Ts... ys)
-  : tvec<T, n>(xs.recursive.head, xs.recursive.tail, ys...) {}
+template <typename T, size_t N>
+template <size_t L, typename... Ts, typename>
+constexpr tvec<T, N>::tvec(const tvec<T, L>& xs, Ts... ys)
+  : tvec<T, N>(xs.recursive.head, xs.recursive.tail, ys...) {}
 
-template <typename T, size_t n>
-template <size_t l, size_t... elems, typename... Ts, typename>
-constexpr tvec<T, n>::tvec(const swizzle<T, l, elems...>& xs, Ts... ys)
-  : tvec<T, n>(xs.data[elems]..., ys...) {
-  static_assert(typefu::max<elems...>::value < l,
+template <typename T, size_t N>
+template <size_t L, size_t... Elems, typename... Ts, typename>
+constexpr tvec<T, N>::tvec(const swizzle<T, L, Elems...>& xs, Ts... ys)
+  : tvec<T, N>(xs.data[Elems]..., ys...) {
+  static_assert(typefu::max<Elems...>::value < L,
                 "vector swizzle out of bounds");
 }
 
 
-template <typename T, size_t n>
-constexpr T tvec<T, n>::operator[](size_t i) const {
+template <typename T, size_t N>
+constexpr T tvec<T, N>::operator[](size_t i) const {
   return data[i];
 }
-template <typename T, size_t n>
-T& tvec<T, n>::operator[](size_t i) {
+template <typename T, size_t N>
+T& tvec<T, N>::operator[](size_t i) {
   return data[i];
 }
 
 
-template <typename T, size_t n>
-tvec<T, n>::operator T*() {
+template <typename T, size_t N>
+tvec<T, N>::operator T*() {
   return data;
 }
 
-template <typename T, size_t n>
-tvec<T, n>& tvec<T, n>::operator=(const tvec<T, n>& v) {
+template <typename T, size_t N>
+tvec<T, N>& tvec<T, N>::operator=(const tvec<T, N>& v) {
   recursive.head = v.recursive.head;
   recursive.tail = v.recursive.tail;
   return *this;
 }
 
 
-template <typename T, size_t n>
-template <size_t... elems>
-swizzle<T, n, elems...>& tvec<T, n>::swizzleElems() {
-  return *(reinterpret_cast<swizzle<T, n, elems...>*>(this));
+template <typename T, size_t N>
+template <size_t... Elems>
+swizzle<T, N, Elems...>& tvec<T, N>::swizzleElems() {
+  return *(reinterpret_cast<swizzle<T, N, Elems...>*>(this));
 }
 
-template <typename T, size_t n>
-template <size_t start, size_t end>
-typefu::swizzle_range<T, n, start, end>& tvec<T, n>::swizzleRange() {
-  typedef typefu::swizzle_range<T, n, start, end> type;
+template <typename T, size_t N>
+template <size_t Start, size_t End>
+typefu::swizzle_range<T, N, Start, End>& tvec<T, N>::swizzleRange() {
+  typedef typefu::swizzle_range<T, N, Start, End> type;
   return *(reinterpret_cast<type*>(this));
 }
 
