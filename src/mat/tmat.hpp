@@ -1,58 +1,40 @@
 #ifndef mmm_mat_tmat_hpp
 #define mmm_mat_tmat_hpp
 
-// matrix with n columns and m rows
-template <typename T, size_t n, size_t m>
+// matrix with N columns and M rows
+template <typename T, size_t N, size_t M>
 struct tmat {
 
-  static_assert(n > 0 and n > 0, "matrices must have at least 1 elements");
+  static_assert(N > 1, "matrices must have at least 2 columns");
+  static_assert(M > 1, "matrices must have at least 2 rows");
 
   struct R {
-    tvec<T,n>     head;
-    tmat<T,n,m-1> tail;
+    tvec<T, M> head;
+    tmat<T, M, N - 1> tail;
   };
 
   union {
-    tvec<T,m> data[n];
-    R         recursive;
+    tvec<T, M> data[N];
+    R recursive;
   };
 
-           constexpr tmat ();
-  explicit constexpr tmat (T x);
+  constexpr tmat();
+  explicit constexpr tmat(T x);
+  explicit constexpr tmat(const tvec<T, M>& v, tmat<T, N - 1, M>&& vs);
+  explicit constexpr tmat(const tvec<T, M>& v, const tmat<T, N - 1, M>& vs);
 
-  template <typename...Ts, typename...Us, typename = typename
-  std::enable_if<detail::vec_components<Ts...>::value == n>::type>
-  explicit constexpr tmat (Ts...xs, Us...ys);
+  constexpr tmat(tmat<T, N, M>&& m);
+  constexpr tmat(const tmat<T, N, M>& m);
 
-  constexpr tvec<T,n>  operator [] (size_t i);
-            tvec<T,n>& operator [] (size_t i);
-                       operator T* ();
+  template <size_t L, typename = typefu::for_<L >= N* M>>
+  explicit constexpr tmat(const tvec<T, L>&);
 
-  tmat<T,n,m>& operator += (T s);
-  tmat<T,n,m>& operator += (const tmat<T,n,m>& y);
-  tmat<T,n,m>& operator -= (T s);
-  tmat<T,n,m>& operator -= (const tmat<T,n,m>& y);
-  tmat<T,n,m>& operator *= (T s);
-  tmat<T,n,m>& operator *= (const tmat<T,n,m>& y);
-  tmat<T,n,m>& operator /= (T s);
-  tmat<T,n,m>& operator /= (const tmat<T,n,m>& y);
+  template <typename... Ts, typename = typefu::for_components<N* M, Ts...>>
+  explicit constexpr tmat(Ts... xs);
 
-  tmat<T,n,m>& identity  ();
-  tmat<T,n,m>& transpose ();
-  tmat<T,n,m>& inverse   ();
+  constexpr tvec<T, M> operator[](size_t i) const;
+  tvec<T, M>& operator[](size_t i);
+  operator T*();
 };
-
-template <typename T, size_t n, size_t m>
-template <typename...Ts, typename...Us, typename>
-constexpr tmat<T,n,m>::tmat (Ts...xs, Us...ys) : recursive{tvec<T,n>(xs...), tmat<T,n,m-1>(ys...)} {}
-
-template <typename T, size_t n, size_t m>
-constexpr tmat<T,n-1,m-1> minor (const tmat<T,m,n>& x, size_t column, size_t row) {
-  static_assert (m != n, "minor matrix not defined for non square matrices")
-  return remove_row (remove_column (x, column), row);
-}
-
-
-
 
 #endif
