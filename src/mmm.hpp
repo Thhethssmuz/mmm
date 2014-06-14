@@ -18,11 +18,14 @@
 #include <typefu/components.hpp>
 #include <typefu/range.hpp>
 
+
 #include <vec/vecType.hpp>
 #include <swizzle/swizzle.hpp>
 #include <swizzle/swizzle1.hpp>
 #include <vec/tvec.hpp>
 #include <vec/tvec2.hpp>
+#include <mat/tmat.hpp>
+#include <mat/tmat2.hpp>
 
 #include <vec/opr/asig.hpp>
 #include <vec/opr/enum.hpp>
@@ -44,6 +47,8 @@
 #include <swizzle/swizzle1.tpp>
 #include <vec/tvec.tpp>
 #include <vec/tvec2.tpp>
+#include <mat/tmat.tpp>
+#include <mat/tmat2.tpp>
 
 #include <vec/opr/asig.tpp>
 #include <vec/opr/enum.tpp>
@@ -60,34 +65,6 @@
 #include <vec/func/io.tpp>
 
 
-template <size_t n>
-using vec  = tvec<float,n>;
-using vec2 = vec<2>;
-using vec3 = vec<3>;
-using vec4 = vec<4>;
-
-template <size_t n>
-using dvec  = tvec<double,n>;
-using dvec2 = dvec<2>;
-using dvec3 = dvec<3>;
-using dvec4 = dvec<4>;
-
-template <size_t n>
-using bvec  = tvec<bool,n>;
-using bvec2 = bvec<2>;
-using bvec3 = bvec<3>;
-using bvec4 = bvec<4>;
-
-template <size_t n>
-using ivec  = tvec<int,n>;
-using ivec2 = ivec<2>;
-using ivec3 = ivec<3>;
-using ivec4 = ivec<4>;
-
-template <size_t n>
-using uvec  = tvec<unsigned int,n>;
-using uvec2 = uvec<2>;
-using uvec3 = uvec<3>;
-using uvec4 = uvec<4>;
+#include <types.hpp>
 
 #endif
