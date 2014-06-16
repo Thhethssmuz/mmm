@@ -47,4 +47,12 @@ tmat<T, 2, M>::operator T*() {
   return data;
 }
 
+
+template <typename T, size_t M>
+tmat<T, 2, M>& tmat<T, 2, M>::operator=(const tmat<T, 2, M>& m) {
+  recursive.head = m.recursive.head;
+  recursive.tail = m.recursive.tail;
+  return *this;
+}
+
 #endif

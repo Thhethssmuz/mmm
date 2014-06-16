@@ -10,7 +10,7 @@ struct tmat {
 
   struct R {
     tvec<T, M> head;
-    tmat<T, M, N - 1> tail;
+    tmat<T, N - 1, M> tail;
   };
 
   union {
@@ -35,6 +35,8 @@ struct tmat {
   constexpr tvec<T, M> operator[](size_t i) const;
   tvec<T, M>& operator[](size_t i);
   operator T*();
+
+  tmat<T, N, M>& operator=(const tmat<T, N, M>& m);
 };
 
 #endif

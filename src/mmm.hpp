@@ -41,6 +41,10 @@
 #include <vec/func/reduct.hpp>
 #include <vec/func/io.hpp>
 
+#include <mat/opr/comp.hpp>
+
+#include <mat/func/io.hpp>
+
 
 #include <vec/vecType.tpp>
 #include <swizzle/swizzle.tpp>
@@ -63,6 +67,10 @@
 #include <vec/func/rel.tpp>
 #include <vec/func/reduct.tpp>
 #include <vec/func/io.tpp>
+
+#include <mat/opr/comp.tpp>
+
+#include <mat/func/io.tpp>
 
 
 #include <types.hpp>

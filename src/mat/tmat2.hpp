@@ -32,6 +32,8 @@ struct tmat<T, 2, M> {
   constexpr tvec<T, M> operator[](size_t i) const;
   tvec<T, M>& operator[](size_t i);
   operator T*();
+
+  tmat<T, 2, M>& operator=(const tmat<T, 2, M>& m);
 };
 
 #endif
