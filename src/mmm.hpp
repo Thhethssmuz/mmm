@@ -41,8 +41,11 @@
 #include <vec/func/reduct.hpp>
 #include <vec/func/io.hpp>
 
+#include <mat/opr/num.hpp>
 #include <mat/opr/comp.hpp>
 
+#include <mat/func/reduct.hpp>
+#include <mat/func/mat.hpp>
 #include <mat/func/io.hpp>
 
 
@@ -68,8 +71,11 @@
 #include <vec/func/reduct.tpp>
 #include <vec/func/io.tpp>
 
+#include <mat/opr/num.tpp>
 #include <mat/opr/comp.tpp>
 
+#include <mat/func/reduct.tpp>
+#include <mat/func/mat.tpp>
 #include <mat/func/io.tpp>
 
 
