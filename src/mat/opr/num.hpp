@@ -2,6 +2,49 @@
 #define mmm_mat_tmat_opr_num_hpp
 
 template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator+(T s, const tmat<T, N, M>& m);
+
+template <typename T, typename U, size_t N, size_t M,
+          typename = typefu::for_arithmetic<T, U>>
+constexpr tmat<T, N, M> operator+(U s, const tmat<T, N, M>& m);
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator+(const tmat<T, N, M>& m, T s);
+
+template <typename T, typename U, size_t N, size_t M,
+          typename = typefu::for_arithmetic<T, U>>
+constexpr tmat<T, N, M> operator+(const tmat<T, N, M>& m, U s);
+
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator+(const tmat<T, N, M>& m,
+                                  const tmat<T, N, M>& n);
+
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator-(T s, const tmat<T, N, M>& m);
+
+template <typename T, typename U, size_t N, size_t M,
+          typename = typefu::for_arithmetic<T, U>>
+constexpr tmat<T, N, M> operator-(U s, const tmat<T, N, M>& m);
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m, T s);
+
+template <typename T, typename U, size_t N, size_t M,
+          typename = typefu::for_arithmetic<T, U>>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m, U s);
+
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m);
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m,
+                                  const tmat<T, N, M>& n);
+
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
 constexpr tmat<T, N, M> operator*(T s, const tmat<T, N, M>& m);
 
 template <typename T, typename U, size_t N, size_t M,
@@ -44,5 +87,25 @@ template <typename T, size_t N, size_t M, size_t O,
           typename = typefu::for_arithmetic<T>>
 constexpr tmat<T, O, M> operator*(const tmat<T, N, M>& m,
                                   const tmat<T, O, N>& n);
+
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator/(T s, const tmat<T, N, M>& m);
+
+template <typename T, typename U, size_t N, size_t M,
+          typename = typefu::for_arithmetic<T, U>>
+constexpr tmat<T, N, M> operator/(U s, const tmat<T, N, M>& m);
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m, T s);
+
+template <typename T, typename U, size_t N, size_t M,
+          typename = typefu::for_arithmetic<T, U>>
+constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m, U s);
+
+
+template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m,
+                                  const tmat<T, N, M>& n);
 
 #endif

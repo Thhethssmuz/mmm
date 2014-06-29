@@ -2,6 +2,62 @@
 #define mmm_mat_tmat_opr_num_tpp
 
 template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator+(T s, const tmat<T, N, M>& m) {
+  return tmat<T, N, M>(s + m.recursive.head, s + m.recursive.tail);
+}
+template <typename T, typename U, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator+(U s, const tmat<T, N, M>& m) {
+  return static_cast<T>(s) + m;
+}
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator+(const tmat<T, N, M>& m, T s) {
+  return tmat<T, N, M>(m.recursive.head + s, m.recursive.tail + s);
+}
+template <typename T, typename U, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator+(const tmat<T, N, M>& m, U s) {
+  return m + static_cast<T>(s);
+}
+
+
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator+(const tmat<T, N, M>& m,
+                                  const tmat<T, N, M>& n) {
+  return tmat<T, N, M>(m.recursive.head + n.recursive.head,
+                       m.recursive.tail + n.recursive.tail);
+}
+
+
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator-(T s, const tmat<T, N, M>& m) {
+  return tmat<T, N, M>(s - m.recursive.head, s - m.recursive.tail);
+}
+template <typename T, typename U, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator-(U s, const tmat<T, N, M>& m) {
+  return static_cast<T>(s) - m;
+}
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m, T s) {
+  return tmat<T, N, M>(m.recursive.head - s, m.recursive.tail - s);
+}
+template <typename T, typename U, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m, U s) {
+  return m - static_cast<T>(s);
+}
+
+
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m) {
+  return tmat<T, N, M>(-m.recursive.head, -m.recursive.tail);
+}
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator-(const tmat<T, N, M>& m,
+                                  const tmat<T, N, M>& n) {
+  return tmat<T, N, M>(m.recursive.head - n.recursive.head,
+                       m.recursive.tail - n.recursive.tail);
+}
+
+
+template <typename T, size_t N, size_t M, typename>
 constexpr tmat<T, N, M> operator*(T s, const tmat<T, N, M>& m) {
   return tmat<T, N, M>(s * m.recursive.head, s * m.recursive.tail);
 }
@@ -54,5 +110,32 @@ constexpr tmat<T, O, M> operator*(const tmat<T, N, M>& m,
                                   const tmat<T, O, N>& n) {
   return tmat<T, O, M>(m * n.recursive.head, m * n.recursive.tail);
 }
+
+
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator/(T s, const tmat<T, N, M>& m) {
+  return tmat<T, N, M>(s / m.recursive.head, s / m.recursive.tail);
+}
+template <typename T, typename U, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator/(U s, const tmat<T, N, M>& m) {
+  return static_cast<T>(s) / m;
+}
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m, T s) {
+  return tmat<T, N, M>(m.recursive.head / s, m.recursive.tail / s);
+}
+template <typename T, typename U, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m, U s) {
+  return m / static_cast<T>(s);
+}
+
+
+template <typename T, size_t N, size_t M, typename>
+constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m,
+                                  const tmat<T, N, M>& n) {
+  return tmat<T, N, M>(m.recursive.head / n.recursive.head,
+                       m.recursive.tail / n.recursive.tail);
+}
+
 
 #endif
