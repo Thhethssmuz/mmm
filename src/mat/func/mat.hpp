@@ -40,8 +40,18 @@ template <typename T, size_t N>
 constexpr tvec<T, N> transpose(const tvec<T, N>& v);
 
 
-template <typename T, typename = typefu::for_arithmetic<T>>
+template <typename T, typename = typefu::for_signed<T>>
 constexpr T determinant(const tmat<T, 2, 2>& m);
 
+template <size_t L = 0, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(L < N - 1)>,
+          typename = void>
+constexpr T determinant(const tmat<T, N, N>& m);
+
+template <size_t L, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(L == N - 1)>>
+constexpr T determinant(const tmat<T, N, N>& m);
 
 #endif

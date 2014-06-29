@@ -56,5 +56,17 @@ template <typename T, typename>
 constexpr T determinant(const tmat<T, 2, 2>& m) {
   return m[0][0] * m[1][1] - m[1][0] * m[0][1];
 }
+template <size_t L, typename T, size_t N, typename, typename, typename>
+constexpr T determinant(const tmat<T, N, N>& m) {
+  return (mod(L, 2) == 0 ? T(1) : T(-1)) * m[L][0] *
+           determinant(dropColumn<L>(dropRow<0>(m))) +
+         determinant<L + 1>(m);
+}
+template <size_t L, typename T, size_t N, typename, typename>
+constexpr T determinant(const tmat<T, N, N>& m) {
+  return (mod(L, 2) == 0 ? T(1) : T(-1)) * m[L][0] *
+         determinant(dropColumn<L>(dropRow<0>(m)));
+}
+
 
 #endif
