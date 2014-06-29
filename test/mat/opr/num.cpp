@@ -2,6 +2,80 @@
 #include <mmm.hpp>
 
 namespace {
+
+  auto sm_add = UnitTest("scalar matrix operator +", +[] {
+    mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);
+    mat3x3 n = mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat4x3 o = mat4x3(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6);
+
+    if (1 + m != mat2x3(2, 3, 4, 3, 4, 5)) return false;
+    if (1.f + n != mat3x3(2, 3, 4, 3, 4, 5, 4, 5, 6)) return false;
+    if (1.0 + o != mat4x3(2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7)) return false;
+
+    return true;
+  });
+  auto ms_add = UnitTest("matrix scalar operator +", +[] {
+    mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);
+    mat3x3 n = mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat4x3 o = mat4x3(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6);
+
+    if (m + 1 != mat2x3(2, 3, 4, 3, 4, 5)) return false;
+    if (n + 1.f != mat3x3(2, 3, 4, 3, 4, 5, 4, 5, 6)) return false;
+    if (o + 1.0 != mat4x3(2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7)) return false;
+
+    return true;
+  });
+  auto mm_add = UnitTest("matrix matrix operator +", +[] {
+    mat3 m = mat3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat3 n = mat3(5, 4, 3, 4, 3, 2, 3, 2, 1);
+
+    if (m + n != 6) return false;
+
+    if (m + m != m * 2) return false;
+
+    return true;
+  });
+
+  auto m_neg = UnitTest("matrix operator -", +[] {
+    mat3 n = mat3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+
+    if (-n != mat3(-1, -2, -3, -2, -3, -4, -3, -4, -5)) return false;
+
+    return true;
+  });
+  auto sm_sub = UnitTest("scalar matrix operator -", +[] {
+    mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);
+    mat3x3 n = mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat4x3 o = mat4x3(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6);
+
+    if (7 - m != mat2x3(6, 5, 4, 5, 4, 3)) return false;
+    if (7.f - n != mat3x3(6, 5, 4, 5, 4, 3, 4, 3, 2)) return false;
+    if (7.0 - o != mat4x3(6, 5, 4, 5, 4, 3, 4, 3, 2, 3, 2, 1)) return false;
+
+    return true;
+  });
+  auto ms_sub = UnitTest("matrix scalar operator -", +[] {
+    mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);
+    mat3x3 n = mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat4x3 o = mat4x3(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6);
+
+    if (m - 1 != mat2x3(0, 1, 2, 1, 2, 3)) return false;
+    if (n - 1.f != mat3x3(0, 1, 2, 1, 2, 3, 2, 3, 4)) return false;
+    if (o - 1.0 != mat4x3(0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5)) return false;
+
+    return true;
+  });
+  auto mm_sub = UnitTest("matrix matrix operator -", +[] {
+    mat3 m = mat3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat3 n = mat3(5, 4, 3, 4, 3, 2, 3, 2, 1);
+
+    if (m - n != mat3(-4, -2, 0, -2, 0, 2, 0, 2, 4)) return false;
+
+    if (m - m != 0) return false;
+
+    return true;
+  });
+
   auto sm_mult = UnitTest("scalar matrix operator *", +[] {
     mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);
     mat3x3 n = mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5);
@@ -82,6 +156,40 @@ namespace {
     if (o * c !=
         mat4x4(14, 20, 26, 32, 20, 29, 38, 47, 26, 38, 50, 62, 32, 47, 62, 77))
       return false;
+
+    return true;
+  });
+
+  auto sm_div = UnitTest("scalar matrix operator /", +[] {
+    mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);
+    mat3x3 n = mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+    mat4x3 o = mat4x3(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6);
+
+    if (12 / m != mat2x3(12, 6, 4, 6, 4, 3)) return false;
+    if (12.f / n != mat3x3(12, 6, 4, 6, 4, 3, 4, 3, 2.4)) return false;
+    if (12.0 / o != mat4x3(12, 6, 4, 6, 4, 3, 4, 3, 2.4, 3, 2.4, 2))
+      return false;
+
+    return true;
+  });
+  auto ms_div = UnitTest("matrix scalar operator /", +[] {
+    mat2x3 m = mat2x3(2, 4, 6, 4, 6, 8);
+    mat3x3 n = mat3x3(2, 4, 6, 4, 6, 8, 6, 8, 10);
+    mat4x3 o = mat4x3(2, 4, 6, 4, 6, 8, 6, 8, 10, 8, 10, 12);
+
+    if (m / 2 != mat2x3(1, 2, 3, 2, 3, 4)) return false;
+    if (n / 2.f != mat3x3(1, 2, 3, 2, 3, 4, 3, 4, 5)) return false;
+    if (o / 2.0 != mat4x3(1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6)) return false;
+
+    return true;
+  });
+  auto mm_div = UnitTest("matrix matrix operator /", +[] {
+    mat3 m = mat3(2, 4, 6, 4, 6, 8, 6, 8, 10);
+    mat3 n = mat3(1, 2, 3, 2, 3, 4, 3, 4, 5);
+
+    if (m / n != 2) return false;
+    if (m / m != 1) return false;
+    if ((m * 2) / 2 != m) return false;
 
     return true;
   });
