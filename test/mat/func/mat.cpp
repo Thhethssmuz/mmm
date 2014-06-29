@@ -50,4 +50,41 @@ namespace {
 
     return true;
   });
+
+  auto det1 = UnitTest("matrix function determinant (1)", +[] {
+    mat2 m;
+
+    m = mat2(1, 2, 3, 4);
+    if (determinant(m) != -2) return false;
+
+    m = mat2(3, 7, 5, 9);
+    if (determinant(m) != -8) return false;
+
+    return true;
+  });
+  auto det2 = UnitTest("matrix function determinant (2)", +[] {
+    mat3 m;
+
+    m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    if (determinant(m) != 0) return false;
+
+    m = mat3(1, 0, 0, 0, 1, 0, 2, 2, 1);
+    if (determinant(m) != 1) return false;
+
+    return true;
+  });
+  auto det3 = UnitTest("matrix function determinant (3)", +[] {
+    mat4 m;
+
+    m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    if (determinant(m) != 0) return false;
+
+    m = mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3, 2, 1, 1);
+    if (determinant(m) != 1) return false;
+
+    m = mat4(4, 0, 2, 0, 0, 4, 0, 0, 2, 0, 4, 0, 1, 1, 1, 1);
+    if (determinant(m) != 48) return false;
+
+    return true;
+  });
 }
