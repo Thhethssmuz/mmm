@@ -43,15 +43,52 @@ constexpr tvec<T, N> transpose(const tvec<T, N>& v);
 template <typename T, typename = typefu::for_signed<T>>
 constexpr T determinant(const tmat<T, 2, 2>& m);
 
-template <size_t L = 0, typename T, size_t N,
-          typename = typefu::for_signed<T>,
-          typename = typefu::for_<(L < N - 1)>,
-          typename = void>
+template <size_t L = 0, typename T, size_t N, typename = typefu::for_signed<T>,
+          typename = typefu::for_<(L < N - 1)>, typename = void>
 constexpr T determinant(const tmat<T, N, N>& m);
 
-template <size_t L, typename T, size_t N,
-          typename = typefu::for_signed<T>,
+template <size_t L, typename T, size_t N, typename = typefu::for_signed<T>,
           typename = typefu::for_<(L == N - 1)>>
 constexpr T determinant(const tmat<T, N, N>& m);
+
+
+template <size_t C, size_t R, typename T, typename = typefu::for_signed<T>,
+          typename = typefu::for_<(C < 2 and R < 2)>>
+constexpr T cofactor(const tmat<T, 2, 2>& m);
+
+template <size_t C, size_t R, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(C < N and R < N)>>
+constexpr T cofactor(const tmat<T, N, N>& m);
+
+
+template <typename T, typename = typefu::for_signed<T>>
+constexpr tmat<T, 2, 2> cofactors(const tmat<T, 2, 2>& m);
+
+template <size_t C = 0, typename T, size_t N, typename = typefu::for_signed<T>,
+          typename = typefu::for_<(N - C > 2)>, typename = void>
+constexpr tmat<T, N - C, N> cofactors(const tmat<T, N, N>& m);
+
+template <size_t C, typename T, size_t N, typename = typefu::for_signed<T>,
+          typename = typefu::for_<(N - C == 2)>>
+constexpr tmat<T, 2, N> cofactors(const tmat<T, N, N>& m);
+
+template <size_t C, size_t R, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(N - R > 2)>, typename = void>
+constexpr tvec<T, N - R> cofactors(const tmat<T, N, N>& m);
+
+template <size_t C, size_t R, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(N - R == 2)>>
+constexpr tvec<T, 2> cofactors(const tmat<T, N, N>& m);
+
+
+template <typename T, size_t N, typename = typefu::for_signed<T>>
+constexpr tmat<T, N, N> adjugate(const tmat<T, N, N>& m);
+
+
+template <typename T, size_t N, typename = typefu::for_floating<T>>
+constexpr tmat<T, N, N> inverse(const tmat<T, N, N>& m);
 
 #endif

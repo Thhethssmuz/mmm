@@ -58,15 +58,57 @@ constexpr T determinant(const tmat<T, 2, 2>& m) {
 }
 template <size_t L, typename T, size_t N, typename, typename, typename>
 constexpr T determinant(const tmat<T, N, N>& m) {
-  return (mod(L, 2) == 0 ? T(1) : T(-1)) * m[L][0] *
-           determinant(dropColumn<L>(dropRow<0>(m))) +
-         determinant<L + 1>(m);
+  return m[L][0] * cofactor<L, 0>(m) + determinant<L + 1>(m);
 }
 template <size_t L, typename T, size_t N, typename, typename>
 constexpr T determinant(const tmat<T, N, N>& m) {
-  return (mod(L, 2) == 0 ? T(1) : T(-1)) * m[L][0] *
-         determinant(dropColumn<L>(dropRow<0>(m)));
+  return m[L][0] * cofactor<L, 0>(m);
 }
 
+
+template <size_t C, size_t R, typename T, typename, typename>
+constexpr T cofactor(const tmat<T, 2, 2>& m) {
+  return (mod(C + R, 2) == 0 ? T(1) : T(-1)) * m[1 - C][1 - R];
+}
+template <size_t C, size_t R, typename T, size_t N, typename, typename>
+constexpr T cofactor(const tmat<T, N, N>& m) {
+  return (mod(C + R, 2) == 0 ? T(1) : T(-1)) *
+         determinant(dropColumn<C>(dropRow<R>(m)));
+}
+
+template <typename T, typename>
+constexpr tmat<T, 2, 2> cofactors(const tmat<T, 2, 2>& m) {
+  return tmat<T, 2, 2>(tvec<T, 2>(m[1][1], -m[1][0]),
+                       tvec<T, 2>(-m[0][1], m[0][0]));
+}
+template <size_t C, typename T, size_t N, typename, typename, typename>
+constexpr tmat<T, N - C, N> cofactors(const tmat<T, N, N>& m) {
+  return tmat<T, N - C, N>(cofactors<C, 0>(m), cofactors<C + 1>(m));
+}
+template <size_t C, typename T, size_t N, typename, typename>
+constexpr tmat<T, 2, N> cofactors(const tmat<T, N, N>& m) {
+  return tmat<T, 2, N>(cofactors<C, 0>(m), cofactors<C + 1, 0>(m));
+}
+template <size_t C, size_t R, typename T, size_t N, typename, typename,
+          typename>
+constexpr tvec<T, N - R> cofactors(const tmat<T, N, N>& m) {
+  return tvec<T, N - R>(cofactor<C, R>(m), cofactors<C, R + 1>(m));
+}
+template <size_t C, size_t R, typename T, size_t N, typename, typename>
+constexpr tvec<T, 2> cofactors(const tmat<T, N, N>& m) {
+  return tvec<T, 2>(cofactor<C, R>(m), cofactor<C, R + 1>(m));
+}
+
+
+template <typename T, size_t N, typename>
+constexpr tmat<T, N, N> adjugate(const tmat<T, N, N>& m) {
+  return transpose(cofactors(m));
+}
+
+
+template <typename T, size_t N, typename>
+constexpr tmat<T, N, N> inverse(const tmat<T, N, N>& m) {
+  return T(1) / determinant(m) * adjugate(m);
+}
 
 #endif
