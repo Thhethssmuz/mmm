@@ -43,6 +43,7 @@
 
 #include <mat/opr/num.hpp>
 #include <mat/opr/comp.hpp>
+#include <mat/opr/io.hpp>
 
 #include <mat/func/reduct.hpp>
 #include <mat/func/mat.hpp>
@@ -73,6 +74,7 @@
 
 #include <mat/opr/num.tpp>
 #include <mat/opr/comp.tpp>
+#include <mat/opr/io.tpp>
 
 #include <mat/func/reduct.tpp>
 #include <mat/func/mat.tpp>
