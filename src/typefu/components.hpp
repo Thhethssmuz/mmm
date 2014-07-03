@@ -10,6 +10,9 @@ struct tvec;
 template <typename T, size_t N, size_t... Elems>
 struct swizzle;
 
+template <typename T, size_t N, size_t M>
+struct tmat;
+
 namespace typefu {
 
   template <typename T, typename... Ts>
@@ -30,6 +33,11 @@ namespace typefu {
   template <typename T, size_t N, typename A, typename... Ts>
   struct components<vecType<T, N, A>, Ts...> {
     static constexpr size_t value = N + components<Ts...>::value;
+  };
+
+  template <typename T, size_t N, size_t M, typename... Ts>
+  struct components<tmat<T, N, M>, Ts...> {
+    static constexpr size_t value = N * M + components<Ts...>::value;
   };
 
 
@@ -53,6 +61,10 @@ namespace typefu {
     static constexpr size_t value = N;
   };
 
+  template <typename T, size_t N, size_t M>
+  struct components<tmat<T, N, M>> {
+    static constexpr size_t value = N * M;
+  };
 
   template <size_t N, typename... Ts>
   using for_components =
