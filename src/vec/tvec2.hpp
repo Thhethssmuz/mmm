@@ -35,11 +35,17 @@ struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
   template <size_t L, size_t Elem, size_t... Elems, typename... Ts>
   explicit constexpr tvec(T x, const swizzle<T, L, Elem, Elems...>& xs, Ts...);
 
+  template <size_t L, size_t K, typename... Ts>
+  explicit constexpr tvec(T x, const tmat<T, L, K>& xs, Ts... ys);
+
   template <size_t L, typename... Ts>
   explicit constexpr tvec(const tvec<T, L>& xs, Ts...);
 
   template <size_t L, size_t... Elems, typename... Ts>
   explicit constexpr tvec(const swizzle<T, L, Elems...>& xs, Ts... ys);
+
+  template <size_t L, size_t K, typename... Ts>
+  explicit constexpr tvec(const tmat<T, L, K>& xs, Ts... ys);
 
 
   constexpr T operator[](size_t i) const;

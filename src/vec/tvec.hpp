@@ -42,6 +42,10 @@ struct tvec : vecType<T, N, tvec<T, N>> {
               typefu::for_components<N, swizzle<T, L, Elems...>, Ts...>>
   explicit constexpr tvec(const swizzle<T, L, Elems...>& xs, Ts... ys);
 
+  template <size_t L, size_t K, typename... Ts,
+            typename = typefu::for_components<N, tmat<T, L, K>, Ts...>>
+  explicit constexpr tvec(const tmat<T, L, K>& xs, Ts... ys);
+
 
   constexpr T operator[](size_t i) const;
   T& operator[](size_t i);

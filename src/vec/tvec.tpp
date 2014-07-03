@@ -44,6 +44,10 @@ constexpr tvec<T, N>::tvec(const swizzle<T, L, Elems...>& xs, Ts... ys)
   static_assert(typefu::max<Elems...>::value < L,
                 "vector swizzle out of bounds");
 }
+template <typename T, size_t N>
+template <size_t L, size_t K, typename... Ts, typename>
+constexpr tvec<T, N>::tvec(const tmat<T, L, K>& xs, Ts... ys)
+  : tvec<T, N>(xs.recursive.head, xs.recursive.tail, ys...) {}
 
 
 template <typename T, size_t N>
