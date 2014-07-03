@@ -41,6 +41,7 @@
 #include <vec/func/reduct.hpp>
 #include <vec/func/io.hpp>
 
+#include <mat/opr/asig.hpp>
 #include <mat/opr/num.hpp>
 #include <mat/opr/comp.hpp>
 #include <mat/opr/io.hpp>
@@ -72,6 +73,7 @@
 #include <vec/func/reduct.tpp>
 #include <vec/func/io.tpp>
 
+#include <mat/opr/asig.tpp>
 #include <mat/opr/num.tpp>
 #include <mat/opr/comp.tpp>
 #include <mat/opr/io.tpp>
