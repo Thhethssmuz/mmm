@@ -3,7 +3,7 @@
 
 namespace {
 
-  auto constructors_1 = UnitTest("vector constructors 1", +[] {
+  auto constructors_1 = UnitTest("vector constructors (1)", +[] {
     vec4 v;
     vec4 u(0);
     vec4 t{0};
@@ -18,7 +18,7 @@ namespace {
 
     return true;
   });
-  auto constructors_2 = UnitTest("vector constructors 2", +[] {
+  auto constructors_2 = UnitTest("vector constructors (2)", +[] {
     vec2 v = vec2(3, 4);
     vec3 u = vec3(2, v);
     vec4 t = vec4(1, u);
@@ -27,7 +27,7 @@ namespace {
 
     return true;
   });
-  auto constructors_3 = UnitTest("vector constructors 3", +[] {
+  auto constructors_3 = UnitTest("vector constructors (3)", +[] {
     vec2 v = vec2(1, 2);
     vec2 u = vec2(3, 4);
     vec4 t = vec4(v, u);
@@ -38,7 +38,7 @@ namespace {
 
     return true;
   });
-  auto constructors_4 = UnitTest("vector constructors 4", +[] {
+  auto constructors_4 = UnitTest("vector constructors (4)", +[] {
     vec4 v = vec4(8, 7, 6, 1);
     vec4 u = vec4(2, 3, 5, 4);
     vec4 t = vec4(12, 10, 11, 13);
@@ -51,7 +51,7 @@ namespace {
 
     return true;
   });
-  auto constructors_5 = UnitTest("vector constructors 5", +[] {
+  auto constructors_5 = UnitTest("vector constructors (5)", +[] {
     vec4 v = vec4(1, 2, 3, 4);
     vec2 u = vec2(1, 2);
 
@@ -87,7 +87,7 @@ namespace {
 
     return true;
   });
-  auto constructors_6 = UnitTest("vector constructors 6", +[] {
+  auto constructors_6 = UnitTest("vector constructors (6)", +[] {
     vec4 v = vec4(1, 2, 3, 4);
     vec3 u = vec3(1, 2, 3);
 
@@ -117,6 +117,43 @@ namespace {
 
     u = vec3(5, v.wzyx);
     if (u != vec3(5, 4, 3)) return false;
+
+    return true;
+  });
+  auto constructors_7 = UnitTest("vector constructors (7)", +[] {
+    mat3x4 m = mat3x4(12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+    mat2 n = mat2(1, 2, 3, 4);
+
+    vec2 v;
+    vec3 u;
+    vec4 t;
+
+    v = vec2(n);
+    if (v != vec2(1, 2)) return false;
+    v = vec2(1, n);
+    if (v != vec2(1, 1)) return false;
+    v = vec2(m);
+    if (v != vec2(12, 11)) return false;
+    v = vec2(1, m);
+    if (v != vec2(1, 12)) return false;
+
+    u = vec3(n);
+    if (u != vec3(1, 2, 3)) return false;
+    u = vec3(1, n);
+    if (u != vec3(1, 1, 2)) return false;
+    u = vec3(m);
+    if (u != vec3(12, 11, 10)) return false;
+    u = vec3(1, m);
+    if (u != vec3(1, 12, 11)) return false;
+
+    t = vec4(n);
+    if (t != vec4(1, 2, 3, 4)) return false;
+    t = vec4(v, n);
+    if (t != vec4(1, 12, 1, 2)) return false;
+    t = vec4(m);
+    if (t != vec4(12, 11, 10, 9)) return false;
+    t = vec4(u, m);
+    if (t != vec4(1, 12, 11, 12)) return false;
 
     return true;
   });
