@@ -167,6 +167,24 @@ namespace {
     r = vec4(u);
     if (r != vec4(1, 2, 3, 4)) return false;
 
+    r = vec4(u.xxyy);
+    if (r != vec4(1, 1, 2, 2)) return false;
+
+    return true;
+  });
+  auto constructors_9 = UnitTest("vector constructors (9)", +[] {
+    ivec2 v = ivec2(2, 1);
+    dvec2 u = dvec2(1, 2);
+    vec2 r;
+
+    r = vec2(v);
+    if (r != vec2(2, 1)) return false;
+    r = vec2(u);
+    if (r != vec2(1, 2)) return false;
+
+    r = vec2(u.yy);
+    if (r != vec2(2, 2)) return false;
+
     return true;
   });
 
