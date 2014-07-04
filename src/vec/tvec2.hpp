@@ -25,6 +25,9 @@ struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
   constexpr tvec(tvec<T, 2>&& v);
   constexpr tvec(const tvec<T, 2>& v);
 
+  template <typename U, typename = typefu::for_convertible<T, U>>
+  explicit constexpr tvec(const tvec<U, 2>& v);
+
 
   template <typename... Ts>
   explicit constexpr tvec(T x, T y, Ts...);
