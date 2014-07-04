@@ -33,6 +33,9 @@ struct tvec : vecType<T, N, tvec<T, N>> {
   template <typename U, typename = typefu::for_convertible<T, U>>
   explicit constexpr tvec(const tvec<U, N>& v);
 
+  template <typename U, typename A, typename = typefu::for_convertible<T, U>>
+  explicit constexpr tvec(const vecType<U, N, A>& v);
+
 
   template <typename... Ts, typename = typefu::for_components<N, T, Ts...>>
   explicit constexpr tvec(T x, Ts... xs);

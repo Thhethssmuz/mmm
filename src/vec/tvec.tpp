@@ -32,6 +32,11 @@ template <typename U, typename>
 constexpr tvec<T, N>::tvec(const tvec<U, N>& v)
   : recursive{T(v.recursive.head), tvec<T, N - 1>(v.recursive.tail)} {}
 
+template <typename T, size_t N>
+template <typename U, typename A, typename>
+constexpr tvec<T, N>::tvec(const vecType<U, N, A>& v)
+  : tvec<T, N>(vec_cast(v)) {}
+
 
 template <typename T, size_t N>
 template <typename... Ts, typename>
