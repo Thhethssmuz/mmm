@@ -157,6 +157,18 @@ namespace {
 
     return true;
   });
+  auto constructors_8 = UnitTest("vector constructors (8)", +[] {
+    ivec4 v = ivec4(4, 3, 2, 1);
+    dvec4 u = dvec4(1, 2, 3, 4);
+    vec4 r;
+
+    r = vec4(v);
+    if (r != vec4(4, 3, 2, 1)) return false;
+    r = vec4(u);
+    if (r != vec4(1, 2, 3, 4)) return false;
+
+    return true;
+  });
 
   auto index = UnitTest("vector index", +[] {
     vec4 v = vec4(1, 2, 3, 4);
