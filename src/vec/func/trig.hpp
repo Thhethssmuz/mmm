@@ -9,7 +9,6 @@ constexpr double dPI = 3.14159265358979323846264338327950;
 constexpr long double lPI = 3.141592653589793238462643383279502884197169399375l;
 
 
-// degrees to radians conversion
 constexpr float radians(float degrees);
 constexpr double radians(double degrees);
 constexpr long double radians(long double degrees);
@@ -24,7 +23,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> radians(const vecType<T, N, A>& degrees);
 
 
-// radians to degrees conversion
 constexpr float degrees(float radians);
 constexpr double degrees(double radians);
 constexpr long double degrees(long double radians);
@@ -39,7 +37,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> degrees(const vecType<T, N, A>& radians);
 
 
-// sine
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> sin(const tvec<T, N>& angle);
 
@@ -47,7 +44,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> sin(const vecType<T, N, A>& angle);
 
 
-// cosine
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> cos(const tvec<T, N>& angle);
 
@@ -55,7 +51,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> cos(const vecType<T, N, A>& angle);
 
 
-// tangent
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> tan(const tvec<T, N>& angle);
 
@@ -63,7 +58,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> tan(const vecType<T, N, A>& angle);
 
 
-// component wise arcsine function generic
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> asin(const tvec<T, N>& x);
 
@@ -71,7 +65,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> asin(const vecType<T, N, A>& x);
 
 
-// component wise arccosine function generic
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> acos(const tvec<T, N>& x);
 
@@ -79,7 +72,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> acos(const vecType<T, N, A>& x);
 
 
-// component wise arctangent function generic
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> atan(const tvec<T, N>& y_over_x);
 
@@ -87,7 +79,6 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> atan(const vecType<T, N, A>& y_over_x);
 
 
-// 2-argument variation of the atan function (aka. atan2)
 template <typename T, typename = typefu::for_floating<T>>
 constexpr T atan(T y, T x);
 
