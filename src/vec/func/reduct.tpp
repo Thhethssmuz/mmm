@@ -1,29 +1,29 @@
 #ifndef mmm_vec_func_reduct_tpp
 #define mmm_vec_func_reduct_tpp
 
-template <typename T, size_t N>
+template <typename T, size_t N, typename>
 constexpr T sum(const tvec<T, N>& v) {
   return v.recursive.head + sum(v.recursive.tail);
 }
-template <typename T>
+template <typename T, typename>
 constexpr T sum(const tvec<T, 2>& v) {
   return v.recursive.head + v.recursive.tail;
 }
-template <typename T, size_t N, typename A>
+template <typename T, size_t N, typename A, typename>
 constexpr T sum(const vecType<T, N, A>& v) {
   return sum(vec_cast(v));
 }
 
 
-template <typename T, size_t N>
+template <typename T, size_t N, typename>
 constexpr T product(const tvec<T, N>& v) {
   return v.recursive.head * product(v.recursive.tail);
 }
-template <typename T>
+template <typename T, typename>
 constexpr T product(const tvec<T, 2>& v) {
   return v.recursive.head * v.recursive.tail;
 }
-template <typename T, size_t N, typename A>
+template <typename T, size_t N, typename A, typename>
 constexpr T product(const vecType<T, N, A>& v) {
   return product(vec_cast(v));
 }
