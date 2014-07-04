@@ -75,19 +75,19 @@ namespace {
   });
 
   auto s_fract = UnitTest("scalar common function fract", +[]() {
-    if (fract(1.5f) != 0.5f) return false;
-    if (fract(1.0f) != 0.0f) return false;
-    if (fract(-1.5f) != -0.5f) return false;
+    if (fract(1) != 0) return false;
+    if (fract(1.5) != 0.5) return false;
+    if (fract(-1.2) != 0.8) return false;
 
     if (fract(0) != 0) return false;
 
     return true;
   });
   auto v_fract = UnitTest("vector common function fract", +[]() {
-    vec3 v = vec3(1.5, 1.0, -1.5);
+    dvec3 v = dvec3(1, 1.5, -1.2);
 
-    if (fract(v) != vec3(0.5f, 0.0f, -0.5f)) return false;
-    if (fract(v.zyx) != vec3(-0.5f, 0.0, 0.5f)) return false;
+    if (fract(v) != dvec3(0, 0.5, 0.8)) return false;
+    if (fract(v.zyx) != dvec3(0.8, 0.5, 0)) return false;
 
     return true;
   });

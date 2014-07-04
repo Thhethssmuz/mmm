@@ -48,7 +48,7 @@ constexpr tvec<T, N> ceil(const vecType<T, N, A>& x) {
 
 template <typename T, typename>
 constexpr typefu::promotef<T> fract(T x) {
-  return x - static_cast<long>(x);
+  return x - floor(x);
 }
 
 template <typename T, size_t N, typename>
