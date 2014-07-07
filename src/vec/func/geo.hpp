@@ -42,10 +42,11 @@ template <typename T, size_t N, typename A, typename B,
 constexpr T dot(const vecType<T, N, A>& v, const vecType<T, N, B>& u);
 
 
-template <typename T, typename = typefu::for_arithmetic<T>>
+template <typename T, typename = typefu::for_signed<T>>
 constexpr tvec<T, 3> cross(const tvec<T, 3>& v, const tvec<T, 3>& u);
+
 template <typename T, typename A, typename B,
-          typename = typefu::for_arithmetic<T>>
+          typename = typefu::for_signed<T>>
 constexpr tvec<T, 3> cross(const vecType<T, 3, A>& v,
                            const vecType<T, 3, B>& u);
 
