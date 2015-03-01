@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_reduct_tpp
-#define mmm_vec_func_reduct_tpp
+#pragma once
 
 template <typename T, size_t N, typename>
 constexpr T sum(const tvec<T, N>& v) {
@@ -71,5 +70,3 @@ template <size_t N, typename T, size_t L, typename A, typename>
 constexpr T drop(const vecType<T, L, A>& v) {
   return drop<N>(vec_cast(v));
 }
-
-#endif

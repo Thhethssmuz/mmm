@@ -1,5 +1,4 @@
-#ifndef mmm_vec_opr_num_tpp
-#define mmm_vec_opr_num_tpp
+#pragma once
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> operator+(T s, const tvec<T, N>& v) {
@@ -119,5 +118,3 @@ constexpr tvec<T, N> operator/(const vecType<T, N, A>& v,
                                const vecType<T, N, B>& u) {
   return vec_cast(v) / vec_cast(u);
 }
-
-#endif

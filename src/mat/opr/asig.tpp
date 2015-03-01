@@ -1,5 +1,4 @@
-#ifndef mmm_mat_opr_asig_tpp
-#define mmm_mat_opr_asig_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M, typename>
 tmat<T, N, M>& operator+=(tmat<T, N, M>& m, T s) {
@@ -70,5 +69,3 @@ tmat<T, N, M>& operator/=(tmat<T, N, M>& m, const tmat<T, N, M>& n) {
   m.recursive.tail /= n.recursive.tail;
   return m;
 }
-
-#endif

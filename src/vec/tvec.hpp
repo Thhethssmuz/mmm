@@ -1,5 +1,4 @@
-#ifndef mmm_vec_tvec_hpp
-#define mmm_vec_tvec_hpp
+#pragma once
 
 template <typename T, size_t N, typename A>
 struct vecType;
@@ -66,5 +65,3 @@ struct tvec : vecType<T, N, tvec<T, N>> {
   template <size_t Start, size_t End>
   typefu::swizzle_range<T, N, Start, End>& swizzleRange();
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_types_hpp
-#define mmm_types_hpp
+#pragma once
 
 template <size_t N>
 using vec  = tvec<float, N>;
@@ -61,5 +60,3 @@ using dmat3x4 = dmat<3, 4>;
 using dmat4x2 = dmat<4, 2>;
 using dmat4x3 = dmat<4, 3>;
 using dmat4x4 = dmat<4, 4>;
-
-#endif

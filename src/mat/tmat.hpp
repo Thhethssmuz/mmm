@@ -1,5 +1,4 @@
-#ifndef mmm_mat_tmat_hpp
-#define mmm_mat_tmat_hpp
+#pragma once
 
 // matrix with N columns and M rows
 template <typename T, size_t N, size_t M>
@@ -38,5 +37,3 @@ struct tmat {
 
   tmat<T, N, M>& operator=(const tmat<T, N, M>& m);
 };
-
-#endif

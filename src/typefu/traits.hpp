@@ -1,5 +1,4 @@
-#ifndef mmm_typefu_traits_hpp
-#define mmm_typefu_traits_hpp
+#pragma once
 
 namespace typefu {
 
@@ -90,5 +89,3 @@ namespace typefu {
     static const bool value = std::is_convertible<From, To>::value;
   };
 }
-
-#endif

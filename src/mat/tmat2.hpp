@@ -1,5 +1,4 @@
-#ifndef mmm_mat_tmat2_hpp
-#define mmm_mat_tmat2_hpp
+#pragma once
 
 template <typename T, size_t M>
 struct tmat<T, 2, M> {
@@ -35,5 +34,3 @@ struct tmat<T, 2, M> {
 
   tmat<T, 2, M>& operator=(const tmat<T, 2, M>& m);
 };
-
-#endif

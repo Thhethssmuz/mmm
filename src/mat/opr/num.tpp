@@ -1,5 +1,4 @@
-#ifndef mmm_mat_tmat_opr_num_tpp
-#define mmm_mat_tmat_opr_num_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M, typename>
 constexpr tmat<T, N, M> operator+(T s, const tmat<T, N, M>& m) {
@@ -136,6 +135,3 @@ constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m,
   return tmat<T, N, M>(m.recursive.head / n.recursive.head,
                        m.recursive.tail / n.recursive.tail);
 }
-
-
-#endif

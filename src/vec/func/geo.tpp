@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_geo_tpp
-#define mmm_vec_func_geo_tpp
+#pragma once
 
 template <typename T, typename>
 constexpr typefu::promotef<T> length(T x) {
@@ -85,5 +84,3 @@ template <typename T, size_t N, typename A, typename>
 constexpr tvec<T, N> normalize(const vecType<T, N, A>& v) {
   return normalize(vec_cast(v));
 }
-
-#endif

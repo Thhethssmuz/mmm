@@ -1,5 +1,4 @@
-#ifndef mmm_mat_func_io_tpp
-#define mmm_mat_func_io_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M>
 void print(const tmat<T, N, M>& m) {
@@ -10,5 +9,3 @@ void print(const tmat<T, N, M>& m) {
     std::cout << "]" << std::endl;
   }
 }
-
-#endif

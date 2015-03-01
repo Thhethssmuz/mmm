@@ -1,5 +1,4 @@
-#ifndef mmm_vec_opr_enum_tpp
-#define mmm_vec_opr_enum_tpp
+#pragma once
 
 template <typename T, size_t N, typename>
 tvec<T, N>& operator++(tvec<T, N>& v) {
@@ -28,5 +27,3 @@ tvec<T, N> operator--(tvec<T, N>& v, int) {
   v.recursive.tail--;
   return tmp;
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_vec_tvec2_hpp
-#define mmm_vec_tvec2_hpp
+#pragma once
 
 template <typename T>
 struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
@@ -61,5 +60,3 @@ struct tvec<T, 2> : vecType<T, 2, tvec<T, 2>> {
 
   tvec<T, 2>& operator=(const tvec<T, 2>& v);
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_swizzle_swizzle_hpp
-#define mmm_swizzle_swizzle_hpp
+#pragma once
 
 template <typename T, size_t N, typename A>
 struct vecType;
@@ -32,5 +31,3 @@ struct swizzle : vecType<T, sizeof...(Elems), swizzle<T, N, Elems...>> {
   swizzle<T, N, Elems...>& operator--();
   tvec<T, sizeof...(Elems)> operator--(int);
 };
-
-#endif

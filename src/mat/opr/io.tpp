@@ -1,5 +1,4 @@
-#ifndef mmm_mat_opr_io_tpp
-#define mmm_mat_opr_io_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M>
 std::ostream& operator<<(std::ostream& os, const tmat<T, N, M>& m) {
@@ -13,5 +12,3 @@ std::ostream& operator<<(std::ostream& os, const tmat<T, N, M>& m) {
   }
   return os;
 }
-
-#endif

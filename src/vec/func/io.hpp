@@ -1,10 +1,7 @@
-#ifndef mmm_vec_func_io_hpp
-#define mmm_vec_func_io_hpp
+#pragma once
 
 template <typename T, size_t N>
 void print(const tvec<T, N>& v);
 
 template <typename T, size_t N, typename A>
 void print(const vecType<T, N, A>& v);
-
-#endif

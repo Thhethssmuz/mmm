@@ -1,5 +1,4 @@
-#ifndef mmm_mat_func_mat_hpp
-#define mmm_mat_func_mat_hpp
+#pragma once
 
 template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
 constexpr tmat<T, N, M> matrixCompMult(const tmat<T, N, M>& m,
@@ -90,5 +89,3 @@ constexpr tmat<T, N, N> adjugate(const tmat<T, N, N>& m);
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tmat<T, N, N> inverse(const tmat<T, N, N>& m);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_mat_func_reduct_tpp
-#define mmm_mat_func_reduct_tpp
+#pragma once
 
 template <size_t R, typename T, size_t N, size_t M, typename, typename>
 constexpr tmat<T, N, R> takeRows(const tmat<T, N, M>& m) {
@@ -164,5 +163,3 @@ template <size_t C, typename T, size_t M, typename>
 constexpr tvec<T, M> dropColumn(const tmat<T, 2, M>& m) {
   return m.recursive.tail;
 }
-
-#endif

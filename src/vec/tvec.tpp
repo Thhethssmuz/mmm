@@ -1,5 +1,4 @@
-#ifndef mmm_vec_tvec_tpp
-#define mmm_vec_tvec_tpp
+#pragma once
 
 template <typename T, size_t N>
 constexpr tvec<T, N>::tvec()
@@ -96,5 +95,3 @@ typefu::swizzle_range<T, N, Start, End>& tvec<T, N>::swizzleRange() {
   typedef typefu::swizzle_range<T, N, Start, End> type;
   return *(reinterpret_cast<type*>(this));
 }
-
-#endif

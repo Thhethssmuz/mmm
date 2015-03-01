@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_reduct_hpp
-#define mmm_vec_func_reduct_hpp
+#pragma once
 
 template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
 constexpr T sum(const tvec<T, N>& v);
@@ -60,6 +59,3 @@ constexpr T drop(const tvec<T, L>& v);
 template <size_t N, typename T, size_t L, typename A,
           typename = typefu::for_<(L - N == 1)>>
 constexpr T drop(const vecType<T, L, A>& v);
-
-
-#endif

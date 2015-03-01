@@ -1,5 +1,4 @@
-#ifndef mmm_typefu_restrict_hpp
-#define mmm_typefu_restrict_hpp
+#pragma once
 
 namespace typefu {
 
@@ -32,5 +31,3 @@ namespace typefu {
   using for_convertible =
     typename std::enable_if<is_convertible<Ts...>::value>::type;
 }
-
-#endif

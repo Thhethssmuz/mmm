@@ -1,5 +1,4 @@
-#ifndef mmm_vec_opr_comp_hpp
-#define mmm_vec_opr_comp_hpp
+#pragma once
 
 template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
 constexpr bool operator<(T s, const tvec<T, N>& v);
@@ -131,5 +130,3 @@ constexpr bool operator!=(const tvec<T, N>& v, const tvec<T, N>& u);
 template <typename T, size_t N, typename A, typename B,
           typename = typefu::for_arithmetic<T>>
 constexpr bool operator!=(const vecType<T, N, A>& v, const vecType<T, N, B>& u);
-
-#endif

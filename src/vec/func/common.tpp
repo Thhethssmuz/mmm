@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_common_tpp
-#define mmm_vec_func_common_tpp
+#pragma once
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> abs(const tvec<T, N>& x) {
@@ -280,5 +279,3 @@ constexpr tvec<T, N> step(const vecType<T, N, A>& edge,
                           const vecType<T, N, B>& x) {
   return step(vec_cast(edge), vec_cast(x));
 }
-
-#endif

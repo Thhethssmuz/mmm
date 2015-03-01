@@ -1,5 +1,4 @@
-#ifndef mmm_mat_tmat_opr_num_hpp
-#define mmm_mat_tmat_opr_num_hpp
+#pragma once
 
 template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
 constexpr tmat<T, N, M> operator+(T s, const tmat<T, N, M>& m);
@@ -107,5 +106,3 @@ constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m, U s);
 template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
 constexpr tmat<T, N, M> operator/(const tmat<T, N, M>& m,
                                   const tmat<T, N, M>& n);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_typefu_range_hpp
-#define mmm_typefu_range_hpp
+#pragma once
 
 template <typename T, size_t N, size_t... Elems>
 struct swizzle;
@@ -55,5 +54,3 @@ namespace typefu {
   template <typename T, size_t N, size_t start, size_t End>
   using swizzle_range = typename dispatch_swizzle_range<T, N, start, End>::type;
 }
-
-#endif

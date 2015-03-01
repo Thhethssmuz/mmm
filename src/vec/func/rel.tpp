@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_rel_tpp
-#define mmm_vec_func_rel_tpp
+#pragma once
 
 template <typename T, typename>
 constexpr bool lessThan(T x, T y) {
@@ -273,5 +272,3 @@ template <size_t N, typename A>
 constexpr tvec<bool, N> operator!(const vecType<bool, N, A> & v) {
   return not vec_cast(v);
 }
-
-#endif

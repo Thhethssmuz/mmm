@@ -1,5 +1,4 @@
-#ifndef mmm_vec_opr_asig_hpp
-#define mmm_vec_opr_asig_hpp
+#pragma once
 
 template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
 tvec<T, N>& operator+=(tvec<T, N>& v, T s);
@@ -59,5 +58,3 @@ tvec<T, N>& operator/=(tvec<T, N>& v, const tvec<T, N>& u);
 template <typename T, size_t N, typename A,
           typename = typefu::for_arithmetic<T>>
 tvec<T, N>& operator/=(tvec<T, N>& v, const vecType<T, N, A>& u);
-
-#endif

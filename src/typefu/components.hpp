@@ -1,5 +1,4 @@
-#ifndef mmm_typefu_components_hpp
-#define mmm_typefu_components_hpp
+#pragma once
 
 template <typename T, size_t N, typename A>
 struct vecType;
@@ -70,5 +69,3 @@ namespace typefu {
   using for_components =
     typename std::enable_if<components<Ts...>::value >= N>::type;
 }
-
-#endif

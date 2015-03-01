@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_trig_hpp
-#define mmm_vec_func_trig_hpp
+#pragma once
 
 // all trigonometric functions are only defined for floating point types and
 // floating vector types.
@@ -107,5 +106,3 @@ constexpr tvec<T, N> atan(const tvec<T, N>& y, const tvec<T, N>& x);
 template <typename T, size_t N, typename A, typename B,
           typename = typefu::for_floating<T>>
 constexpr tvec<T, N> atan(const vecType<T, N, A>& y, const vecType<T, N, B>& x);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_hpp
-#define mmm_hpp
+#pragma once
 
 #include <cstddef>
 #include <cstdlib>
@@ -84,5 +83,3 @@
 
 
 #include <types.hpp>
-
-#endif

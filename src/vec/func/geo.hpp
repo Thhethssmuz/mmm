@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_geo_hpp
-#define mmm_vec_func_geo_hpp
+#pragma once
 
 template <typename T, typename = typefu::for_arithmetic<T>>
 constexpr typefu::promotef<T> length(T x);
@@ -65,5 +64,3 @@ constexpr tvec<T, N> normalize(const vecType<T, N, A>& x);
 // reflect
 
 // refract
-
-#endif

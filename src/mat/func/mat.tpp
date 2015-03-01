@@ -1,5 +1,4 @@
-#ifndef mmm_mat_func_mat_tpp
-#define mmm_mat_func_mat_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M, typename>
 constexpr tmat<T, N, M> matrixCompMult(const tmat<T, N, M>& m,
@@ -110,5 +109,3 @@ template <typename T, size_t N, typename>
 constexpr tmat<T, N, N> inverse(const tmat<T, N, N>& m) {
   return T(1) / determinant(m) * adjugate(m);
 }
-
-#endif

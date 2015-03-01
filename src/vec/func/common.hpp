@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_common_hpp
-#define mmm_vec_func_common_hpp
+#pragma once
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> abs(const tvec<T, N>& x);
@@ -211,5 +210,3 @@ constexpr tvec<T, N> step(const vecType<T, N, A>& edge,
                           const vecType<T, N, B>& x);
 
 // smoothstep
-
-#endif

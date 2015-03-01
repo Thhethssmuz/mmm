@@ -1,5 +1,4 @@
-#ifndef mmm_typefu_gen_hpp
-#define mmm_typefu_gen_hpp
+#pragma once
 
 namespace typefu {
 
@@ -34,5 +33,3 @@ namespace typefu {
     static constexpr bool value = B;
   };
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_vec_tvec2_tpp
-#define mmm_vec_tvec2_tpp
+#pragma once
 
 template <typename T>
 constexpr tvec<T, 2>::tvec()
@@ -98,5 +97,3 @@ tvec<T, 2>& tvec<T, 2>::operator=(const tvec<T, 2>& v) {
   recursive.tail = v.recursive.tail;
   return *this;
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef mmm_mat_func_reduct_hpp
-#define mmm_mat_func_reduct_hpp
+#pragma once
 
 template <size_t R, typename T, size_t N, size_t M,
           typename = typefu::for_<R >= 2>, typename = typefu::for_<R <= M>>
@@ -131,5 +130,3 @@ constexpr tvec<T, M> dropColumn(const tmat<T, 2, M>& m);
 
 template <size_t C, typename T, size_t M, typename = typefu::for_<C == 0>>
 constexpr tvec<T, M> dropColumn(const tmat<T, 2, M>& m);
-
-#endif

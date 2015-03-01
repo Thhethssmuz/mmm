@@ -1,5 +1,4 @@
-#ifndef mmm_vec_opr_asig_tpp
-#define mmm_vec_opr_asig_tpp
+#pragma once
 
 template <typename T, size_t N, typename>
 tvec<T, N>& operator+=(tvec<T, N>& v, T s) {
@@ -87,5 +86,3 @@ template <typename T, size_t N, typename A, typename>
 tvec<T, N>& operator/=(tvec<T, N>& v, const vecType<T, N, A>& u) {
   return v /= vec_cast(u);
 }
-
-#endif

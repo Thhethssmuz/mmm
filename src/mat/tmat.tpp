@@ -1,5 +1,4 @@
-#ifndef mmm_mat_tmat_tpp
-#define mmm_mat_tmat_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M>
 constexpr tmat<T, N, M>::tmat()
@@ -58,5 +57,3 @@ tmat<T, N, M>& tmat<T, N, M>::operator=(const tmat<T, N, M>& m) {
   recursive.tail = m.recursive.tail;
   return *this;
 }
-
-#endif

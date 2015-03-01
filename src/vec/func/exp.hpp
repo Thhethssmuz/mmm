@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_exp_hpp
-#define mmm_vec_func_exp_hpp
+#pragma once
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> pow(T s, const tvec<T, N>& v);
@@ -68,5 +67,3 @@ constexpr tvec<T, N> inversesqrt(const tvec<T, N>& x);
 
 template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> inversesqrt(const vecType<T, N, A>& x);
-
-#endif

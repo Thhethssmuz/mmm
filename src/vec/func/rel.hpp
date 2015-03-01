@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_rel_hpp
-#define mmm_vec_func_rel_hpp
+#pragma once
 
 template <typename T, typename = typefu::for_arithmetic<T>>
 constexpr bool lessThan(T x, T y);
@@ -199,5 +198,3 @@ constexpr tvec<bool, N> operator!(const tvec<bool, N> & v);
 
 template <size_t N, typename A>
 constexpr tvec<bool, N> operator!(const vecType<bool, N, A> & v);
-
-#endif

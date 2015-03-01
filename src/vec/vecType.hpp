@@ -1,5 +1,4 @@
-#ifndef mmm_vec_vectype_hpp
-#define mmm_vec_vectype_hpp
+#pragma once
 
 template <typename T, size_t N, typename Derived>
 struct vecType {};
@@ -12,5 +11,3 @@ constexpr tvec<T, N> vec_cast(const vecType<T, N, D>& v);
 
 template <typename T, size_t N>
 constexpr tvec<T, N> vec_cast(const vecType<T, N, tvec<T, N>>& v);
-
-#endif

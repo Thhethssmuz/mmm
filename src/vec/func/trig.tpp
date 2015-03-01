@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_trig_tpp
-#define mmm_vec_func_trig_tpp
+#pragma once
 
 constexpr float radians(float degrees) { return degrees * PI / 180.0f; }
 constexpr double radians(double degrees) { return degrees * dPI / 180.0; }
@@ -142,5 +141,3 @@ constexpr tvec<T, N> atan(const vecType<T, N, A>& y,
                           const vecType<T, N, B>& x) {
   return atan(vec_cast(y), vec_cast(x));
 }
-
-#endif

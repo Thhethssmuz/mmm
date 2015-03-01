@@ -1,5 +1,4 @@
-#ifndef test_unittest_hpp
-#define test_unittest_hpp
+#pragma once
 
 struct UnitTest {
   static int tests;
@@ -11,5 +10,3 @@ struct UnitTest {
 
   static void print_statistics ();
 };
-
-#endif

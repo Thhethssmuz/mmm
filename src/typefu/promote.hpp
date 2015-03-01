@@ -1,5 +1,4 @@
-#ifndef mmm_typefu_promote_hpp
-#define mmm_typefu_promote_hpp
+#pragma once
 
 namespace typefu {
 
@@ -66,5 +65,3 @@ namespace typefu {
   template <typename... Ts>
   using promotef = typename floating_promotion<Ts...>::type;
 }
-
-#endif

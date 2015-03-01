@@ -1,5 +1,4 @@
-#ifndef mmm_swizzle_swizzle1_tpp
-#define mmm_swizzle_swizzle1_tpp
+#pragma once
 
 template <typename T, size_t N, size_t A>
 constexpr swizzle<T, N, A>::operator T() const {
@@ -32,5 +31,3 @@ T& swizzle<T, N, A>::operator=(const swizzle<T, N, A>& x) {
   static_assert(A < N, "vector swizzle out of bounds");
   return data[A] = x.data[A];
 }
-
-#endif

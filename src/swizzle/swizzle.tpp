@@ -1,5 +1,4 @@
-#ifndef mmm_swizzle_swizzle_tpp
-#define mmm_swizzle_swizzle_tpp
+#pragma once
 
 template <typename T, size_t N, size_t... Elems>
 constexpr swizzle<T, N, Elems...>::operator tvec<T, sizeof...(Elems)>() const {
@@ -180,5 +179,3 @@ tvec<T, sizeof...(Elems)> swizzle<T, N, Elems...>::operator--(int) {
     data[es[i]]--;
   return tmp;
 }
-
-#endif

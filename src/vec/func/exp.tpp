@@ -1,5 +1,4 @@
-#ifndef mmm_vec_func_exp_tpp
-#define mmm_vec_func_exp_tpp
+#pragma once
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> pow(T s, const tvec<T, N>& v) {
@@ -93,5 +92,3 @@ template <typename T, size_t N, typename A, typename>
 constexpr tvec<T, N> inversesqrt(const vecType<T, N, A>& x) {
   return inversesqrt(vec_cast(x));
 }
-
-#endif

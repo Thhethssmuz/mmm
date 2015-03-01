@@ -1,5 +1,4 @@
-#ifndef mmm_mat_opr_comp_tpp
-#define mmm_mat_opr_comp_tpp
+#pragma once
 
 template <typename T, size_t N, size_t M, typename>
 constexpr bool operator>(T s, const tmat<T, N, M>& m) {
@@ -137,5 +136,3 @@ constexpr bool operator!=(const tmat<T, N, M>& m, const tmat<T, N, M>& n) {
   return m.recursive.head != n.recursive.head or m.recursive.tail !=
          n.recursive.tail;
 }
-
-#endif
