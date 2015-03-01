@@ -1,8 +1,10 @@
 #!/bin/sh
 set -e
 
+name=$(echo "$1" | sed "s/test\///" | sed "s/\//_/" | sed "s/.cpp//")
+name="mmm_${name}_test"
 mkdir -p build
 cd build
 cmake .. -DUSE_LIBDW=0
-make -j4 $1 #VERBOSE=1
-ctest -R $1 -V
+make -j4 $name #VERBOSE=1
+ctest -R $name -V
