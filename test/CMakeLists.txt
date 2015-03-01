@@ -1,6 +1,10 @@
 add_definitions(-O2 -g -pedantic -W -Wall -Wextra)
 
 include_directories(.)
+if (USE_LIBDW)
+  link_libraries(dw)
+  add_definitions(mmm_tests PUBLIC BACKWARD_HAS_DW)
+endif()
 
 file(GLOB_RECURSE sources . *.cpp)
 function (add_mmm_test name src)
@@ -22,11 +26,6 @@ add_executable(mmm_tests
   unittest.cpp
   ${sources}
 )
-
-if (USE_LIBDW)
-  target_link_libraries(mmm_tests dw)
-  target_compile_definitions(mmm_tests PUBLIC BACKWARD_HAS_DW)
-endif()
 
 add_test(mmm_tests mmm_tests)
 
