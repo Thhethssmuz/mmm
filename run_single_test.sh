@@ -7,4 +7,4 @@ mkdir -p build
 cd build
 cmake .. -DUSE_LIBDW=0
 make -j4 $name #VERBOSE=1
-ctest -R $name -V
+ctest -R $name --output-on-failure
