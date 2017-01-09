@@ -1,5 +1,8 @@
 #pragma once
 
+template <typename T, typename = typefu::for_signed<T>>
+constexpr T abs(T x);
+
 template <typename T, size_t N, typename = typefu::for_signed<T>>
 constexpr tvec<T, N> abs(const tvec<T, N>& x);
 
@@ -17,12 +20,19 @@ template <typename T, size_t N, typename A, typename = typefu::for_signed<T>>
 constexpr tvec<T, N> sign(const vecType<T, N, A>& x);
 
 
+
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promotef<T> floor(T x);
+
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> floor(const tvec<T, N>& x);
 
 template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> floor(const vecType<T, N, A>& x);
 
+
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promotef<T> ceil(T x);
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> ceil(const tvec<T, N>& x);

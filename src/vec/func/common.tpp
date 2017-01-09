@@ -1,5 +1,10 @@
 #pragma once
 
+template <typename T, typename>
+constexpr T abs(T x) {
+  return std::abs(x);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> abs(const tvec<T, N>& x) {
   return tvec<T, N>(abs(x.recursive.head), abs(x.recursive.tail));
@@ -25,6 +30,11 @@ constexpr tvec<T, N> sign(const vecType<T, N, A>& x) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promotef<T> floor(T x) {
+  return std::floor(x);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> floor(const tvec<T, N>& x) {
   return tvec<T, N>(floor(x.recursive.head), floor(x.recursive.tail));
@@ -34,6 +44,11 @@ constexpr tvec<T, N> floor(const vecType<T, N, A>& x) {
   return floor(vec_cast(x));
 }
 
+
+template <typename T, typename>
+constexpr typefu::promotef<T> ceil(T x) {
+  return std::ceil(x);
+}
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> ceil(const tvec<T, N>& x) {
