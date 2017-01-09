@@ -7,6 +7,7 @@
 #include <cmath>
 #include <iostream>
 
+namespace mmm {
 
 #include <typefu/traits.hpp>
 #include <typefu/gen.hpp>
@@ -83,3 +84,5 @@
 
 
 #include <types.hpp>
+
+}
