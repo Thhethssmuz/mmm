@@ -1,9 +1,9 @@
 #pragma once
 
-template <typename T, size_t N, typename = typefu::for_floating<T>>
+template <typename T, size_t N, typename = typefu::for_signed<T>>
 constexpr tvec<T, N> abs(const tvec<T, N>& x);
 
-template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
+template <typename T, size_t N, typename A, typename = typefu::for_signed<T>>
 constexpr tvec<T, N> abs(const vecType<T, N, A>& x);
 
 
