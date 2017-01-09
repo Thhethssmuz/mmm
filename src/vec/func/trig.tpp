@@ -44,6 +44,11 @@ constexpr tvec<T, N> degrees(const vecType<T, N, A>& radians) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promotef<T> sin(T angle) {
+  return std::sin(angle);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> sin(const tvec<T, N>& angle) {
   return tvec<T, N>(sin(angle.recursive.head), sin(angle.recursive.tail));
@@ -53,6 +58,11 @@ constexpr tvec<T, N> sin(const vecType<T, N, A>& angle) {
   return sin(vec_cast(angle));
 }
 
+
+template <typename T, typename>
+constexpr typefu::promotef<T> cos(T angle) {
+  return std::cos(angle);
+}
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> cos(const tvec<T, N>& angle) {
@@ -64,6 +74,11 @@ constexpr tvec<T, N> cos(const vecType<T, N, A>& angle) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promotef<T> tan(T angle) {
+  return std::tan(angle);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> tan(const tvec<T, N>& angle) {
   return tvec<T, N>(tan(angle.recursive.head), tan(angle.recursive.tail));
@@ -73,6 +88,11 @@ constexpr tvec<T, N> tan(const vecType<T, N, A>& angle) {
   return tan(vec_cast(angle));
 }
 
+
+template <typename T, typename>
+constexpr typefu::promotef<T> asin(T x) {
+  return std::asin(x);
+}
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> asin(const tvec<T, N>& x) {
@@ -84,6 +104,11 @@ constexpr tvec<T, N> asin(const vecType<T, N, A>& x) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promotef<T> acos(T x) {
+  return std::acos(x);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> acos(const tvec<T, N>& x) {
   return tvec<T, N>(acos(x.recursive.head), acos(x.recursive.tail));
@@ -93,6 +118,11 @@ constexpr tvec<T, N> acos(const vecType<T, N, A>& x) {
   return acos(vec_cast(x));
 }
 
+
+template <typename T, typename>
+constexpr typefu::promotef<T> atan(T y_over_x) {
+  return std::atan(y_over_x);
+}
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> atan(const tvec<T, N>& y_over_x) {
