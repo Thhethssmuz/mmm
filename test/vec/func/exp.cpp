@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto v_pow = UnitTest("vector exponential function pow", +[]() {
     vec4 v = vec4(1, 2, 3, 4);

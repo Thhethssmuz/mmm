@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto swiz_add1 = UnitTest("swizzle assignment operator += (1)", +[]() {
     ivec4 v = ivec4(0, 1, 2, 3);

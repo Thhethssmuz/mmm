@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto trs1 = UnitTest("matrix reduction function takeRows (1)", +[] {
     mat3 m = mat3(1, 4, 7, 2, 5, 8, 3, 6, 9);

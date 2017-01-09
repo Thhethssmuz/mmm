@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto sm_add = UnitTest("scalar matrix operator +", +[] {
     mat2x3 m = mat2x3(1, 2, 3, 2, 3, 4);

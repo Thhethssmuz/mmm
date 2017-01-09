@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto m_lt = UnitTest("matrix operator <", +[] {
     mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);

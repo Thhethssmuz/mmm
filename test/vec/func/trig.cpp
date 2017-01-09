@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto s_radians = UnitTest("scalar trigonometric function radians", +[]() {
     if (abs(radians(90) - 1.5708) > 0.0001) return false;

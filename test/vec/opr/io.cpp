@@ -3,6 +3,7 @@
 #include <sstream>
 
 namespace {
+  using namespace mmm;
 
   auto stream = UnitTest("vector io operator <<", +[]() {
     ivec4 v = ivec4(-1, 0, 1, 2);

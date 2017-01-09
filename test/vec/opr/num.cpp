@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto v_add = UnitTest("vector operator +", +[]() {
     vec3 v = vec3(1, 2, 3);

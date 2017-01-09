@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto constructors_1 = UnitTest("vector constructors (1)", +[] {
     vec4 v;

@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto s_length = UnitTest("scalar geometric function length", +[]() {
     if (length(1) != 1) return false;

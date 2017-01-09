@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto succ = UnitTest("vector enumeration operator ++", +[]() {
     ivec4 v = ivec4(1, 2, 3, 4);

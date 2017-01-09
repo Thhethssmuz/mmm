@@ -3,6 +3,7 @@
 #include <sstream>
 
 namespace {
+  using namespace mmm;
 
   auto stream1 = UnitTest("matrix io operator << (1)", +[] {
     mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);

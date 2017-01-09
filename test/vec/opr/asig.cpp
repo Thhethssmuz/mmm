@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto asig1 = UnitTest("vector assignment operator +=", +[] {
     vec3 v = vec3(1, 2, 3);

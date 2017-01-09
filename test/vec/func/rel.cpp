@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto s_lt = UnitTest("scalar relational function lessThan", +[]() {
     if (lessThan(4, 4)) return false;

@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto mcm = UnitTest("matrix function matrixCompMult", +[] {
     mat3 m = mat3(1, 4, 7, 2, 5, 8, 3, 6, 9);

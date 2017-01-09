@@ -2,6 +2,7 @@
 #include <mmm.hpp>
 
 namespace {
+  using namespace mmm;
 
   auto s_abs = UnitTest("scalar common function abs", +[]() {
     if (abs(8) != 8) return false;
