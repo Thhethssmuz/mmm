@@ -1,5 +1,10 @@
 #pragma once
 
+template <typename T, typename U, typename>
+constexpr typefu::promote<T, U> pow(T x, U y) {
+  return std::pow(x, y);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> pow(T s, const tvec<T, N>& v) {
   return tvec<T, N>(pow(s, v.recursive.head), pow(s, v.recursive.tail));
@@ -27,6 +32,11 @@ constexpr tvec<T, N> pow(const vecType<T, N, A>& v, const vecType<T, N, B>& u) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promotef<T> exp(T x) {
+  return std::exp(x);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> exp(const tvec<T, N>& x) {
   return tvec<T, N>(exp(x.recursive.head), exp(x.recursive.tail));
@@ -36,6 +46,11 @@ constexpr tvec<T, N> exp(const vecType<T, N, A>& x) {
   return exp(vec_cast(x));
 }
 
+
+template <typename T, typename>
+constexpr typefu::promotef<T> log(T x) {
+  return std::log(x);
+}
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> log(const tvec<T, N>& x) {
@@ -47,6 +62,11 @@ constexpr tvec<T, N> log(const vecType<T, N, A>& x) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promote<T> exp2(T x) {
+  return std::exp2(x);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> exp2(const tvec<T, N>& x) {
   return tvec<T, N>(exp2(x.recursive.head), exp2(x.recursive.tail));
@@ -57,6 +77,11 @@ constexpr tvec<T, N> exp2(const vecType<T, N, A>& x) {
 }
 
 
+template <typename T, typename>
+constexpr typefu::promotef<T> log2(T x) {
+  return std::log2(x);
+}
+
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> log2(const tvec<T, N>& x) {
   return tvec<T, N>(log2(x.recursive.head), log2(x.recursive.tail));
@@ -66,6 +91,11 @@ constexpr tvec<T, N> log2(const vecType<T, N, A>& x) {
   return log2(vec_cast(x));
 }
 
+
+template <typename T, typename>
+constexpr typefu::promotef<T> sqrt(T x) {
+  return std::sqrt(x);
+}
 
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> sqrt(const tvec<T, N>& x) {

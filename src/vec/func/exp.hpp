@@ -1,5 +1,8 @@
 #pragma once
 
+template <typename T, typename U, typename = typefu::for_arithmetic<T, U>>
+constexpr typefu::promote<T, U> pow(T x, U y);
+
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> pow(T s, const tvec<T, N>& v);
 
@@ -24,12 +27,18 @@ template <typename T, size_t N, typename A, typename B,
 constexpr tvec<T, N> pow(const vecType<T, N, A>& v, const vecType<T, N, B>& u);
 
 
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promotef<T> exp(T x);
+
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> exp(const tvec<T, N>& x);
 
 template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> exp(const vecType<T, N, A>& x);
 
+
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promotef<T> log(T x);
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> log(const tvec<T, N>& x);
@@ -38,6 +47,9 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> log(const vecType<T, N, A>& x);
 
 
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promote<T> exp2(T x);
+
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> exp2(const tvec<T, N>& x);
 
@@ -45,12 +57,18 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> exp2(const vecType<T, N, A>& x);
 
 
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promotef<T> log2(T x);
+
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> log2(const tvec<T, N>& x);
 
 template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> log2(const vecType<T, N, A>& x);
 
+
+template <typename T, typename = typefu::for_arithmetic<T>>
+constexpr typefu::promotef<T> sqrt(T x);
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> sqrt(const tvec<T, N>& x);
