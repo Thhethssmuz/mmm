@@ -188,6 +188,17 @@ namespace {
 
     return true;
   });
+  auto constructors_10 = UnitTest("vector constructors (10)", +[] {
+    vec2 v = {1, 2};
+    vec3 u = {1, 2, 3};
+    vec4 t = {1, 2, 3, 4};
+
+    if (v != vec2(1, 2)) return false;
+    if (u != vec3(1, 2, 3)) return false;
+    if (t != vec4(1, 2, 3, 4)) return false;
+
+    return true;
+  });
 
   auto index = UnitTest("vector index", +[] {
     vec4 v = vec4(1, 2, 3, 4);
