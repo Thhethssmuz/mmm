@@ -1,5 +1,8 @@
 #pragma once
 
+template <typename T, size_t N, size_t... Elems>
+struct swizzle;
+
 namespace typefu {
 
   // recursive multi argument variant of std::is_arithmetic
@@ -9,6 +12,10 @@ namespace typefu {
       is_arithmetic<T>::value and is_arithmetic<Ts...>::value;
   };
 
+  template <typename T, size_t N, size_t A>
+  struct is_arithmetic<swizzle<T, N, A>> {
+    static const bool value = std::is_arithmetic<T>::value;
+  };
   template <typename T>
   struct is_arithmetic<T> {
     static const bool value = std::is_arithmetic<T>::value;
@@ -22,6 +29,10 @@ namespace typefu {
       is_floating_point<T>::value and is_floating_point<Ts...>::value;
   };
 
+  template <typename T, size_t N, size_t A>
+  struct is_floating_point<swizzle<T, N, A>> {
+    static const bool value = std::is_floating_point<T>::value;
+  };
   template <typename T>
   struct is_floating_point<T> {
     static const bool value = std::is_floating_point<T>::value;
@@ -35,6 +46,10 @@ namespace typefu {
       is_integral<T>::value and is_integral<Ts...>::value;
   };
 
+  template <typename T, size_t N, size_t A>
+  struct is_integral<swizzle<T, N, A>> {
+    static const bool value = std::is_integral<T>::value;
+  };
   template <typename T>
   struct is_integral<T> {
     static const bool value = std::is_integral<T>::value;
@@ -48,12 +63,16 @@ namespace typefu {
       is_signed<T>::value and is_signed<Ts...>::value;
   };
 
+  template <typename T, size_t N, size_t A>
+  struct is_signed<swizzle<T, N, A>> {
+    static const bool value = std::is_signed<T>::value;
+  };
   template <typename T>
   struct is_signed<T> {
     static const bool value = std::is_signed<T>::value;
   };
 
-  
+
   // recursive multi argument shorthand for is_signed and is_integral
   template <typename... Ts>
   struct is_signed_integral {
@@ -69,6 +88,10 @@ namespace typefu {
       is_unsigned<T>::value and is_unsigned<Ts...>::value;
   };
 
+  template <typename T, size_t N, size_t A>
+  struct is_unsigned<swizzle<T, N, A>> {
+    static const bool value = std::is_unsigned<T>::value;
+  };
   template <typename T>
   struct is_unsigned<T> {
     static const bool value = std::is_unsigned<T>::value;
@@ -80,7 +103,7 @@ namespace typefu {
   // converted to type 'To'.
   template <typename To, typename From, typename... Froms>
   struct is_convertible {
-    static const bool value = 
+    static const bool value =
       is_convertible<To,From>::value and is_convertible<To,Froms...>::value;
   };
 
