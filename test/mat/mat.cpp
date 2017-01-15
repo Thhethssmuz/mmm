@@ -67,4 +67,16 @@ namespace {
 
     return true;
   });
+
+  auto t_array = UnitTest("matrix operator T*", +[] {
+    mat2 m = mat2(1, 2, 3, 4);
+    float* xs = m;
+
+    if (xs[0] != 1) return false;
+    if (xs[1] != 2) return false;
+    if (xs[2] != 3) return false;
+    if (xs[3] != 4) return false;
+
+    return true;
+  });
 }
