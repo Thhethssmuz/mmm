@@ -3,16 +3,7 @@
 // all trigonometric functions are only defined for floating point types and
 // floating vector types.
 
-constexpr float PI = 3.141592653589793f;
-constexpr double dPI = 3.14159265358979323846264338327950;
-constexpr long double lPI = 3.141592653589793238462643383279502884197169399375l;
-
-
-constexpr float radians(float degrees);
-constexpr double radians(double degrees);
-constexpr long double radians(long double degrees);
-
-template <typename T, typename = typefu::for_integral<T>>
+template <typename T, typename = typefu::for_arithmetic<T>>
 constexpr typefu::promotef<T> radians(T degrees);
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>
@@ -22,11 +13,7 @@ template <typename T, size_t N, typename A, typename = typefu::for_floating<T>>
 constexpr tvec<T, N> radians(const vecType<T, N, A>& degrees);
 
 
-constexpr float degrees(float radians);
-constexpr double degrees(double radians);
-constexpr long double degrees(long double radians);
-
-template <typename T, typename = typefu::for_integral<T>>
+template <typename T, typename = typefu::for_arithmetic<T>>
 constexpr typefu::promotef<T> degrees(T radians);
 
 template <typename T, size_t N, typename = typefu::for_floating<T>>

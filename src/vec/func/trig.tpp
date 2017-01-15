@@ -1,16 +1,10 @@
 #pragma once
 
-constexpr float radians(float degrees) { return degrees * PI / 180.0f; }
-constexpr double radians(double degrees) { return degrees * dPI / 180.0; }
-constexpr long double radians(long double degrees) {
-  return degrees * lPI / 180.0l;
-}
 template <typename T, typename>
 constexpr typefu::promotef<T> radians(T degrees) {
   typedef typefu::promotef<T> type;
-  return radians(type(degrees));
+  return type(degrees) * constants<type>::pi / type(180);
 }
-
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> radians(const tvec<T, N>& degrees) {
   return tvec<T, N>(radians(degrees.recursive.head),
@@ -22,17 +16,11 @@ constexpr tvec<T, N> radians(const vecType<T, N, A>& degrees) {
 }
 
 
-constexpr float degrees(float radians) { return radians * 180.0f / PI; }
-constexpr double degrees(double radians) { return radians * 180.0 / dPI; }
-constexpr long double degrees(long double radians) {
-  return radians * 180.0l / lPI;
-}
 template <typename T, typename>
 constexpr typefu::promotef<T> degrees(T radians) {
   typedef typefu::promotef<T> type;
-  return degrees(type(radians));
+  return type(radians) * type(180) / constants<type>::pi;
 }
-
 template <typename T, size_t N, typename>
 constexpr tvec<T, N> degrees(const tvec<T, N>& radians) {
   return tvec<T, N>(degrees(radians.recursive.head),

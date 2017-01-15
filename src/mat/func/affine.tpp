@@ -42,23 +42,23 @@ template <typename T, typename>
 constexpr tmat<T, 4, 4> rotate_x(T d) {
   return tmat<T, 4, 4>(
     1, 0, 0, 0,
-    0, cos(d * PI / T(180)), -sin(d * PI / T(180)), 0,
-    0, sin(d * PI / T(180)), cos(d * PI / T(180)), 0,
+    0, cos(d * constants<T>::pi / T(180)), -sin(d * constants<T>::pi / T(180)), 0,
+    0, sin(d * constants<T>::pi / T(180)), cos(d * constants<T>::pi / T(180)), 0,
     0, 0, 0, 1);
 }
 template <typename T, typename>
 constexpr tmat<T, 4, 4> rotate_y(T d) {
   return tmat<T, 4, 4>(
-    cos(d * PI / T(180)), 0, sin(d * PI / T(180)), 0,
+    cos(d * constants<T>::pi / T(180)), 0, sin(d * constants<T>::pi / T(180)), 0,
     0, 1, 0, 0,
-    -sin(d * PI / T(180)), 0, cos(d * PI / T(180)), 0,
+    -sin(d * constants<T>::pi / T(180)), 0, cos(d * constants<T>::pi / T(180)), 0,
     0, 0, 0, 1);
 }
 template <typename T, typename>
 constexpr tmat<T, 4, 4> rotate_z(T d) {
   return tmat<T, 4, 4>(
-    cos(d * PI / T(180)), -sin(d * PI / T(180)), 0, 0,
-    sin(d * PI / T(180)), cos(d * PI / T(180)), 0, 0,
+    cos(d * constants<T>::pi / T(180)), -sin(d * constants<T>::pi / T(180)), 0, 0,
+    sin(d * constants<T>::pi / T(180)), cos(d * constants<T>::pi / T(180)), 0, 0,
     0, 0, 1, 0,
     0, 0, 0, 1);
 }
