@@ -18,6 +18,7 @@ namespace mmm {
 #include <typefu/components.hpp>
 #include <typefu/range.hpp>
 
+#include <const.hpp>
 
 #include <vec/vecType.hpp>
 #include <swizzle/swizzle.hpp>
