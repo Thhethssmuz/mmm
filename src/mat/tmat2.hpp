@@ -11,6 +11,7 @@ struct tmat<T, 2, M> {
   };
 
   union {
+    T rawdata[2*M];
     tvec<T, M> data[2];
     R recursive;
   };

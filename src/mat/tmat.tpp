@@ -47,7 +47,7 @@ tvec<T, M>& tmat<T, N, M>::operator[](size_t i) {
 }
 template <typename T, size_t N, size_t M>
 tmat<T, N, M>::operator T*() {
-  return data;
+  return rawdata;
 }
 
 
