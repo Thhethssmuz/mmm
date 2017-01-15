@@ -14,9 +14,6 @@ namespace {
     std::string printed = ss.str();
     std::string expected = "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]";
 
-    std::cout << "expected: " << expected << std::endl;
-    std::cout << "actual  : " << printed << std::endl;
-
     return printed == expected;
   });
   auto stream2 = UnitTest("matrix io operator << (2)", +[] {
