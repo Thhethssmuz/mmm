@@ -33,4 +33,6 @@ struct tmat<T, 2, M> {
   operator T*();
 
   tmat<T, 2, M>& operator=(const tmat<T, 2, M>& m);
+
+  static const tmat<T, 2, M> identity;
 };

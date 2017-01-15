@@ -49,7 +49,7 @@ namespace mmm {
 #include <mat/func/reduct.hpp>
 #include <mat/func/mat.hpp>
 #include <mat/func/io.hpp>
-
+#include <mat/func/affine.hpp>
 
 #include <vec/vecType.tpp>
 #include <swizzle/swizzle.tpp>
@@ -81,6 +81,7 @@ namespace mmm {
 #include <mat/func/reduct.tpp>
 #include <mat/func/mat.tpp>
 #include <mat/func/io.tpp>
+#include <mat/func/affine.tpp>
 
 
 #include <types.hpp>
