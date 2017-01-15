@@ -12,7 +12,10 @@ namespace {
     ss << m;
 
     std::string printed = ss.str();
-    std::string expected = "[1, 4, 7]\n[2, 5, 8]\n[3, 6, 9]";
+    std::string expected = "[[1, 2, 3], [4, 5, 6], [7, 8, 9]]";
+
+    std::cout << "expected: " << expected << std::endl;
+    std::cout << "actual  : " << printed << std::endl;
 
     return printed == expected;
   });
@@ -23,7 +26,7 @@ namespace {
     ss << m;
 
     std::string printed = ss.str();
-    std::string expected = "[1, 5]\n[2, 6]\n[3, 7]\n[4, 8]";
+    std::string expected = "[[1, 2, 3, 4], [5, 6, 7, 8]]";
 
     return printed == expected;
   });
