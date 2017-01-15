@@ -80,3 +80,57 @@ template <typename T, typename>
 constexpr tmat<T, 4, 4> scale(const tvec<T, 3>& v) {
   return tmat<T, 4, 4>(v[0], 0, 0, 0, 0, v[1], 0, 0, 0, 0, v[2], 0, 0, 0, 0, 1);
 }
+
+
+template <typename T, typename>
+tmat<T, 4, 4> lookAt(const tvec<T, 3>& eye,
+                     const tvec<T, 3>& center,
+                     const tvec<T, 3>& up) {
+
+  tvec<T, 3> f = normalize(center - eye);
+  tvec<T, 3> u = normalize(up);
+  tvec<T, 3> s = normalize(cross(f, u));
+  u = cross(s, f);
+
+  return tmat<T, 4, 4>(
+    s.x, s.y, s.z, -dot(s, eye),
+    u.x, u.y, u.z, -dot(u, eye),
+    -f.x, -f.y, -f.z, dot(f, eye),
+    0, 0, 0, 1);
+}
+
+template <typename T, typename>
+tmat<T, 4, 4> perspective(T fovy, T aspect, T near, T far) {
+
+  T r  = tan(fovy * constants<T>::pi / T(360)) * near;
+  T sx = (T(2) * near) / (r * aspect + r * aspect);
+  T sy = near / r;
+  T sz = -(far + near) / (far - near);
+  T pz = -(T(2) * far * near) / (far - near);
+
+  return tmat<T, 4, 4>(sx, 0, 0, 0, 0, sy, 0, 0, 0, 0, sz, pz, 0, 0, -1, 0);
+}
+
+template <typename T, typename>
+constexpr tmat<T, 4, 4> ortho(T left, T right, T bottom, T top, T near, T far) {
+  return tmat<T, 4, 4>(
+    T(2) / (right - left), 0, 0, -(right + left) / (right - left),
+    0, T(2) / (top - bottom), 0, -(top + bottom) / (top - bottom), 0,
+    0, T(-2) / (far - near), -(far + near) / (far - near),
+    0, 0, 0, 1);
+}
+
+template <typename T, typename>
+tvec<T, 3> unProject(const tvec<T, 3>& win,
+                     const tmat<T, 4, 4>& model,
+                     const tmat<T, 4, 4>& proj,
+                     const tvec<T, 4>& viewport) {
+
+  tvec<T, 4> d = vec4(win, T(1));
+
+  d.x = (d.x - viewport.x) / viewport.z;
+  d.y = (d.y - viewport.y) / viewport.w;
+  d   = inverse(proj * model) * (d * T(2) - T(1));
+
+  return tvec<T, 3>(d / d.w);
+}
