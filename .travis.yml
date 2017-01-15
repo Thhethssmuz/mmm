@@ -3,17 +3,17 @@ compiler:
   - clang
   - gcc
 
-before_install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo add-apt-repository ppa:llvm-toolchain-precise-3.9 -y
-  - sudo apt-get update -qq
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.9
+    packages:
+      - g++-6
+      - clang-3.9
 
-  # g++ 6
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-6; fi
+install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-6" CC="gcc-6"; fi
-
-  # clang 3.9
-  - if [ "$CXX" == "clang++" ]; then sudo apt-get install -qq clang-3.9; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.9" CC="clang-3.9"; fi
 
 script:
