@@ -2,7 +2,7 @@
 
 template <typename T, size_t N>
 constexpr tvec<T, N>::tvec()
-  : data{0} {}
+  : recursive{0, tvec<T, N - 1>(0)} {}
 
 template <typename T, size_t N>
 constexpr tvec<T, N>::tvec(T x)

@@ -2,15 +2,15 @@
 
 template <typename T>
 constexpr tvec<T, 2>::tvec()
-  : data{0} {}
+  : recursive{0, 0} {}
 
 template <typename T>
 constexpr tvec<T, 2>::tvec(T x, T y)
-  : data{x, y} {}
+  : recursive{x, y} {}
 
 template <typename T>
 constexpr tvec<T, 2>::tvec(T x)
-  : data{x, x} {}
+  : recursive{x, x} {}
 
 
 template <typename T>
