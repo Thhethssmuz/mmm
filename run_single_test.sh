@@ -6,5 +6,5 @@ name="mmm_${name}_test"
 mkdir -p build
 cd build
 cmake .. -DMMM_BUILD_UNIT_TESTS=1 -DUSE_LIBDW=0
-make -j4 $name #VERBOSE=1
-ctest -R $name --output-on-failure
+make -j4 "$name" #VERBOSE=1
+ctest -R "$name" --output-on-failure
