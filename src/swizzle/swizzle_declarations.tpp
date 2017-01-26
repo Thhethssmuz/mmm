@@ -1,7 +1,47 @@
+#if MMM_CLANG
+#  pragma clang diagnostic push
+#  pragma clang diagnostic ignored "-Wgnu-anonymous-struct"
+#  pragma clang diagnostic ignored "-Wnested-anon-types"
+#elif MMM_GNUC
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wpedantic"
+#endif
+
+#if MMM_CLANG || MMM_GNUC
+#  if N == 2
+
+struct { T x, y; };
+struct { T r, g; };
+struct { T s, t; };
+
+#  elif N == 3
+
+struct { T x, y, z; };
+struct { T r, g, b; };
+struct { T s, t, p; };
+
+#  else
+
+struct { T x, y, z, w; };
+struct { T r, g, b, a; };
+struct { T s, t, p, q; };
+
+#  endif
+
+#  if MMM_CLANG
+#    pragma clang diagnostic pop
+#  elif MMM_GNUC
+#    pragma GCC diagnostic pop
+#  endif
+
+#else
+
 swizzle<T,N,0> x, r, s;
 swizzle<T,N,1> y, g, t;
 swizzle<T,N,2> z, b, p;
 swizzle<T,N,3> w, a, q;
+
+#endif
 
 swizzle<T,N,0,0> xx, rr, ss;
 swizzle<T,N,0,1> xy, rg, st;
