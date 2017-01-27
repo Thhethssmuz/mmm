@@ -258,4 +258,21 @@ namespace {
 
     return true;
   });
+  auto swiz_asig5 = UnitTest("swizzle assignment operator = (5)", +[]() {
+    vec<5> v = vec<5>(1, 2, 3, 4, 5);
+
+    v.x = 0;
+    if (v != vec<5>(0, 2, 3, 4, 5)) return false;
+
+    v.xy = 1;
+    if (v != vec<5>(1, 1, 3, 4, 5)) return false;
+
+    v.xyz = 2;
+    if (v != vec<5>(2, 2, 2, 4, 5)) return false;
+
+    v.xyzw = 3;
+    if (v != vec<5>(3, 3, 3, 3, 5)) return false;
+
+    return true;
+  });
 }
