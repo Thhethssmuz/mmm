@@ -264,4 +264,16 @@ namespace {
 
     return true;
   });
+
+  auto vec_sizeof = UnitTest("sizeof vector", +[] {
+    if (sizeof(tvec<float, 2>) != sizeof(float[2])) return false;
+    if (sizeof(tvec<float, 3>) != sizeof(float[3])) return false;
+    if (sizeof(tvec<float, 4>) != sizeof(float[4])) return false;
+    if (sizeof(tvec<float, 5>) != sizeof(float[5])) return false;
+    if (sizeof(tvec<float, 6>) != sizeof(float[6])) return false;
+    if (sizeof(tvec<float, 7>) != sizeof(float[7])) return false;
+    if (sizeof(tvec<float, 8>) != sizeof(float[8])) return false;
+
+    return true;
+  });
 }
