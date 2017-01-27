@@ -25,6 +25,7 @@ namespace mmm {
 #include <swizzle/swizzle1.hpp>
 #include <vec/tvec.hpp>
 #include <vec/tvec2.hpp>
+#include <vec/tvec3.hpp>
 #include <mat/tmat.hpp>
 #include <mat/tmat2.hpp>
 
@@ -57,6 +58,7 @@ namespace mmm {
 #include <swizzle/swizzle1.tpp>
 #include <vec/tvec.tpp>
 #include <vec/tvec2.tpp>
+#include <vec/tvec3.tpp>
 #include <mat/tmat.tpp>
 #include <mat/tmat2.tpp>
 

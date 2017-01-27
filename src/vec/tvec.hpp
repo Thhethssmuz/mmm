@@ -17,7 +17,7 @@ struct tvec : vecType<T, N, tvec<T, N>> {
     T data[N];
     R recursive;
 
-#include <swizzle/swizzle_declarations.tpp>
+#   include <swizzle/swizzle_declarations.tpp>
   };
 
   constexpr tvec();
