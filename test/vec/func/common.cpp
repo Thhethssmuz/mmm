@@ -133,6 +133,14 @@ namespace {
     if (min(9.f, 4) != 4) return false;
     if (min(4.f, 9.0) != 4) return false;
 
+    vec2 v = vec2(1, 2);
+
+    if (min(0, v.x) != 0) return false;
+    if (min(2, v.x) != 1) return false;
+
+    if (min(1, v.y) != 1) return false;
+    if (min(3, v.y) != 2) return false;
+
     return true;
   });
   auto v_min = UnitTest("vector common function min", +[]() {
@@ -155,6 +163,14 @@ namespace {
     if (max(9, 4) != 9) return false;
     if (max(9.f, 4) != 9) return false;
     if (max(4.f, 9.0) != 9) return false;
+
+    vec2 v = vec2(1, 2);
+
+    if (max(0, v.x) != 1) return false;
+    if (max(2, v.x) != 2) return false;
+
+    if (max(1, v.y) != 2) return false;
+    if (max(3, v.y) != 3) return false;
 
     return true;
   });
