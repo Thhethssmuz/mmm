@@ -79,4 +79,23 @@ namespace {
 
     return true;
   });
+
+  auto mat_sizeof = UnitTest("sizeof matrix", +[] {
+    if (sizeof(tmat<float, 2, 2>) != sizeof(float[2*2])) return false;
+    if (sizeof(tmat<float, 2, 3>) != sizeof(float[2*3])) return false;
+    if (sizeof(tmat<float, 2, 4>) != sizeof(float[2*4])) return false;
+    if (sizeof(tmat<float, 3, 2>) != sizeof(float[3*2])) return false;
+    if (sizeof(tmat<float, 3, 3>) != sizeof(float[3*3])) return false;
+    if (sizeof(tmat<float, 3, 4>) != sizeof(float[3*4])) return false;
+    if (sizeof(tmat<float, 4, 2>) != sizeof(float[4*2])) return false;
+    if (sizeof(tmat<float, 4, 3>) != sizeof(float[4*3])) return false;
+    if (sizeof(tmat<float, 4, 4>) != sizeof(float[4*4])) return false;
+
+    if (sizeof(tmat<float, 5, 5>) != sizeof(float[5*5])) return false;
+    if (sizeof(tmat<float, 6, 6>) != sizeof(float[6*6])) return false;
+    if (sizeof(tmat<float, 7, 7>) != sizeof(float[7*7])) return false;
+    if (sizeof(tmat<float, 8, 8>) != sizeof(float[8*8])) return false;
+
+    return true;
+  });
 }
