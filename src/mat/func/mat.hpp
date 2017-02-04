@@ -4,9 +4,9 @@ template <typename T, size_t N, size_t M, typename = typefu::for_arithmetic<T>>
 constexpr tmat<T, N, M> matrixCompMult(const tmat<T, N, M>& m,
                                        const tmat<T, N, M>& n);
 
-template <typename T, size_t M, typename = typefu::for_arithmetic<T>>
-constexpr tmat<T, 2, M> matrixCompMult(const tmat<T, 2, M>& m,
-                                       const tmat<T, 2, M>& n);
+template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
+constexpr tmat<T, N, 2> matrixCompMult(const tmat<T, N, 2>& m,
+                                       const tmat<T, N, 2>& n);
 
 
 template <typename T, size_t N, typename = typefu::for_arithmetic<T>>
@@ -51,35 +51,35 @@ template <size_t L, typename T, size_t N, typename = typefu::for_signed<T>,
 constexpr T determinant(const tmat<T, N, N>& m);
 
 
-template <size_t C, size_t R, typename T, typename = typefu::for_signed<T>,
-          typename = typefu::for_<(C < 2 and R < 2)>>
+template <size_t R, size_t C, typename T, typename = typefu::for_signed<T>,
+          typename = typefu::for_<(R < 2 and C < 2)>>
 constexpr T cofactor(const tmat<T, 2, 2>& m);
 
-template <size_t C, size_t R, typename T, size_t N,
+template <size_t R, size_t C, typename T, size_t N,
           typename = typefu::for_signed<T>,
-          typename = typefu::for_<(C < N and R < N)>>
+          typename = typefu::for_<(R < N and C < N)>>
 constexpr T cofactor(const tmat<T, N, N>& m);
 
 
 template <typename T, typename = typefu::for_signed<T>>
 constexpr tmat<T, 2, 2> cofactors(const tmat<T, 2, 2>& m);
 
-template <size_t C = 0, typename T, size_t N, typename = typefu::for_signed<T>,
-          typename = typefu::for_<(N - C > 2)>, typename = void>
-constexpr tmat<T, N - C, N> cofactors(const tmat<T, N, N>& m);
-
-template <size_t C, typename T, size_t N, typename = typefu::for_signed<T>,
-          typename = typefu::for_<(N - C == 2)>>
-constexpr tmat<T, 2, N> cofactors(const tmat<T, N, N>& m);
-
-template <size_t C, size_t R, typename T, size_t N,
-          typename = typefu::for_signed<T>,
+template <size_t R = 0, typename T, size_t N, typename = typefu::for_signed<T>,
           typename = typefu::for_<(N - R > 2)>, typename = void>
-constexpr tvec<T, N - R> cofactors(const tmat<T, N, N>& m);
+constexpr tmat<T, N, N - R> cofactors(const tmat<T, N, N>& m);
 
-template <size_t C, size_t R, typename T, size_t N,
-          typename = typefu::for_signed<T>,
+template <size_t R, typename T, size_t N, typename = typefu::for_signed<T>,
           typename = typefu::for_<(N - R == 2)>>
+constexpr tmat<T, N, 2> cofactors(const tmat<T, N, N>& m);
+
+template <size_t R, size_t C, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(N - C > 2)>, typename = void>
+constexpr tvec<T, N - C> cofactors(const tmat<T, N, N>& m);
+
+template <size_t R, size_t C, typename T, size_t N,
+          typename = typefu::for_signed<T>,
+          typename = typefu::for_<(N - C == 2)>>
 constexpr tvec<T, 2> cofactors(const tmat<T, N, N>& m);
 
 
