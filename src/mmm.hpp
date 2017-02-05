@@ -49,6 +49,7 @@ namespace mmm {
 #include <mat/opr/io.hpp>
 
 #include <mat/func/red.hpp>
+#include <mat/func/enl.hpp>
 #include <mat/func/mat.hpp>
 #include <mat/func/io.hpp>
 #include <mat/func/affine.hpp>
@@ -82,6 +83,7 @@ namespace mmm {
 #include <mat/opr/io.tpp>
 
 #include <mat/func/red.tpp>
+#include <mat/func/enl.tpp>
 #include <mat/func/mat.tpp>
 #include <mat/func/io.tpp>
 #include <mat/func/affine.tpp>
