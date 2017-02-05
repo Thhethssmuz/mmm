@@ -1,31 +1,30 @@
 #pragma once
 
-template <typename T, size_t N, size_t E, typename>
-constexpr tvec<T, N> build_identity_row() {
-  return tvec<T, N>(
-    E == 1 ? T(1) : T(0), build_identity_row<T, N - 1, E == 0 ? 0 : E - 1>());
-}
-template <typename T, size_t N, size_t E, typename, typename, typename>
-constexpr tvec<T, N> build_identity_row() {
-  return tvec<T, N>(E == 1 ? T(1) : T(0), E == 2 ? T(1) : T(0));
-}
-
 template <typename T, size_t N, size_t M, typename>
-constexpr tmat<T, N, M> identity() {
-  return tmat<T, N, M>(build_identity_row<T, M, M - N + 1>(),
-                       identity<T, N - 1, M>());
+constexpr tmat<T, 2, 2> identity() {
+  return tmat<T, 2, 2>(1, 0, 0, 1);
 }
 template <typename T, size_t N, size_t M, typename, typename>
 constexpr tmat<T, N, M> identity() {
-  return tmat<T, N, M>(build_identity_row<T, M, M - 1>(),
-                       build_identity_row<T, M, M>());
+  return appendColumn(identity<T, N - 1, M>(), tvec<T, M>(0));
 }
+template <typename T, size_t N, size_t M, typename, typename, typename>
+constexpr tmat<T, N, M> identity() {
+  return appendRow(identity<T, N, M - 1>(), tvec<T, N>(0));
+}
+template <typename T, size_t N, size_t M, typename, typename, typename,
+          typename>
+constexpr tmat<T, N, M> identity() {
+  return appendRow(appendColumn(identity<T, N - 1, M - 1>(), tvec<T, M - 1>(0)),
+                   tvec<T, N>(tvec<T, N - 1>(0), 1));
+}
+
+
+template <typename T, size_t N>
+constexpr tmat<T, N, 2> tmat<T, N, 2>::identity = mmm::identity<T, N, 2>();
 
 template <typename T, size_t N, size_t M>
 constexpr tmat<T, N, M> tmat<T, N, M>::identity = mmm::identity<T, N, M>();
-
-template <typename T, size_t M>
-constexpr tmat<T, 2, M> tmat<T, 2, M>::identity = mmm::identity<T, 2, M>();
 
 
 template <typename T, typename>

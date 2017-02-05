@@ -1,19 +1,19 @@
 #pragma once
 
-template <typename T, size_t N, size_t E,
-          typename = typefu::for_<(N > 2)>>
-constexpr tvec<T, N> build_identity_row();
+template <typename T, size_t N, size_t M = N,
+          typename = typefu::for_<N == 2 and M == 2>>
+constexpr tmat<T, 2, 2> identity();
 
-template <typename T, size_t N, size_t E, typename = typefu::for_<N == 2>,
-          typename = void, typename = void>
-constexpr tvec<T, N> build_identity_row();
-
-
-template <typename T, size_t N, size_t M = N, typename = typefu::for_<(N > 2)>>
+template <typename T, size_t N, size_t M = N, typename = typefu::for_<(N > 2)>,
+          typename = typefu::for_<(M < N)>>
 constexpr tmat<T, N, M> identity();
 
-template <typename T, size_t N, size_t M = N, typename = typefu::for_<N == 2>,
-          typename = void>
+template <typename T, size_t N, size_t M = N, typename = typefu::for_<(N > 1)>,
+          typename = typefu::for_<(M > N)>, typename = void>
+constexpr tmat<T, N, M> identity();
+
+template <typename T, size_t N, size_t M = N, typename = typefu::for_<(N > 2)>,
+          typename = typefu::for_<M == N>, typename = void, typename = void>
 constexpr tmat<T, N, M> identity();
 
 
