@@ -30,15 +30,18 @@ template <size_t N, typename T, size_t L, typename A,
           typename = typefu::for_<(N <= L)>, typename = typefu::for_<(N > 1)>>
 constexpr tvec<T, N> take(const vecType<T, L, A>& v);
 
+template <size_t N, typename T, typename = typefu::for_<(N == 2)>>
+constexpr tvec<T, 2> take(const tvec<T, 2>& v);
+
+template <size_t N, typename T, typename A, typename = typefu::for_<(N == 2)>>
+constexpr tvec<T, 2> take(const vecType<T, 2, A>& v);
+
 template <size_t N, typename T, size_t L, typename = typefu::for_<(N == 1)>>
 constexpr T take(const tvec<T, L>& v);
 
 template <size_t N, typename T, size_t L, typename A,
           typename = typefu::for_<(N == 1)>>
 constexpr T take(const vecType<T, L, A>& v);
-
-template <size_t N, typename T, typename = typefu::for_<(N == 1)>>
-constexpr T take(T x);
 
 
 template <size_t N, typename T, size_t L,

@@ -36,6 +36,14 @@ template <size_t N, typename T, size_t L, typename A, typename, typename>
 constexpr tvec<T, N> take(const vecType<T, L, A>& v) {
   return take<N>(vec_cast(v));
 }
+template <size_t N, typename T, typename>
+constexpr tvec<T, 2> take(const tvec<T, 2>& v){
+  return tvec<T, 2>(v);
+}
+template <size_t N, typename T, typename A, typename>
+constexpr tvec<T, 2> take(const vecType<T, 2, A>& v) {
+  return vec_cast(v);
+}
 template <size_t N, typename T, size_t L, typename>
 constexpr T take(const tvec<T, L>& v) {
   return v.recursive.head;
@@ -43,10 +51,6 @@ constexpr T take(const tvec<T, L>& v) {
 template <size_t N, typename T, size_t L, typename A, typename>
 constexpr T take(const vecType<T, L, A>& v) {
   return take<1>(vec_cast(v));
-}
-template <size_t N, typename T, typename>
-constexpr T take(T x) {
-  return x;
 }
 
 
