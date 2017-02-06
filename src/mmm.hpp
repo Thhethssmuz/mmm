@@ -40,7 +40,7 @@ namespace mmm {
 #include <vec/func/common.hpp>
 #include <vec/func/geo.hpp>
 #include <vec/func/rel.hpp>
-#include <vec/func/reduct.hpp>
+#include <vec/func/red.hpp>
 #include <vec/func/io.hpp>
 
 #include <mat/opr/asig.hpp>
@@ -74,7 +74,7 @@ namespace mmm {
 #include <vec/func/common.tpp>
 #include <vec/func/geo.tpp>
 #include <vec/func/rel.tpp>
-#include <vec/func/reduct.tpp>
+#include <vec/func/red.tpp>
 #include <vec/func/io.tpp>
 
 #include <mat/opr/asig.tpp>
