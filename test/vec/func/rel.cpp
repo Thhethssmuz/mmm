@@ -1,210 +1,403 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto s_lt = UnitTest("scalar relational function lessThan", +[]() {
-    if (lessThan(4, 4)) return false;
-    if (lessThan(8.f, 5)) return false;
-    if (!lessThan(1.l, 9.0)) return false;
+TEST_CASE("vector relational function lessThan", "[vec][rel]") {
 
-    return true;
-  });
-  auto v_lt = UnitTest("vector relational function lessThan", +[]() {
-    ivec3 v = ivec3(1, 2, 3);
-    ivec3 u = ivec3(0, 2, 4);
+  SECTION("scalar") {
+    REQUIRE(lessThan(1, 2) == true);
+    REQUIRE(lessThan(1, 1) == false);
+    REQUIRE(lessThan(2, 1) == false);
+    REQUIRE(lessThan(1.f, 2) == true);
+    REQUIRE(lessThan(2.0, 1) == false);
+  }
 
-    bvec3 b = lessThan(v, 2);
-    bvec3 c = lessThan(2.f, v);
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
 
-    bvec3 d = lessThan(v, u);
-    bvec3 e = lessThan(v.zyx, u);
+    REQUIRE(lessThan(2, v) == bvec2(0, 0));
+    REQUIRE(lessThan(v, 2) == bvec2(1, 0));
+    REQUIRE(lessThan(2, v.xy) == bvec2(0, 0));
+    REQUIRE(lessThan(v.xy, 2) == bvec2(1, 0));
 
-    if (!b.x or b.y or b.z) return false;
-    if (c.x or c.y or !c.z) return false;
+    REQUIRE(lessThan(vec2(2, 2), v) == bvec2(0, 0));
+    REQUIRE(lessThan(v, vec2(2, 2)) == bvec2(1, 0));
+    REQUIRE(lessThan(vec2(2, 2), v.xy) == bvec2(0, 0));
+    REQUIRE(lessThan(v.xy, vec2(2, 2)) == bvec2(1, 0));
+  }
 
-    if (d.x or d.y or !d.z) return false;
-    if (e.x or e.y or !e.z) return false;
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
 
-    return true;
-  });
+    REQUIRE(lessThan(2, v) == bvec3(0, 0, 1));
+    REQUIRE(lessThan(v, 2) == bvec3(1, 0, 0));
+    REQUIRE(lessThan(2, v.xyz) == bvec3(0, 0, 1));
+    REQUIRE(lessThan(v.xyz, 2) == bvec3(1, 0, 0));
 
-  auto s_le = UnitTest("scalar relational function lessThanEqual", +[]() {
-    if (!lessThanEqual(4, 4)) return false;
-    if (lessThanEqual(8.f, 5)) return false;
-    if (!lessThanEqual(1.l, 9.0)) return false;
+    REQUIRE(lessThan(vec3(2, 2, 3), v) == bvec3(0, 0, 0));
+    REQUIRE(lessThan(v, vec3(2, 2, 3)) == bvec3(1, 0, 0));
+    REQUIRE(lessThan(vec3(2, 2, 3), v.xyz) == bvec3(0, 0, 0));
+    REQUIRE(lessThan(v.xyz, vec3(2, 2, 3)) == bvec3(1, 0, 0));
+  }
 
-    return true;
-  });
-  auto v_le = UnitTest("vector relational function lessThanEqual", +[]() {
-    ivec3 v = ivec3(1, 2, 3);
-    ivec3 u = ivec3(0, 2, 4);
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
 
-    bvec3 b = lessThanEqual(v, 2);
-    bvec3 c = lessThanEqual(2.f, v);
+    REQUIRE(lessThan(2, v) == bvec4(0, 0, 1, 1));
+    REQUIRE(lessThan(v, 2) == bvec4(1, 0, 0, 0));
+    REQUIRE(lessThan(2, v.xyzw) == bvec4(0, 0, 1, 1));
+    REQUIRE(lessThan(v.xyzw, 2) == bvec4(1, 0, 0, 0));
 
-    bvec3 d = lessThanEqual(v, u);
-    bvec3 e = lessThanEqual(v.zyx, u);
+    REQUIRE(lessThan(vec4(2, 2, 3, 3), v) == bvec4(0, 0, 0, 1));
+    REQUIRE(lessThan(v, vec4(2, 2, 3, 3)) == bvec4(1, 0, 0, 0));
+    REQUIRE(lessThan(vec4(2, 2, 3, 3), v.xyzw) == bvec4(0, 0, 0, 1));
+    REQUIRE(lessThan(v.xyzw, vec4(2, 2, 3, 3)) == bvec4(1, 0, 0, 0));
+  }
+}
 
-    if (!b.x or !b.y or b.z) return false;
-    if (c.x or !c.y or !c.z) return false;
+TEST_CASE("vector relational function lessThanEqual", "[vec][rel]") {
 
-    if (d.x or !d.y or !d.z) return false;
-    if (e.x or !e.y or !e.z) return false;
+  SECTION("scalar") {
+    REQUIRE(lessThanEqual(1, 2) == true);
+    REQUIRE(lessThanEqual(1, 1) == true);
+    REQUIRE(lessThanEqual(2, 1) == false);
+    REQUIRE(lessThanEqual(1.f, 2) == true);
+    REQUIRE(lessThanEqual(2.0, 1) == false);
+  }
 
-    return true;
-  });
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
 
-  auto s_gt = UnitTest("scalar relational function greaterThan", +[]() {
-    if (greaterThan(4, 4)) return false;
-    if (!greaterThan(8.f, 5)) return false;
-    if (greaterThan(1.l, 9.0)) return false;
+    REQUIRE(lessThanEqual(2, v) == bvec2(0, 1));
+    REQUIRE(lessThanEqual(v, 2) == bvec2(1, 1));
+    REQUIRE(lessThanEqual(2, v.xy) == bvec2(0, 1));
+    REQUIRE(lessThanEqual(v.xy, 2) == bvec2(1, 1));
 
-    return true;
-  });
-  auto v_gt = UnitTest("vector relational function greaterThan", +[]() {
-    ivec3 v = ivec3(1, 2, 3);
-    ivec3 u = ivec3(0, 2, 4);
+    REQUIRE(lessThanEqual(vec2(2, 2), v) == bvec2(0, 1));
+    REQUIRE(lessThanEqual(v, vec2(2, 2)) == bvec2(1, 1));
+    REQUIRE(lessThanEqual(vec2(2, 2), v.xy) == bvec2(0, 1));
+    REQUIRE(lessThanEqual(v.xy, vec2(2, 2)) == bvec2(1, 1));
+  }
 
-    bvec3 b = greaterThan(v, 2);
-    bvec3 c = greaterThan(2.f, v);
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
 
-    bvec3 d = greaterThan(v, u);
-    bvec3 e = greaterThan(v.zyx, u);
+    REQUIRE(lessThanEqual(2, v) == bvec3(0, 1, 1));
+    REQUIRE(lessThanEqual(v, 2) == bvec3(1, 1, 0));
+    REQUIRE(lessThanEqual(2, v.xyz) == bvec3(0, 1, 1));
+    REQUIRE(lessThanEqual(v.xyz, 2) == bvec3(1, 1, 0));
 
-    if (b.x or b.y or !b.z) return false;
-    if (!c.x or c.y or c.z) return false;
+    REQUIRE(lessThanEqual(vec3(2, 2, 3), v) == bvec3(0, 1, 1));
+    REQUIRE(lessThanEqual(v, vec3(2, 2, 3)) == bvec3(1, 1, 1));
+    REQUIRE(lessThanEqual(vec3(2, 2, 3), v.xyz) == bvec3(0, 1, 1));
+    REQUIRE(lessThanEqual(v.xyz, vec3(2, 2, 3)) == bvec3(1, 1, 1));
+  }
 
-    if (!d.x or d.y or d.z) return false;
-    if (!e.x or e.y or e.z) return false;
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
 
-    return true;
-  });
+    REQUIRE(lessThanEqual(2, v) == bvec4(0, 1, 1, 1));
+    REQUIRE(lessThanEqual(v, 2) == bvec4(1, 1, 0, 0));
+    REQUIRE(lessThanEqual(2, v.xyzw) == bvec4(0, 1, 1, 1));
+    REQUIRE(lessThanEqual(v.xyzw, 2) == bvec4(1, 1, 0, 0));
 
-  auto s_ge = UnitTest("scalar relational function greaterThanEqual", +[]() {
-    if (!greaterThanEqual(4, 4)) return false;
-    if (!greaterThanEqual(8.f, 5)) return false;
-    if (greaterThanEqual(1.l, 9.0)) return false;
+    REQUIRE(lessThanEqual(vec4(2, 2, 3, 3), v) == bvec4(0, 1, 1, 1));
+    REQUIRE(lessThanEqual(v, vec4(2, 2, 3, 3)) == bvec4(1, 1, 1, 0));
+    REQUIRE(lessThanEqual(vec4(2, 2, 3, 3), v.xyzw) == bvec4(0, 1, 1, 1));
+    REQUIRE(lessThanEqual(v.xyzw, vec4(2, 2, 3, 3)) == bvec4(1, 1, 1, 0));
+  }
+}
 
-    return true;
-  });
-  auto v_ge = UnitTest("vector relational function greaterThanEqual", +[]() {
-    ivec3 v = ivec3(1, 2, 3);
-    ivec3 u = ivec3(0, 2, 4);
+TEST_CASE("vector relational function greaterThan", "[vec][rel]") {
 
-    bvec3 b = greaterThanEqual(v, 2);
-    bvec3 c = greaterThanEqual(2.f, v);
+  SECTION("scalar") {
+    REQUIRE(greaterThan(1, 2) == false);
+    REQUIRE(greaterThan(1, 1) == false);
+    REQUIRE(greaterThan(2, 1) == true);
+    REQUIRE(greaterThan(1.f, 2) == false);
+    REQUIRE(greaterThan(2.0, 1) == true);
+  }
 
-    bvec3 d = greaterThanEqual(v, u);
-    bvec3 e = greaterThanEqual(v.zyx, u);
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
 
-    if (b.x or !b.y or !b.z) return false;
-    if (!c.x or !c.y or c.z) return false;
+    REQUIRE(greaterThan(2, v) == bvec2(1, 0));
+    REQUIRE(greaterThan(v, 2) == bvec2(0, 0));
+    REQUIRE(greaterThan(2, v.xy) == bvec2(1, 0));
+    REQUIRE(greaterThan(v.xy, 2) == bvec2(0, 0));
 
-    if (!d.x or !d.y or d.z) return false;
-    if (!e.x or !e.y or e.z) return false;
+    REQUIRE(greaterThan(vec2(2, 2), v) == bvec2(1, 0));
+    REQUIRE(greaterThan(v, vec2(2, 2)) == bvec2(0, 0));
+    REQUIRE(greaterThan(vec2(2, 2), v.xy) == bvec2(1, 0));
+    REQUIRE(greaterThan(v.xy, vec2(2, 2)) == bvec2(0, 0));
+  }
 
-    return true;
-  });
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
 
-  auto s_e = UnitTest("scalar relational function equal", +[]() {
-    if (!equal(4, 4)) return false;
-    if (equal(8.f, 5)) return false;
-    if (equal(1.l, 9.0)) return false;
+    REQUIRE(greaterThan(2, v) == bvec3(1, 0, 0));
+    REQUIRE(greaterThan(v, 2) == bvec3(0, 0, 1));
+    REQUIRE(greaterThan(2, v.xyz) == bvec3(1, 0, 0));
+    REQUIRE(greaterThan(v.xyz, 2) == bvec3(0, 0, 1));
 
-    return true;
-  });
-  auto v_e = UnitTest("vector relational function equal", +[]() {
-    ivec3 v = ivec3(1, 2, 3);
-    ivec3 u = ivec3(0, 2, 4);
+    REQUIRE(greaterThan(vec3(2, 2, 3), v) == bvec3(1, 0, 0));
+    REQUIRE(greaterThan(v, vec3(2, 2, 3)) == bvec3(0, 0, 0));
+    REQUIRE(greaterThan(vec3(2, 2, 3), v.xyz) == bvec3(1, 0, 0));
+    REQUIRE(greaterThan(v.xyz, vec3(2, 2, 3)) == bvec3(0, 0, 0));
+  }
 
-    bvec3 b = equal(v, 2);
-    bvec3 c = equal(2.f, v);
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
 
-    bvec3 d = equal(v, u);
-    bvec3 e = equal(v.zyx, u);
+    REQUIRE(greaterThan(2, v) == bvec4(1, 0, 0, 0));
+    REQUIRE(greaterThan(v, 2) == bvec4(0, 0, 1, 1));
+    REQUIRE(greaterThan(2, v.xyzw) == bvec4(1, 0, 0, 0));
+    REQUIRE(greaterThan(v.xyzw, 2) == bvec4(0, 0, 1, 1));
 
-    if (b.x or !b.y or b.z) return false;
-    if (c.x or !c.y or c.z) return false;
+    REQUIRE(greaterThan(vec4(2, 2, 3, 3), v) == bvec4(1, 0, 0, 0));
+    REQUIRE(greaterThan(v, vec4(2, 2, 3, 3)) == bvec4(0, 0, 0, 1));
+    REQUIRE(greaterThan(vec4(2, 2, 3, 3), v.xyzw) == bvec4(1, 0, 0, 0));
+    REQUIRE(greaterThan(v.xyzw, vec4(2, 2, 3, 3)) == bvec4(0, 0, 0, 1));
+  }
+}
 
-    if (d.x or !d.y or d.z) return false;
-    if (e.x or !e.y or e.z) return false;
+TEST_CASE("vector relational function greaterThanEqual", "[vec][rel]") {
 
-    return true;
-  });
+  SECTION("scalar") {
+    REQUIRE(greaterThanEqual(1, 2) == false);
+    REQUIRE(greaterThanEqual(1, 1) == true);
+    REQUIRE(greaterThanEqual(2, 1) == true);
+    REQUIRE(greaterThanEqual(1.f, 2) == false);
+    REQUIRE(greaterThanEqual(2.0, 1) == true);
+  }
 
-  auto s_ne = UnitTest("scalar relational function notEqual", +[]() {
-    if (notEqual(4, 4)) return false;
-    if (!notEqual(8.f, 5)) return false;
-    if (!notEqual(1.l, 9.0)) return false;
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
 
-    return true;
-  });
-  auto v_ne = UnitTest("vector relational function notEqual", +[]() {
-    ivec3 v = ivec3(1, 2, 3);
-    ivec3 u = ivec3(0, 2, 4);
+    REQUIRE(greaterThanEqual(2, v) == bvec2(1, 1));
+    REQUIRE(greaterThanEqual(v, 2) == bvec2(0, 1));
+    REQUIRE(greaterThanEqual(2, v.xy) == bvec2(1, 1));
+    REQUIRE(greaterThanEqual(v.xy, 2) == bvec2(0, 1));
 
-    bvec3 b = notEqual(v, 2);
-    bvec3 c = notEqual(2.f, v);
+    REQUIRE(greaterThanEqual(vec2(2, 2), v) == bvec2(1, 1));
+    REQUIRE(greaterThanEqual(v, vec2(2, 2)) == bvec2(0, 1));
+    REQUIRE(greaterThanEqual(vec2(2, 2), v.xy) == bvec2(1, 1));
+    REQUIRE(greaterThanEqual(v.xy, vec2(2, 2)) == bvec2(0, 1));
+  }
 
-    bvec3 d = notEqual(v, u);
-    bvec3 e = notEqual(v.zyx, u);
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
 
-    if (!b.x or b.y or !b.z) return false;
-    if (!c.x or c.y or !c.z) return false;
+    REQUIRE(greaterThanEqual(2, v) == bvec3(1, 1, 0));
+    REQUIRE(greaterThanEqual(v, 2) == bvec3(0, 1, 1));
+    REQUIRE(greaterThanEqual(2, v.xyz) == bvec3(1, 1, 0));
+    REQUIRE(greaterThanEqual(v.xyz, 2) == bvec3(0, 1, 1));
 
-    if (!d.x or d.y or !d.z) return false;
-    if (!e.x or e.y or !e.z) return false;
+    REQUIRE(greaterThanEqual(vec3(2, 2, 3), v) == bvec3(1, 1, 1));
+    REQUIRE(greaterThanEqual(v, vec3(2, 2, 3)) == bvec3(0, 1, 1));
+    REQUIRE(greaterThanEqual(vec3(2, 2, 3), v.xyz) == bvec3(1, 1, 1));
+    REQUIRE(greaterThanEqual(v.xyz, vec3(2, 2, 3)) == bvec3(0, 1, 1));
+  }
 
-    return true;
-  });
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
 
-  auto s_all = UnitTest("scalar relational function all", +[]() {
-    if (!all(true)) return false;
-    if (all(false)) return false;
+    REQUIRE(greaterThanEqual(2, v) == bvec4(1, 1, 0, 0));
+    REQUIRE(greaterThanEqual(v, 2) == bvec4(0, 1, 1, 1));
+    REQUIRE(greaterThanEqual(2, v.xyzw) == bvec4(1, 1, 0, 0));
+    REQUIRE(greaterThanEqual(v.xyzw, 2) == bvec4(0, 1, 1, 1));
 
-    return true;
-  });
-  auto v_all = UnitTest("vector relational function all", +[]() {
-    bvec3 v = bvec3(true, true, true);
-    bvec3 u = bvec3(true, true, false);
-    bvec3 t = bvec3(false, false, false);
+    REQUIRE(greaterThanEqual(vec4(2, 2, 3, 3), v) == bvec4(1, 1, 1, 0));
+    REQUIRE(greaterThanEqual(v, vec4(2, 2, 3, 3)) == bvec4(0, 1, 1, 1));
+    REQUIRE(greaterThanEqual(vec4(2, 2, 3, 3), v.xyzw) == bvec4(1, 1, 1, 0));
+    REQUIRE(greaterThanEqual(v.xyzw, vec4(2, 2, 3, 3)) == bvec4(0, 1, 1, 1));
+  }
+}
 
-    if (!all(v)) return false;
-    if (all(u)) return false;
-    if (all(t)) return false;
+TEST_CASE("vector relational function equal", "[vec][rel]") {
 
-    return true;
-  });
+  SECTION("scalar") {
+    REQUIRE(equal(1, 2) == false);
+    REQUIRE(equal(1, 1) == true);
+    REQUIRE(equal(2, 1) == false);
+    REQUIRE(equal(1.f, 2) == false);
+    REQUIRE(equal(2.0, 1) == false);
+  }
 
-  auto s_any = UnitTest("scalar relational function any", +[]() {
-    if (!any(true)) return false;
-    if (any(false)) return false;
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
 
-    return true;
-  });
-  auto v_any = UnitTest("vector relational function any", +[]() {
-    bvec3 v = bvec3(true, true, true);
-    bvec3 u = bvec3(true, true, false);
-    bvec3 t = bvec3(false, false, false);
+    REQUIRE(equal(2, v) == bvec2(0, 1));
+    REQUIRE(equal(v, 2) == bvec2(0, 1));
+    REQUIRE(equal(2, v.xy) == bvec2(0, 1));
+    REQUIRE(equal(v.xy, 2) == bvec2(0, 1));
 
-    if (!any(v)) return false;
-    if (!any(u)) return false;
-    if (any(t)) return false;
+    REQUIRE(equal(vec2(2, 2), v) == bvec2(0, 1));
+    REQUIRE(equal(v, vec2(2, 2)) == bvec2(0, 1));
+    REQUIRE(equal(vec2(2, 2), v.xy) == bvec2(0, 1));
+    REQUIRE(equal(v.xy, vec2(2, 2)) == bvec2(0, 1));
+  }
 
-    return true;
-  });
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
 
-  auto v_not = UnitTest("vector relational function not", +[]() {
-    bvec3 v = not bvec3(true, true, true);
-    bvec3 u = not bvec3(true, true, false);
-    bvec3 t = not bvec3(false, false, false);
+    REQUIRE(equal(2, v) == bvec3(0, 1, 0));
+    REQUIRE(equal(v, 2) == bvec3(0, 1, 0));
+    REQUIRE(equal(2, v.xyz) == bvec3(0, 1, 0));
+    REQUIRE(equal(v.xyz, 2) == bvec3(0, 1, 0));
 
-    if (any(v)) return false;
-    if (all(u)) return false;
-    if (!all(t)) return false;
+    REQUIRE(equal(vec3(2, 2, 3), v) == bvec3(0, 1, 1));
+    REQUIRE(equal(v, vec3(2, 2, 3)) == bvec3(0, 1, 1));
+    REQUIRE(equal(vec3(2, 2, 3), v.xyz) == bvec3(0, 1, 1));
+    REQUIRE(equal(v.xyz, vec3(2, 2, 3)) == bvec3(0, 1, 1));
+  }
 
-    return true;
-  });
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
+
+    REQUIRE(equal(2, v) == bvec4(0, 1, 0, 0));
+    REQUIRE(equal(v, 2) == bvec4(0, 1, 0, 0));
+    REQUIRE(equal(2, v.xyzw) == bvec4(0, 1, 0, 0));
+    REQUIRE(equal(v.xyzw, 2) == bvec4(0, 1, 0, 0));
+
+    REQUIRE(equal(vec4(2, 2, 3, 3), v) == bvec4(0, 1, 1, 0));
+    REQUIRE(equal(v, vec4(2, 2, 3, 3)) == bvec4(0, 1, 1, 0));
+    REQUIRE(equal(vec4(2, 2, 3, 3), v.xyzw) == bvec4(0, 1, 1, 0));
+    REQUIRE(equal(v.xyzw, vec4(2, 2, 3, 3)) == bvec4(0, 1, 1, 0));
+  }
+}
+
+TEST_CASE("vector relational function notEqual", "[vec][rel]") {
+
+  SECTION("scalar") {
+    REQUIRE(notEqual(1, 2) == true);
+    REQUIRE(notEqual(1, 1) == false);
+    REQUIRE(notEqual(2, 1) == true);
+    REQUIRE(notEqual(1.f, 2) == true);
+    REQUIRE(notEqual(2.0, 1) == true);
+  }
+
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+
+    REQUIRE(notEqual(2, v) == bvec2(1, 0));
+    REQUIRE(notEqual(v, 2) == bvec2(1, 0));
+    REQUIRE(notEqual(2, v.xy) == bvec2(1, 0));
+    REQUIRE(notEqual(v.xy, 2) == bvec2(1, 0));
+
+    REQUIRE(notEqual(vec2(2, 2), v) == bvec2(1, 0));
+    REQUIRE(notEqual(v, vec2(2, 2)) == bvec2(1, 0));
+    REQUIRE(notEqual(vec2(2, 2), v.xy) == bvec2(1, 0));
+    REQUIRE(notEqual(v.xy, vec2(2, 2)) == bvec2(1, 0));
+  }
+
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
+
+    REQUIRE(notEqual(2, v) == bvec3(1, 0, 1));
+    REQUIRE(notEqual(v, 2) == bvec3(1, 0, 1));
+    REQUIRE(notEqual(2, v.xyz) == bvec3(1, 0, 1));
+    REQUIRE(notEqual(v.xyz, 2) == bvec3(1, 0, 1));
+
+    REQUIRE(notEqual(vec3(2, 2, 3), v) == bvec3(1, 0, 0));
+    REQUIRE(notEqual(v, vec3(2, 2, 3)) == bvec3(1, 0, 0));
+    REQUIRE(notEqual(vec3(2, 2, 3), v.xyz) == bvec3(1, 0, 0));
+    REQUIRE(notEqual(v.xyz, vec3(2, 2, 3)) == bvec3(1, 0, 0));
+  }
+
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
+
+    REQUIRE(notEqual(2, v) == bvec4(1, 0, 1, 1));
+    REQUIRE(notEqual(v, 2) == bvec4(1, 0, 1, 1));
+    REQUIRE(notEqual(2, v.xyzw) == bvec4(1, 0, 1, 1));
+    REQUIRE(notEqual(v.xyzw, 2) == bvec4(1, 0, 1, 1));
+
+    REQUIRE(notEqual(vec4(2, 2, 3, 3), v) == bvec4(1, 0, 0, 1));
+    REQUIRE(notEqual(v, vec4(2, 2, 3, 3)) == bvec4(1, 0, 0, 1));
+    REQUIRE(notEqual(vec4(2, 2, 3, 3), v.xyzw) == bvec4(1, 0, 0, 1));
+    REQUIRE(notEqual(v.xyzw, vec4(2, 2, 3, 3)) == bvec4(1, 0, 0, 1));
+  }
+}
+
+TEST_CASE("vector relational function all", "[vec][rel]") {
+
+  SECTION("scalar") {
+    REQUIRE(all(true) == true);
+    REQUIRE(all(false) == false);
+  }
+
+  SECTION("vec2") {
+    REQUIRE(all(bvec2(0, 0)) == false);
+    REQUIRE(all(bvec2(0, 1)) == false);
+    REQUIRE(all(bvec2(1, 1)) == true);
+
+  }
+
+  SECTION("vec3") {
+    REQUIRE(all(bvec3(0, 0, 0)) == false);
+    REQUIRE(all(bvec3(0, 1, 0)) == false);
+    REQUIRE(all(bvec3(1, 1, 1)) == true);
+  }
+
+  SECTION("vec4") {
+    REQUIRE(all(bvec4(0, 0, 0, 0)) == false);
+    REQUIRE(all(bvec4(0, 1, 0, 1)) == false);
+    REQUIRE(all(bvec4(1, 1, 1, 1)) == true);
+  }
+}
+
+TEST_CASE("vector relational function any", "[vec][rel]") {
+
+  SECTION("scalar") {
+    REQUIRE(any(true) == true);
+    REQUIRE(any(false) == false);
+  }
+
+  SECTION("vec2") {
+    REQUIRE(any(bvec2(0, 0)) == false);
+    REQUIRE(any(bvec2(0, 1)) == true);
+    REQUIRE(any(bvec2(1, 1)) == true);
+
+  }
+
+  SECTION("vec3") {
+    REQUIRE(any(bvec3(0, 0, 0)) == false);
+    REQUIRE(any(bvec3(0, 1, 0)) == true);
+    REQUIRE(any(bvec3(1, 1, 1)) == true);
+  }
+
+  SECTION("vec4") {
+    REQUIRE(any(bvec4(0, 0, 0, 0)) == false);
+    REQUIRE(any(bvec4(0, 1, 0, 1)) == true);
+    REQUIRE(any(bvec4(1, 1, 1, 1)) == true);
+  }
+}
+
+TEST_CASE("vector relational function not", "[vec][rel]") {
+
+  SECTION("scalar") {
+    REQUIRE(not(true) == false);
+    REQUIRE(not(false) == true);
+  }
+
+  SECTION("vec2") {
+    REQUIRE(not(bvec2(0, 0)) == bvec2(1, 1));
+    REQUIRE(not(bvec2(0, 1)) == bvec2(1, 0));
+    REQUIRE(not(bvec2(1, 1)) == bvec2(0, 0));
+
+  }
+
+  SECTION("vec3") {
+    REQUIRE(not(bvec3(0, 0, 0)) == bvec3(1, 1, 1));
+    REQUIRE(not(bvec3(0, 1, 0)) == bvec3(1, 0, 1));
+    REQUIRE(not(bvec3(1, 1, 1)) == bvec3(0, 0, 0));
+  }
+
+  SECTION("vec4") {
+    REQUIRE(not(bvec4(0, 0, 0, 0)) == bvec4(1, 1, 1, 1));
+    REQUIRE(not(bvec4(0, 1, 0, 1)) == bvec4(1, 0, 1, 0));
+    REQUIRE(not(bvec4(1, 1, 1, 1)) == bvec4(0, 0, 0, 0));
+  }
 }

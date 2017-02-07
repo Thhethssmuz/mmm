@@ -1,20 +1,25 @@
-#include <unittest.hpp>
-#include <mmm.hpp>
 #include <sstream>
+#include <catch.hpp>
+#include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto stream = UnitTest("vector io operator <<", +[]() {
-    ivec4 v = ivec4(-1, 0, 1, 2);
-    vec4 u = vec4(0, 0.5f, 1, 1.5f);
+TEST_CASE("vector io operator <<", "[vec][io]") {
 
-    std::stringstream ss;
-    ss << v << u;
+  std::stringstream ss;
 
-    std::string printed = ss.str();
-    std::string expected = "[-1, 0, 1, 2][0, 0.5, 1, 1.5]";
+  SECTION("vec2") {
+    ss << ivec2(0);
+    REQUIRE(ss.str() == "[0, 0]");
+  }
 
-    return printed == expected;
-  });
+  SECTION("vec3") {
+    ss << vec3(1, 2, 3);
+    REQUIRE(ss.str() == "[1, 2, 3]");
+  }
+
+  SECTION("vec4") {
+    ss << bvec4(0, 0, 1, 1);
+    REQUIRE(ss.str() == "[0, 0, 1, 1]");
+  }
 }

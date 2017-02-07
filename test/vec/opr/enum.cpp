@@ -1,30 +1,42 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto succ = UnitTest("vector enumeration operator ++", +[]() {
-    ivec4 v = ivec4(1, 2, 3, 4);
+TEST_CASE("vector enumeration operator ++", "[vec][enum]") {
 
-    if (++v != ivec4(2, 3, 4, 5)) return false;
-    if (v != ivec4(2, 3, 4, 5)) return false;
+  ivec4 v = ivec4(1, 2, 3, 4);
 
-    if (v++ != ivec4(2, 3, 4, 5)) return false;
-    if (v != ivec4(3, 4, 5, 6)) return false;
+  SECTION("pre") {
+    ++v;
+    REQUIRE(v == ivec4(2, 3, 4, 5));
+    REQUIRE(++v == ivec4(3, 4, 5, 6));
+    REQUIRE(v == ivec4(3, 4, 5, 6));
+  }
 
-    return true;
-  });
+  SECTION("post") {
+    v++;
+    REQUIRE(v == ivec4(2, 3, 4, 5));
+    REQUIRE(v++ == ivec4(2, 3, 4, 5));
+    REQUIRE(v == ivec4(3, 4, 5, 6));
+  }
+}
 
-  auto pred = UnitTest("vector enumeration operator --", +[]() {
-    ivec4 v = ivec4(3, 4, 5, 6);
+TEST_CASE("vector enumeration operator --", "[vec][enum]") {
 
-    if (--v != ivec4(2, 3, 4, 5)) return false;
-    if (v != ivec4(2, 3, 4, 5)) return false;
+  ivec4 v = ivec4(1, 2, 3, 4);
 
-    if (v-- != ivec4(2, 3, 4, 5)) return false;
-    if (v != ivec4(1, 2, 3, 4)) return false;
+  SECTION("pre") {
+    --v;
+    REQUIRE(v == ivec4(0, 1, 2, 3));
+    REQUIRE((--v == ivec4(-1, 0, 1, 2)));
+    REQUIRE(v == ivec4(-1, 0, 1, 2));
+  }
 
-    return true;
-  });
+  SECTION("post") {
+    v--;
+    REQUIRE(v == ivec4(0, 1, 2, 3));
+    REQUIRE(v-- == ivec4(0, 1, 2, 3));
+    REQUIRE(v == ivec4(-1, 0, 1, 2));
+  }
 }

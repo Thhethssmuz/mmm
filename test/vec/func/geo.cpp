@@ -1,101 +1,143 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto s_length = UnitTest("scalar geometric function length", +[]() {
-    if (length(1) != 1) return false;
-    if (length(2.f) != 2) return false;
-    if (length(3.0) != 3) return false;
-    if (length(4.l) != 4) return false;
+TEST_CASE("vector geometric function length", "[vec][geo]") {
 
-    return true;
-  });
-  auto v_length = UnitTest("vector geometric function length", +[]() {
+  SECTION("scalar") {
+    REQUIRE(length(0) == 0);
+    REQUIRE(length(1) == 1);
+    REQUIRE(length(2.f) == 2);
+    REQUIRE(length(-1.0) == 1);
+  }
+
+  SECTION("vec2") {
     vec2 v = vec2(3, 4);
+    REQUIRE(length(v) == Approx(5));
+    REQUIRE(length(v.xy) == Approx(5));
+  }
 
-    if (length(v) != 5) return false;
-    if (length(v.yx) != 5) return false;
+  SECTION("vec3") {
+    vec3 v = vec3(3, 4, 5);
+    REQUIRE(length(v) == Approx(7.07107));
+    REQUIRE(length(v.xyz) == Approx(7.07107));
+  }
 
-    return true;
-  });
+  SECTION("vec4") {
+    vec4 v = vec4(3, 4, 5, 6);
+    REQUIRE(length(v) == Approx(9.27362));
+    REQUIRE(length(v.xyzw) == Approx(9.27362));
+  }
+}
 
-  auto s_distance = UnitTest("scalar geometric function distance", +[]() {
-    if (distance(1, 2) != 1) return false;
-    if (distance(2, 1) != 1) return false;
-    if (distance(1.f, 3) != 2) return false;
-    if (distance(3.0, 1.l) != 2) return false;
+TEST_CASE("vector geometric function distance", "[vec][geo]") {
 
-    return true;
-  });
-  auto v_distance = UnitTest("vector geometric function distance", +[]() {
-    vec2 v = vec2(9, 11);
-    vec2 u = vec2(6, 7);
+  SECTION("scalar") {
+    REQUIRE(distance(0, 1) == Approx(1));
+    REQUIRE(distance(2, 1) == Approx(1));
+    REQUIRE(distance(1.f, 3) == Approx(2));
+    REQUIRE(distance(-1.0, 2.f) == Approx(3));
+  }
 
-    if (distance(v, u) != 5) return false;
-    if (distance(u, v) != 5) return false;
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+    vec2 u = vec2(3, 4);
 
-    if (distance(v.yx, u.yx) != 5) return false;
-    if (distance(u.yx, v.yx) != 5) return false;
+    REQUIRE(distance(v, u) == Approx(2.82843));
+    REQUIRE(distance(v.xy, u.xy) == Approx(2.82843));
+  }
 
-    return true;
-  });
+  SECTION("vec3") {
+    vec3 v = vec3(0, 2, 1);
+    vec3 u = vec3(1, 1, 3);
 
-  auto s_dot = UnitTest("scalar geometric function dot", +[]() {
-    if (dot(2, 4) != 8) return false;
-    if (dot(2.f, 4) != 8) return false;
-    if (dot(2, 4.0) != 8) return false;
-    if (dot(2.l, 4.l) != 8) return false;
+    REQUIRE(distance(v, u) == Approx(2.44949));
+    REQUIRE(distance(v.xyz, u.xyz) == Approx(2.44949));
+  }
 
-    return true;
-  });
-  auto v_dot = UnitTest("vector geometric function dot", +[]() {
-    ivec2 v = ivec2(2, 4);
-    ivec2 u = ivec2(4, -4);
+  SECTION("vec4") {
+    vec4 v = vec4(0, 2, 1, -1);
+    vec4 u = vec4(1, 1, 3, 2);
 
-    if (dot(v, u) != -8) return false;
-    if (dot(u, v) != -8) return false;
+    REQUIRE(distance(v, u) == Approx(3.87298));
+    REQUIRE(distance(v.xyzw, u.xyzw) == Approx(3.87298));
+  }
+}
 
-    if (dot(v.yx, u.yx) != -8) return false;
-    if (dot(u.yx, v.yx) != -8) return false;
+TEST_CASE("vector geometric function dot", "[vec][geo]") {
 
-    return true;
-  });
+  SECTION("scalar") {
+    REQUIRE(dot(1, 2) == Approx(2));
+    REQUIRE(dot(3, 4) == Approx(12));
+    REQUIRE(dot(5.f, 6) == Approx(30));
+    REQUIRE(dot(7.0, 8) == Approx(56));
+  }
 
-  auto v_cross = UnitTest("vector geometric function cross", +[]() {
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+    vec2 u = vec2(3, 4);
+
+    REQUIRE(dot(v, u) == Approx(11));
+    REQUIRE(dot(v.xy, u.xy) == Approx(11));
+  }
+
+  SECTION("vec3") {
     vec3 v = vec3(1, 2, 3);
-    vec3 u = vec3(3, 2, 1);
+    vec3 u = vec3(4, 5, 6);
 
-    if (cross(v, u) != vec3(-4, 8, -4)) return false;
-    if (cross(u, v) != vec3(4, -8, 4)) return false;
+    REQUIRE(dot(v, u) == Approx(32));
+    REQUIRE(dot(v.xyz, u.xyz) == Approx(32));
+  }
 
-    if (cross(v.zyx, u.zyx) != vec3(4, -8, 4)) return false;
-    if (cross(u.zyx, v.zyx) != vec3(-4, 8, -4)) return false;
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
+    vec4 u = vec4(5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(dot(v, u) == Approx(70));
+    REQUIRE(dot(v.xyzw, u.xyzw) == Approx(70));
+  }
+}
 
-  auto s_normalize = UnitTest("scalar geometric function normalize", +[]() {
-    if (normalize(12) != 1) return false;
-    if (normalize(123.f) != 1) return false;
-    if (normalize(-98.0) != 1) return false;
-    if (normalize(-0.1l) != 1) return false;
+TEST_CASE("vector geometric function cross", "[vec][geo]") {
 
-    return true;
-  });
-  auto v_normalize = UnitTest("vector geometric function normalize", +[]() {
-    vec2 v = vec2(1, 0);
-    vec2 u = vec2(1, 1);
-    vec2 t = vec2(3, 4);
+  vec3 v = vec3(1, 2, 3);
+  vec3 u = vec3(3, 2, 1);
 
-    if (normalize(v) != v) return false;
-    if (normalize(v.yx) != v.yx) return false;
+  REQUIRE(cross(v, u) == vec3(-4, 8, -4));
+  REQUIRE(cross(u, v) == vec3(4, -8, 4));
 
-    if (normalize(u.yx) != normalize(u)) return false;
+  REQUIRE(cross(v.xyz, u.xyz) == vec3(-4, 8, -4));
+  REQUIRE(cross(u.xyz, v.xyz) == vec3(4, -8, 4));
+}
 
-    if (normalize(t) != vec2(0.6, 0.8)) return false;
+TEST_CASE("vector geometric function normalize", "[vec][geo]") {
 
-    return true;
-  });
+  SECTION("scalar") {
+    REQUIRE(normalize(0) == 1);
+    REQUIRE(normalize(1) == 1);
+    REQUIRE(normalize(2.f) == 1);
+    REQUIRE(normalize(3.0) == 1);
+  }
+
+  SECTION("vec2") {
+    vec2 v = vec2(3, 4);
+    vec2 n = normalize(v);
+
+    REQUIRE(n[0] == Approx(0.6));
+    REQUIRE(n[1] == Approx(0.8));
+  }
+
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
+    REQUIRE(length(normalize(v)) == Approx(1));
+    REQUIRE(length(normalize(v.xyz)) == Approx(1));
+  }
+
+  SECTION("vec4") {
+    vec4 v = vec4(1, 2, 3, 4);
+    REQUIRE(length(normalize(v)) == Approx(1));
+    REQUIRE(length(normalize(v.xyzw)) == Approx(1));
+    REQUIRE(length(normalize(vec4(5, 0, -5, 17))) == Approx(1));
+  }
 }

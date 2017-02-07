@@ -1,82 +1,112 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto v_sum = UnitTest("vector reduction function sum", +[]() {
+TEST_CASE("vector reduction function sum", "[vec][red]") {
+
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+    REQUIRE(sum(v) == Approx(3));
+    REQUIRE(sum(v.xy) == Approx(3));
+  }
+
+  SECTION("vec3") {
+    vec3 v = vec3(3, 4, 5);
+    REQUIRE(sum(v) == Approx(12));
+    REQUIRE(sum(v.xyz) == Approx(12));
+  }
+
+  SECTION("vec4") {
+    vec4 v = vec4(6, 7, 8, 9);
+    REQUIRE(sum(v) == Approx(30));
+    REQUIRE(sum(v.xyzw) == Approx(30));
+  }
+}
+
+TEST_CASE("vector reduction function product", "[vec][red]") {
+
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+    REQUIRE(product(v) == Approx(2));
+    REQUIRE(product(v.xy) == Approx(2));
+  }
+
+  SECTION("vec3") {
+    vec3 v = vec3(3, 4, 5);
+    REQUIRE(product(v) == Approx(60));
+    REQUIRE(product(v.xyz) == Approx(60));
+  }
+
+  SECTION("vec4") {
+    vec4 v = vec4(6, 7, 8, 9);
+    REQUIRE(product(v) == Approx(3024));
+    REQUIRE(product(v.xyzw) == Approx(3024));
+  }
+}
+
+TEST_CASE("vector reduction function take", "[vec][red]") {
+
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+    REQUIRE(take<1>(v) == 1);
+    REQUIRE(take<1>(v.xy) == 1);
+    REQUIRE(take<2>(v) == vec2(1, 2));
+    REQUIRE(take<2>(v.xy) == vec2(1, 2));
+  }
+
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
+    REQUIRE(take<1>(v) == 1);
+    REQUIRE(take<1>(v.xyz) == 1);
+    REQUIRE(take<2>(v) == vec2(1, 2));
+    REQUIRE(take<2>(v.xyz) == vec2(1, 2));
+    REQUIRE(take<3>(v) == vec3(1, 2, 3));
+    REQUIRE(take<3>(v.xyz) == vec3(1, 2, 3));
+  }
+
+  SECTION("vec4") {
     vec4 v = vec4(1, 2, 3, 4);
-    ivec4 u = ivec4(1, 2, 3, 4);
-    dvec4 t = dvec4(1, 2, 3, 4);
+    REQUIRE(take<1>(v) == 1);
+    REQUIRE(take<1>(v.yx) == 2);
+    REQUIRE(take<2>(v) == vec2(1, 2));
+    REQUIRE(take<2>(v.xyz) == vec2(1, 2));
+    REQUIRE(take<3>(v) == vec3(1, 2, 3));
+    REQUIRE(take<3>(v.xyzw) == vec3(1, 2, 3));
+    REQUIRE(take<4>(v) == vec4(1, 2, 3, 4));
+    REQUIRE(take<4>(v.xyzw) == vec4(1, 2, 3, 4));
+  }
+}
 
-    if (sum(v) != 10 and sum(v.wzyx) != 10) return false;
-    if (sum(u) != 10 and sum(u.wzyx) != 10) return false;
-    if (sum(t) != 10 and sum(t.wzyx) != 10) return false;
+TEST_CASE("vector reduction function drop", "[vec][red]") {
 
-    return true;
-  });
+  SECTION("vec2") {
+    vec2 v = vec2(1, 2);
+    REQUIRE(drop<0>(v) == vec2(1, 2));
+    REQUIRE(drop<0>(v.xy) == vec2(1, 2));
+    REQUIRE(drop<1>(v) == 2);
+    REQUIRE(drop<1>(v.xy) == 2);
+  }
 
-  auto v_product = UnitTest("vector reduction function product", +[]() {
+  SECTION("vec3") {
+    vec3 v = vec3(1, 2, 3);
+    REQUIRE(drop<0>(v) == vec3(1, 2, 3));
+    REQUIRE(drop<0>(v.xyz) == vec3(1, 2, 3));
+    REQUIRE(drop<1>(v) == vec2(2, 3));
+    REQUIRE(drop<1>(v.xyz) == vec2(2, 3));
+    REQUIRE(drop<2>(v) == 3);
+    REQUIRE(drop<2>(v.xyz) == 3);
+  }
+
+  SECTION("vec4") {
     vec4 v = vec4(1, 2, 3, 4);
-    ivec4 u = ivec4(1, 2, 3, 4);
-    dvec4 t = dvec4(1, 2, 3, 4);
-
-    if (product(v) != 24 and product(v.wzyx) != 24) return false;
-    if (product(u) != 24 and product(u.wzyx) != 24) return false;
-    if (product(t) != 24 and product(t.wzyx) != 24) return false;
-
-    return true;
-  });
-
-  auto v_take = UnitTest("vector reduction function take", +[]() {
-    vec<6> v = vec<6>(1, 2, 3, 4, 5, 6);
-
-    float x = take<1>(v);
-    if (x != 1) return false;
-
-    vec2 u = take<2>(v);
-    if (u != vec2(1, 2)) return false;
-
-    vec3 t = take<3>(v);
-    if (t != vec3(1, 2, 3)) return false;
-
-    vec4 s = take<4>(v.xyzw);
-    if (s != vec4(1, 2, 3, 4)) return false;
-
-    vec<5> r = take<5>(v);
-    if (r != vec<5>(1, 2, 3, 4, 5)) return false;
-
-    vec<6> q = take<6>(v);
-    if (q != vec<6>(1, 2, 3, 4, 5, 6)) return false;
-
-
-    return true;
-  });
-
-  auto v_drop = UnitTest("vector reduction function drop", +[]() {
-    vec<6> v = vec<6>(1, 2, 3, 4, 5, 6);
-
-    vec<6> u = drop<0>(v);
-    if (u != vec<6>(1, 2, 3, 4, 5, 6)) return false;
-
-    vec<5> t = drop<1>(v);
-    if (t != vec<5>(2, 3, 4, 5, 6)) return false;
-
-    vec3 s = drop<3>(v);
-    if (s != vec3(4, 5, 6)) return false;
-
-    vec2 r = drop<4>(v);
-    if (r != vec2(5, 6)) return false;
-
-    vec2 q = drop<2>(v.xyzw);
-    if (q != vec2(3, 4)) return false;
-
-    float x = drop<5>(v);
-    if (x != 6) return false;
-
-    x = drop<1>(v.xy);
-    if (x != 2) return false;
-
-    return true;
-  });
+    REQUIRE(drop<0>(v) == vec4(1, 2, 3, 4));
+    REQUIRE(drop<0>(v.xyzw) == vec4(1, 2, 3, 4));
+    REQUIRE(drop<1>(v) == vec3(2, 3, 4));
+    REQUIRE(drop<1>(v.xyzw) == vec3(2, 3, 4));
+    REQUIRE(drop<2>(v) == vec2(3, 4));
+    REQUIRE(drop<2>(v.xyzw) == vec2(3, 4));
+    REQUIRE(drop<3>(v) == 4);
+    REQUIRE(drop<3>(v.xyzw) == 4);
+  }
 }

@@ -1,233 +1,223 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto constructors_1 = UnitTest("vector constructors (1)", +[] {
+TEST_CASE("vector constructors", "[vec]") {
+
+  vec2 v2 = vec2(1, 2);
+  vec3 v3 = vec3(1, 2, 3);
+  vec4 v4 = vec4(1, 2, 3, 4);
+
+  SECTION("initialization") {
     vec4 v;
     vec4 u(0);
     vec4 t{0};
     vec4 s = vec4();
     vec4 r = vec4(0);
 
-    if (v != u) return false;
-    if (u != t) return false;
-    if (t != s) return false;
-    if (s != r) return false;
-    if (r != 0) return false;
+    vec4 q(1, 2, 3, 4);
+    vec4 p{1, 2, 3, 4};
+    vec4 o = {1, 2, 3, 4};
+    vec4 n = vec4(1, 2, 3, 4);
 
-    return true;
-  });
-  auto constructors_2 = UnitTest("vector constructors (2)", +[] {
-    vec2 v = vec2(3, 4);
-    vec3 u = vec3(2, v);
-    vec4 t = vec4(1, u);
+    REQUIRE(v == vec4(0, 0, 0, 0));
+    REQUIRE(u == vec4(0, 0, 0, 0));
+    REQUIRE(t == vec4(0, 0, 0, 0));
+    REQUIRE(s == vec4(0, 0, 0, 0));
+    REQUIRE(r == vec4(0, 0, 0, 0));
 
-    if (t != vec4(1, 2, 3, 4)) return false;
+    REQUIRE(q == vec4(1, 2, 3, 4));
+    REQUIRE(p == vec4(1, 2, 3, 4));
+    REQUIRE(o == vec4(1, 2, 3, 4));
+    REQUIRE(n == vec4(1, 2, 3, 4));
+  }
 
-    return true;
-  });
-  auto constructors_3 = UnitTest("vector constructors (3)", +[] {
-    vec2 v = vec2(1, 2);
-    vec2 u = vec2(3, 4);
-    vec4 t = vec4(v, u);
+  SECTION("vec2") {
+    REQUIRE(vec2() == vec2(0, 0));
 
-    vec<10> s = vec<10>(0, t, u + 2, v + 6, 9);
+    REQUIRE(vec2(0) == vec2(0, 0));
+    REQUIRE(vec2(1) == vec2(1, 1));
+    REQUIRE(vec2(2) == vec2(2, 2));
 
-    if (s != vec<10>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)) return false;
+    REQUIRE(vec2(v2) == vec2(1, 2));
+    REQUIRE(vec2(v3) == vec2(1, 2));
+    REQUIRE(vec2(v4) == vec2(1, 2));
 
-    return true;
-  });
-  auto constructors_4 = UnitTest("vector constructors (4)", +[] {
-    vec4 v = vec4(8, 7, 6, 1);
-    vec4 u = vec4(2, 3, 5, 4);
-    vec4 t = vec4(12, 10, 11, 13);
-    vec4 s = vec4(0);
+    REQUIRE(vec2(v2.x) == vec2(1, 1));
+    REQUIRE(vec2(v2.xx) == vec2(1, 1));
 
-    vec<15> r = vec<15>(s.x, v.w, u.xywz, v.zyx, 9, t.yzxw, 14);
+    REQUIRE(vec2(v3.x) == vec2(1, 1));
+    REQUIRE(vec2(v3.xy) == vec2(1, 2));
+    REQUIRE(vec2(v3.xyz) == vec2(1, 2));
 
-    if (r != vec<15>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14))
-      return false;
+    REQUIRE(vec2(v4.x) == vec2(1, 1));
+    REQUIRE(vec2(v4.xy) == vec2(1, 2));
+    REQUIRE(vec2(v4.xyz) == vec2(1, 2));
+    REQUIRE(vec2(v4.xyzw) == vec2(1, 2));
+  }
 
-    return true;
-  });
-  auto constructors_5 = UnitTest("vector constructors (5)", +[] {
-    vec4 v = vec4(1, 2, 3, 4);
-    vec2 u = vec2(1, 2);
+  SECTION("vec3") {
+    REQUIRE(vec3() == vec3(0, 0, 0));
 
-    u = vec2(v);
-    if (u != vec2(1, 2)) return false;
+    REQUIRE(vec3(0) == vec3(0, 0, 0));
+    REQUIRE(vec3(1) == vec3(1, 1, 1));
+    REQUIRE(vec3(2) == vec3(2, 2, 2));
 
-    u = vec2(v.yzw);
-    if (u != vec2(2, 3)) return false;
+    REQUIRE(vec3(0, v2) == vec3(0, 1, 2));
+    REQUIRE(vec3(v2, 3) == vec3(1, 2, 3));
+    REQUIRE(vec3(v3) == vec3(1, 2, 3));
+    REQUIRE(vec3(v4) == vec3(1, 2, 3));
 
-    u = vec2(v.zw);
-    if (u != vec2(3, 4)) return false;
+    REQUIRE(vec3(v2.x) == vec3(1, 1, 1));
+    REQUIRE(vec3(v2.xxx) == vec3(1, 1, 1));
+    REQUIRE(vec3(v2.xyy) == vec3(1, 2, 2));
 
-    u = vec2(v.x);
-    if (u != vec2(1, 1)) return false;
+    REQUIRE(vec3(v3.x) == vec3(1, 1, 1));
+    REQUIRE(vec3(v3.xyz) == vec3(1, 2, 3));
+    REQUIRE(vec3(v3.zyx) == vec3(3, 2, 1));
 
-    u = vec2(2);
-    if (u != vec2(2, 2)) return false;
+    REQUIRE(vec3(v4.x) == vec3(1, 1, 1));
+    REQUIRE(vec3(v4.xyz) == vec3(1, 2, 3));
+    REQUIRE(vec3(v4.xyzw) == vec3(1, 2, 3));
+  }
 
-    u = vec2(0, v);
-    if (u != vec2(0, 1)) return false;
+  SECTION("vec4") {
+    REQUIRE(vec4() == vec4(0, 0, 0, 0));
 
-    u = vec2(v.x, v.y, v.z);
-    if (u != vec2(1, 2)) return false;
+    REQUIRE(vec4(0) == vec4(0, 0, 0, 0));
+    REQUIRE(vec4(1) == vec4(1, 1, 1, 1));
+    REQUIRE(vec4(2) == vec4(2, 2, 2, 2));
 
-    u = vec2(2, v.z);
-    if (u != vec2(2, 3)) return false;
+    REQUIRE(vec4(-1, 0, v2) == vec4(-1, 0, 1, 2));
+    REQUIRE(vec4(0, v2, 3) == vec4(0, 1, 2, 3));
+    REQUIRE(vec4(v2, 3, 4) == vec4(1, 2, 3, 4));
+    REQUIRE(vec4(0, v3) == vec4(0, 1, 2, 3));
+    REQUIRE(vec4(v3, 4) == vec4(1, 2, 3, 4));
+    REQUIRE(vec4(v4) == vec4(1, 2, 3, 4));
 
-    u = vec2(3, v.wzyx);
-    if (u != vec2(3, 4)) return false;
+    REQUIRE(vec4(v2.x) == vec4(1, 1, 1, 1));
+    REQUIRE(vec4(v2.xxxx) == vec4(1, 1, 1, 1));
+    REQUIRE(vec4(v2.xxyy) == vec4(1, 1, 2, 2));
 
-    u = vec2(v.x, 2);
-    if (u != vec2(1, 2)) return false;
+    REQUIRE(vec4(v3.x) == vec4(1, 1, 1, 1));
+    REQUIRE(vec4(v3.xy, v3.yx) == vec4(1, 2, 2, 1));
+    REQUIRE(vec4(v3.zyx, v3.x) == vec4(3, 2, 1, 1));
 
-    return true;
-  });
-  auto constructors_6 = UnitTest("vector constructors (6)", +[] {
-    vec4 v = vec4(1, 2, 3, 4);
-    vec3 u = vec3(1, 2, 3);
+    REQUIRE(vec4(v4.x) == vec4(1, 1, 1, 1));
+    REQUIRE(vec4(v4.xyzw) == vec4(1, 2, 3, 4));
+    REQUIRE(vec4(v4.wzyx) == vec4(4, 3, 2, 1));
+  }
 
-    u = vec3(v);
-    if (u != vec3(1, 2, 3)) return false;
+  SECTION("vec<N>") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    u = vec3(v.wzyx);
-    if (u != vec3(4, 3, 2)) return false;
+    REQUIRE(vec<2>(m) == vec2(1, 2));
+    REQUIRE(vec<3>(1) == vec3(1, 1, 1));
+    REQUIRE(vec<4>(m) == vec4(1, 2, 3, 4));
+    REQUIRE(vec<5>(v2, 3, v2.yx) == vec<5>(1, 2, 3, 2, 1));
+    REQUIRE(vec<6>(m) == vec<6>(1, 2, 3, 4, 5, 6));
+    REQUIRE(vec<7>(v3, v4) == vec<7>(1, 2, 3, 1, 2, 3, 4));
+    REQUIRE(vec<8>(m) == vec<8>(1, 2, 3, 4, 5, 6, 7, 8));
+  }
+}
 
-    u = vec3(v.zyx);
-    if (u != vec3(3, 2, 1)) return false;
+TEST_CASE("vector index", "[vec]") {
 
-    u = vec3(v.x);
-    if (u != vec3(1, 1, 1)) return false;
+  vec2 v2 = vec2(1, 2);
+  vec3 v3 = vec3(3, 4, 5);
+  vec4 v4 = vec4(6, 7, 8, 9);
 
-    u = vec3(2);
-    if (u != vec3(2, 2, 2)) return false;
+  SECTION("vec2") {
+    REQUIRE(v2[0] == 1);
+    REQUIRE(v2[1] == 2);
 
-    u = vec3(0, v);
-    if (u != vec3(0, 1, 2)) return false;
+    v2[0] = 0;
+    v2[1] = 1;
+    REQUIRE(v2 == vec2(0, 1));
+  }
 
-    u = vec3(v.x, v.y, v.z, v.w);
-    if (u != vec3(1, 2, 3)) return false;
+  SECTION("vec3") {
+    REQUIRE(v3[0] == 3);
+    REQUIRE(v3[1] == 4);
+    REQUIRE(v3[2] == 5);
 
-    u = vec3(2, v.z, 4);
-    if (u != vec3(2, 3, 4)) return false;
+    v3[0] = 0;
+    v3[1] = 1;
+    v3[2] = 2;
+    REQUIRE(v3 == vec3(0, 1, 2));
+  }
 
-    u = vec3(5, v.wzyx);
-    if (u != vec3(5, 4, 3)) return false;
+  SECTION("vec4") {
+    REQUIRE(v4[0] == 6);
+    REQUIRE(v4[1] == 7);
+    REQUIRE(v4[2] == 8);
+    REQUIRE(v4[3] == 9);
 
-    return true;
-  });
-  auto constructors_7 = UnitTest("vector constructors (7)", +[] {
-    mat3x4 m = mat3x4(12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
-    mat2 n = mat2(1, 2, 3, 4);
+    v4[0] = 9;
+    v4[1] = 8;
+    v4[2] = 7;
+    v4[3] = 6;
+    REQUIRE(v4 == vec4(9, 8, 7, 6));
+  }
+}
 
-    vec2 v;
-    vec3 u;
-    vec4 t;
+TEST_CASE("vector cast", "[vec]") {
 
-    v = vec2(n);
-    if (v != vec2(1, 2)) return false;
-    v = vec2(1, n);
-    if (v != vec2(1, 1)) return false;
-    v = vec2(m);
-    if (v != vec2(12, 11)) return false;
-    v = vec2(1, m);
-    if (v != vec2(1, 12)) return false;
+  vec2 v2 = vec2(-1.5f, 0.5f);
+  vec3 v3 = vec3(-1.5f, 0.5f, 1.5f);
 
-    u = vec3(n);
-    if (u != vec3(1, 2, 3)) return false;
-    u = vec3(1, n);
-    if (u != vec3(1, 1, 2)) return false;
-    u = vec3(m);
-    if (u != vec3(12, 11, 10)) return false;
-    u = vec3(1, m);
-    if (u != vec3(1, 12, 11)) return false;
+  SECTION("array cast") {
+    float* xs = (float*)v2;
+    float* ys = v3;
 
-    t = vec4(n);
-    if (t != vec4(1, 2, 3, 4)) return false;
-    t = vec4(v, n);
-    if (t != vec4(1, 12, 1, 2)) return false;
-    t = vec4(m);
-    if (t != vec4(12, 11, 10, 9)) return false;
-    t = vec4(u, m);
-    if (t != vec4(1, 12, 11, 12)) return false;
+    REQUIRE(xs[0] == -1.5);
+    REQUIRE(xs[1] == 0.5);
 
-    return true;
-  });
-  auto constructors_8 = UnitTest("vector constructors (8)", +[] {
-    ivec4 v = ivec4(4, 3, 2, 1);
-    dvec4 u = dvec4(1, 2, 3, 4);
-    vec4 r;
+    REQUIRE(ys[0] == -1.5);
+    REQUIRE(ys[1] == 0.5);
+    REQUIRE(ys[2] == 1.5);
+  }
 
-    r = vec4(v);
-    if (r != vec4(4, 3, 2, 1)) return false;
-    r = vec4(u);
-    if (r != vec4(1, 2, 3, 4)) return false;
+  SECTION("vec -> ivec") {
+    ivec2 i2 = (ivec2)v2;
+    ivec3 i3 = ivec3(v3);
 
-    r = vec4(u.xxyy);
-    if (r != vec4(1, 1, 2, 2)) return false;
+    REQUIRE(i2 == ivec2(-1, 0));
+    REQUIRE(i3 == ivec3(-1, 0, 1));
+  }
 
-    return true;
-  });
-  auto constructors_9 = UnitTest("vector constructors (9)", +[] {
-    ivec2 v = ivec2(2, 1);
-    dvec2 u = dvec2(1, 2);
-    vec2 r;
+  SECTION("vec -> uvec") {
+    uvec2 u2 = (uvec2)v2;
+    uvec3 u3 = uvec3(v3);
 
-    r = vec2(v);
-    if (r != vec2(2, 1)) return false;
-    r = vec2(u);
-    if (r != vec2(1, 2)) return false;
+    // -1 should roll over to UINT_MAX
+    REQUIRE(u2 == uvec2(-1, 0));
+    REQUIRE(u3 == uvec3(-1, 0, 1));
+  }
 
-    r = vec2(u.yy);
-    if (r != vec2(2, 2)) return false;
+  SECTION("vec -> dvec") {
+    dvec2 d2 = (dvec2)v2;
+    dvec3 d3 = dvec3(v3);
 
-    return true;
-  });
-  auto constructors_10 = UnitTest("vector constructors (10)", +[] {
-    vec2 v = {1, 2};
-    vec3 u = {1, 2, 3};
-    vec4 t = {1, 2, 3, 4};
+    REQUIRE(d2 == dvec2(-1.5, 0.5));
+    REQUIRE(d3 == dvec3(-1.5, 0.5, 1.5));
+  }
+}
 
-    if (v != vec2(1, 2)) return false;
-    if (u != vec3(1, 2, 3)) return false;
-    if (t != vec4(1, 2, 3, 4)) return false;
+TEST_CASE("vector sizeof", "[vec]") {
+  REQUIRE(sizeof(tvec<float, 2>) == sizeof(float[2]));
+  REQUIRE(sizeof(tvec<float, 3>) == sizeof(float[3]));
+  REQUIRE(sizeof(tvec<float, 4>) == sizeof(float[4]));
+  REQUIRE(sizeof(tvec<float, 5>) == sizeof(float[5]));
+  REQUIRE(sizeof(tvec<float, 6>) == sizeof(float[6]));
+  REQUIRE(sizeof(tvec<float, 7>) == sizeof(float[7]));
+  REQUIRE(sizeof(tvec<float, 8>) == sizeof(float[8]));
+}
 
-    return true;
-  });
-
-  auto index = UnitTest("vector index", +[] {
-    vec4 v = vec4(1, 2, 3, 4);
-
-    float& x = v[0];
-    x = 0;
-    if (v[0] != 0) return false;
-
-    float y = v[1];
-    y = 73;
-    if (v[1] != 2) return false;
-
-    v[2] = 12;
-    if (v[2] != 12) return false;
-
-    v.data[3] = -1;
-    if (v[3] != -1) return false;
-
-    return true;
-  });
-
-  auto array_cast = UnitTest("vector array_cast", +[] {
-    ivec4 v = ivec4(8, 7, 6, 5);
-    int* i = v;
-
-    if (i[0] != 8 and i[1] != 7 and i[2] != 6 and i[3] != 5) return false;
-
-    return true;
-  });
+/*
+  // Should move the swizzle stuff to swizzle folder
+  // also you should add a case for validating ivec != vec
 
   auto swiz_elems = UnitTest("vector swizzleElems", +[] {
     ivec<9> v = ivec<9>(0, 1, 2, 10, 11, 12, 20, 21, 22);
@@ -264,16 +254,5 @@ namespace {
 
     return true;
   });
-
-  auto vec_sizeof = UnitTest("sizeof vector", +[] {
-    if (sizeof(tvec<float, 2>) != sizeof(float[2])) return false;
-    if (sizeof(tvec<float, 3>) != sizeof(float[3])) return false;
-    if (sizeof(tvec<float, 4>) != sizeof(float[4])) return false;
-    if (sizeof(tvec<float, 5>) != sizeof(float[5])) return false;
-    if (sizeof(tvec<float, 6>) != sizeof(float[6])) return false;
-    if (sizeof(tvec<float, 7>) != sizeof(float[7])) return false;
-    if (sizeof(tvec<float, 8>) != sizeof(float[8])) return false;
-
-    return true;
-  });
 }
+*/

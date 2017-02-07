@@ -1,76 +1,239 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto v_pow = UnitTest("vector exponential function pow", +[]() {
-    vec4 v = vec4(1, 2, 3, 4);
+TEST_CASE("vector exponential function pow", "[vec][exp]") {
 
-    if (pow(v, 2) != vec4(1, 4, 9, 16)) return false;
-    if (pow(2.l, v) != vec4(2, 4, 8, 16)) return false;
+  SECTION("scalar") {
+    REQUIRE(pow(0, 2) == 0);
+    REQUIRE(pow(1.f, 2) == 1);
+    REQUIRE(pow(2.0, 2) == 4);
+    REQUIRE(pow(4.l, 2) == 16);
+  }
 
-    if (pow(v.wzyx, 2) != vec4(16, 9, 4, 1)) return false;
-    if (pow(2.f, v.wzyx) != vec4(16, 8, 4, 2)) return false;
+  SECTION("vec2") {
+    vec2 v = vec2(0, 1);
 
-    if (pow(v, v) != vec4(1, 4, 27, 256)) return false;
-    if (pow(v.wzyx, v.wzyx) != vec4(256, 27, 4, 1)) return false;
+    REQUIRE(pow(v, 2) == vec2(0, 1));
+    REQUIRE(pow(2, v) == vec2(1, 2));
 
-    return true;
-  });
+    REQUIRE(pow(v.xy, 2) == vec2(0, 1));
+    REQUIRE(pow(2, v.xy) == vec2(1, 2));
 
-  auto v_exp = UnitTest("vector exponential function exp", +[]() {
-    vec2 v = vec2(1, 2);
+    REQUIRE(pow(v, v) == vec2(1, 1));
+    REQUIRE(pow(v.xy, v.xy) == vec2(1, 1));
+  }
 
-    if (abs(exp(v) - vec2(2.71828, 7.38906)) > 0.0001) return false;
-    if (abs(exp(v.yx) - vec2(7.38906, 2.71828)) > 0.0001) return false;
+  SECTION("vec3") {
+    vec3 v = vec3(0, 1, 2);
 
-    return true;
-  });
+    REQUIRE(pow(v, 2) == vec3(0, 1, 4));
+    REQUIRE(pow(2, v) == vec3(1, 2, 4));
 
-  auto v_log = UnitTest("vector exponential function log", +[]() {
-    vec2 v = vec2(1, 2);
+    REQUIRE(pow(v.xyz, 2) == vec3(0, 1, 4));
+    REQUIRE(pow(2, v.xyz) == vec3(1, 2, 4));
 
-    if (abs(log(v) - vec2(0, 0.693147)) > 0.0001) return false;
-    if (abs(log(v.yx) - vec2(0.693147, 0)) > 0.0001) return false;
+    REQUIRE(pow(v, v) == vec3(1, 1, 4));
+    REQUIRE(pow(v.xyz, v.xyz) == vec3(1, 1, 4));
+  }
 
-    return true;
-  });
+  SECTION("vec4") {
+    vec4 v = vec4(0, 1, 2, 4);
 
-  auto v_exp2 = UnitTest("vector exponential function exp2", +[]() {
-    vec4 v = vec4(1, 2, 3, 4);
+    REQUIRE(pow(v, 2) == vec4(0, 1, 4, 16));
+    REQUIRE(pow(2, v) == vec4(1, 2, 4, 16));
 
-    if (abs(exp2(v) - vec4(2, 4, 8, 16)) > 0.00001) return false;
-    if (abs(exp2(v.wzyx) - vec4(16, 8, 4, 2)) > 0.00001) return false;
+    REQUIRE(pow(v.xyzw, 2) == vec4(0, 1, 4, 16));
+    REQUIRE(pow(2, v.xyzw) == vec4(1, 2, 4, 16));
 
-    return true;
-  });
+    REQUIRE(pow(v, v) == vec4(1, 1, 4, 256));
+    REQUIRE(pow(v.xyzw, v.xyzw) == vec4(1, 1, 4, 256));
+  }
+}
 
-  auto v_log2 = UnitTest("vector exponential function log2", +[]() {
-    vec4 v = vec4(2, 4, 8, 16);
+TEST_CASE("vector exponential function exp", "[vec][exp]") {
 
-    if (abs(log2(v) - vec4(1, 2, 3, 4)) > 0.00001) return false;
-    if (abs(log2(v.wzyx) - vec4(4, 3, 2, 1)) > 0.00001) return false;
+  SECTION("scalar") {
+    REQUIRE(exp(0) == Approx(1));
+    REQUIRE(exp(1) == Approx(2.71828));
+    REQUIRE(exp(2.f) == Approx(7.38906));
+    REQUIRE(exp(-1.0) == Approx(0.367879));
+  }
 
-    return true;
-  });
+  SECTION("vec2") {
+    vec2 v = exp(vec2(0, 1));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(2.71828));
+  }
 
-  auto v_sqrt = UnitTest("vector exponential function sqrt", +[]() {
-    vec4 v = vec4(4, 9, 16, 25);
+  SECTION("vec3") {
+    vec3 v = exp(vec3(0, 1, 2));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(2.71828));
+    REQUIRE(v[2] == Approx(7.38906));
+  }
 
-    if (abs(sqrt(v) - vec4(2, 3, 4, 5)) > 0.00001) return false;
-    if (abs(sqrt(v.wzyx) - vec4(5, 4, 3, 2)) > 0.00001) return false;
+  SECTION("vec4") {
+    vec4 v = exp(vec4(0, 1, 2, -1));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(2.71828));
+    REQUIRE(v[2] == Approx(7.38906));
+    REQUIRE(v[3] == Approx(0.367879));
+  }
+}
 
-    return true;
-  });
+TEST_CASE("vector exponential function log", "[vec][exp]") {
 
-  auto v_isqrt = UnitTest("vector exponential function inversesqrt", +[]() {
-    vec4 v = vec4(4, 9, 16, 25);
-    vec4 r = vec4(1.f / 2.f, 1.f / 3.f, 1.f / 4.f, 1.f / 5.f);
+  SECTION("scalar") {
+    REQUIRE(log(1) == Approx(0));
+    REQUIRE(log(2) == Approx(0.69315));
+    REQUIRE(log(3.f) == Approx(1.09861));
+    REQUIRE(log(4.0) == Approx(1.38629));
+  }
 
-    if (abs(inversesqrt(v) - r) > 0.00001) return false;
-    if (abs(inversesqrt(v.wzyx) - r.wzyx) > 0.00001) return false;
+  SECTION("vec2") {
+    vec2 v = log(vec2(1, 2));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(0.69315));
+  }
 
-    return true;
-  });
+  SECTION("vec3") {
+    vec3 v = log(vec3(1, 2, 3));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(0.69315));
+    REQUIRE(v[2] == Approx(1.09861));
+  }
+
+  SECTION("vec4") {
+    vec4 v = log(vec4(1, 2, 3, 4));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(0.69315));
+    REQUIRE(v[2] == Approx(1.09861));
+    REQUIRE(v[3] == Approx(1.38629));
+  }
+}
+
+TEST_CASE("vector exponential function exp2", "[vec][exp]") {
+
+  SECTION("scalar") {
+    REQUIRE(exp2(0) == Approx(1));
+    REQUIRE(exp2(1) == Approx(2));
+    REQUIRE(exp2(2.f) == Approx(4));
+    REQUIRE(exp2(-1.0) == Approx(0.5));
+  }
+
+  SECTION("vec2") {
+    vec2 v = exp2(vec2(0, 1));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(2));
+  }
+
+  SECTION("vec3") {
+    vec3 v = exp2(vec3(0, 1, 2));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(2));
+    REQUIRE(v[2] == Approx(4));
+  }
+
+  SECTION("vec4") {
+    vec4 v = exp2(vec4(0, 1, 2, -1));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(2));
+    REQUIRE(v[2] == Approx(4));
+    REQUIRE(v[3] == Approx(0.5));
+  }
+}
+
+TEST_CASE("vector exponential function log2", "[vec][exp]") {
+
+  SECTION("scalar") {
+    REQUIRE(log2(1) == Approx(0));
+    REQUIRE(log2(2) == Approx(1));
+    REQUIRE(log2(3.f) == Approx(1.58496));
+    REQUIRE(log2(4.0) == Approx(2));
+  }
+
+  SECTION("vec2") {
+    vec2 v = log2(vec2(1, 2));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(1));
+  }
+
+  SECTION("vec3") {
+    vec3 v = log2(vec3(1, 2, 3));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(1));
+    REQUIRE(v[2] == Approx(1.58496));
+  }
+
+  SECTION("vec4") {
+    vec4 v = log2(vec4(1, 2, 3, 4));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(1));
+    REQUIRE(v[2] == Approx(1.58496));
+    REQUIRE(v[3] == Approx(2));
+  }
+}
+
+TEST_CASE("vector exponential function sqrt", "[vec][exp]") {
+
+  SECTION("scalar") {
+    REQUIRE(sqrt(0) == Approx(0));
+    REQUIRE(sqrt(1) == Approx(1));
+    REQUIRE(sqrt(2.f) == Approx(1.41421));
+    REQUIRE(sqrt(3.0) == Approx(1.73205));
+  }
+
+  SECTION("vec2") {
+    vec2 v = sqrt(vec2(0, 1));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(1));
+  }
+
+  SECTION("vec3") {
+    vec3 v = sqrt(vec3(0, 1, 2));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(1));
+    REQUIRE(v[2] == Approx(1.41421));
+  }
+
+  SECTION("vec4") {
+    vec4 v = sqrt(vec4(0, 1, 2, 3));
+    REQUIRE(v[0] == Approx(0));
+    REQUIRE(v[1] == Approx(1));
+    REQUIRE(v[2] == Approx(1.41421));
+    REQUIRE(v[3] == Approx(1.73205));
+  }
+}
+
+TEST_CASE("vector exponential function inversesqrt", "[vec][exp]") {
+
+  SECTION("scalar") {
+    REQUIRE(inversesqrt(1) == Approx(1));
+    REQUIRE(inversesqrt(2) == Approx(0.70711));
+    REQUIRE(inversesqrt(3.f) == Approx(0.57735));
+    REQUIRE(inversesqrt(4.0) == Approx(0.5));
+  }
+
+  SECTION("vec2") {
+    vec2 v = inversesqrt(vec2(1, 2));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(0.70711));
+  }
+
+  SECTION("vec3") {
+    vec3 v = inversesqrt(vec3(1, 2, 3));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(0.70711));
+    REQUIRE(v[2] == Approx(0.57735));
+  }
+
+  SECTION("vec4") {
+    vec4 v = inversesqrt(vec4(1, 2, 3, 4));
+    REQUIRE(v[0] == Approx(1));
+    REQUIRE(v[1] == Approx(0.70711));
+    REQUIRE(v[2] == Approx(0.57735));
+    REQUIRE(v[3] == Approx(0.5));
+  }
 }
