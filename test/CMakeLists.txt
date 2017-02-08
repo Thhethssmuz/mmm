@@ -8,22 +8,14 @@ endif()
 
 include(Catch.cmake)
 
-# individual tests
-# function (add_mmm_test name src)
-#   add_executable(mmm_${name}_test main.cpp unittest.cpp ${src})
-#   add_test(mmm_${name}_test mmm_${name}_test)
-# endfunction()
+option(MMM_BUILD_UNIT_TESTS_SINGLE "build only the given test" OFF)
+if(MMM_BUILD_UNIT_TESTS_SINGLE)
+  set(sources ${MMM_BUILD_UNIT_TESTS_SINGLE})
+  message("building single source: ${sources}")
+else()
+  file(GLOB_RECURSE sources . *.cpp)
+endif()
 
-# create one for each cpp file
-file(GLOB_RECURSE sources . *.cpp)
-# foreach(source ${sources})
-#   file(RELATIVE_PATH src ${CMAKE_CURRENT_SOURCE_DIR} ${source})
-#   string(REGEX REPLACE "/" "_" source_name ${src})
-#   string(REGEX REPLACE ".cpp" "" source_name ${source_name})
-#   add_mmm_test(${source_name} ${src})
-# endforeach()
-
-# all tests in one executable
 add_executable(mmm_tests main.cpp ${sources})
 
 if(NOT CATCH_FOUND)
