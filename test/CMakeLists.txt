@@ -22,4 +22,4 @@ if(NOT CATCH_FOUND)
   add_dependencies(mmm_tests catch-lib)
 endif(NOT CATCH_FOUND)
 
-add_test(mmm_tests mmm_tests)
+add_test(NAME mmm_tests COMMAND mmm_tests --use-colour yes)
