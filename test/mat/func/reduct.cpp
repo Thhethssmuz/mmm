@@ -1,278 +1,348 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto tr1 = UnitTest("matrix reduction function takeRow (1)", +[] {
+TEST_CASE("matrix reduction function takeRow", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (takeRow<0>(m) != vec2(1, 2)) return false;
-    if (takeRow<1>(m) != vec2(3, 4)) return false;
+    REQUIRE(takeRow<0>(m) == vec2(1, 2));
+    REQUIRE(takeRow<1>(m) == vec2(3, 4));
+  }
 
-    if (takeRow<0>(n) != vec3(1, 2, 3)) return false;
-    if (takeRow<1>(n) != vec3(4, 5, 6)) return false;
-    if (takeRow<2>(n) != vec3(7, 8, 9)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (takeRow<0>(o) != vec4(1, 2, 3, 4)) return false;
-    if (takeRow<1>(o) != vec4(5, 6, 7, 8)) return false;
-    if (takeRow<2>(o) != vec4(9, 10, 11, 12)) return false;
-    if (takeRow<3>(o) != vec4(13, 14, 15, 16)) return false;
+    REQUIRE(takeRow<0>(m) == vec3(1, 2, 3));
+    REQUIRE(takeRow<1>(m) == vec3(4, 5, 6));
+    REQUIRE(takeRow<2>(m) == vec3(7, 8, 9));
+  }
 
-    return true;
-  });
-  auto tr2 = UnitTest("matrix reduction function takeRow (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(takeRow<0>(m) == vec4(1, 2, 3, 4));
+    REQUIRE(takeRow<1>(m) == vec4(5, 6, 7, 8));
+    REQUIRE(takeRow<2>(m) == vec4(9, 10, 11, 12));
+    REQUIRE(takeRow<3>(m) == vec4(13, 14, 15, 16));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (takeRow<0>(m) != vec2(1, 2)) return false;
-    if (takeRow<1>(m) != vec2(3, 4)) return false;
-    if (takeRow<2>(m) != vec2(5, 6)) return false;
-    if (takeRow<3>(m) != vec2(7, 8)) return false;
+    REQUIRE(takeRow<0>(m) == vec2(1, 2));
+    REQUIRE(takeRow<1>(m) == vec2(3, 4));
+    REQUIRE(takeRow<2>(m) == vec2(5, 6));
+    REQUIRE(takeRow<3>(m) == vec2(7, 8));
+  }
 
-    if (takeRow<0>(n) != vec4(1, 2, 3, 4)) return false;
-    if (takeRow<1>(n) != vec4(5, 6, 7, 8)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(takeRow<0>(m) == vec4(1, 2, 3, 4));
+    REQUIRE(takeRow<1>(m) == vec4(5, 6, 7, 8));
+  }
+}
 
-  auto trs1 = UnitTest("matrix reduction function takeRows (1)", +[] {
+TEST_CASE("matrix reduction function takeRows", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (takeRows<1>(m) != vec2(1, 2)) return false;
-    if (takeRows<2>(m) != mat2(1, 2, 3, 4)) return false;
+    REQUIRE(takeRows<1>(m) == vec2(1, 2));
+    REQUIRE(takeRows<2>(m) == mat2(1, 2, 3, 4));
+  }
 
-    if (takeRows<1>(n) != vec3(1, 2, 3)) return false;
-    if (takeRows<2>(n) != mat3x2(1, 2, 3, 4, 5, 6)) return false;
-    if (takeRows<3>(n) != mat3(1, 2, 3, 4, 5, 6, 7, 8, 9)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (takeRows<1>(o) != vec4(1, 2, 3, 4)) return false;
-    if (takeRows<2>(o) != mat4x2(1, 2, 3, 4, 5, 6, 7, 8)) return false;
-    if (takeRows<3>(o) != mat4x3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) return false;
-    if (takeRows<4>(o) != mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
+    REQUIRE(takeRows<1>(m) == vec3(1, 2, 3));
+    REQUIRE(takeRows<2>(m) == mat3x2(1, 2, 3, 4, 5, 6));
+    REQUIRE(takeRows<3>(m) == mat3(1, 2, 3, 4, 5, 6, 7, 8, 9));
+  }
 
-    return true;
-  });
-  auto trs2 = UnitTest("matrix reduction function takeRows (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(takeRows<1>(m) == vec4(1, 2, 3, 4));
+    REQUIRE(takeRows<2>(m) == mat4x2(1, 2, 3, 4, 5, 6, 7, 8));
+    REQUIRE(takeRows<3>(m) == mat4x3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
+    REQUIRE(takeRows<4>(m) == mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (takeRows<1>(m) != vec2(1, 2)) return false;
-    if (takeRows<2>(m) != mat2(1, 2, 3, 4)) return false;
-    if (takeRows<3>(m) != mat2x3(1, 2, 3, 4, 5, 6)) return false;
-    if (takeRows<4>(m) != mat2x4(1, 2, 3, 4, 5, 6, 7, 8)) return false;
+    REQUIRE(takeRows<1>(m) == vec2(1, 2));
+    REQUIRE(takeRows<2>(m) == mat2(1, 2, 3, 4));
+    REQUIRE(takeRows<3>(m) == mat2x3(1, 2, 3, 4, 5, 6));
+    REQUIRE(takeRows<4>(m) == mat2x4(1, 2, 3, 4, 5, 6, 7, 8));
+  }
 
-    if (takeRows<1>(n) != vec4(1, 2, 3, 4)) return false;
-    if (takeRows<2>(n) != mat4x2(1, 2, 3, 4, 5, 6, 7, 8)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(takeRows<1>(m) == vec4(1, 2, 3, 4));
+    REQUIRE(takeRows<2>(m) == mat4x2(1, 2, 3, 4, 5, 6, 7, 8));
+  }
+}
 
-  auto dr1 = UnitTest("matrix reduction function dropRow (1)", +[] {
+TEST_CASE("matrix reduction function dropRow", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (dropRow<0>(m) != vec2(3, 4)) return false;
-    if (dropRow<1>(m) != vec2(1, 2)) return false;
+    REQUIRE(dropRow<0>(m) == vec2(3, 4));
+    REQUIRE(dropRow<1>(m) == vec2(1, 2));
+  }
 
-    if (dropRow<0>(n) != mat3x2(4, 5, 6, 7, 8, 9)) return false;
-    if (dropRow<1>(n) != mat3x2(1, 2, 3, 7, 8, 9)) return false;
-    if (dropRow<2>(n) != mat3x2(1, 2, 3, 4, 5, 6)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (dropRow<0>(o) != mat4x3(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
-    if (dropRow<1>(o) != mat4x3(1, 2, 3, 4, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
-    if (dropRow<2>(o) != mat4x3(1, 2, 3, 4, 5, 6, 7, 8, 13, 14, 15, 16)) return false;
-    if (dropRow<3>(o) != mat4x3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) return false;
+    REQUIRE(dropRow<0>(m) == mat3x2(4, 5, 6, 7, 8, 9));
+    REQUIRE(dropRow<1>(m) == mat3x2(1, 2, 3, 7, 8, 9));
+    REQUIRE(dropRow<2>(m) == mat3x2(1, 2, 3, 4, 5, 6));
+  }
 
-    return true;
-  });
-  auto dr2 = UnitTest("matrix reduction function dropRow (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(dropRow<0>(m) == mat4x3(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
+    REQUIRE(dropRow<1>(m) == mat4x3(1, 2, 3, 4, 9, 10, 11, 12, 13, 14, 15, 16));
+    REQUIRE(dropRow<2>(m) == mat4x3(1, 2, 3, 4, 5, 6, 7, 8, 13, 14, 15, 16));
+    REQUIRE(dropRow<3>(m) == mat4x3(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (dropRow<0>(m) != mat2x3(3, 4, 5, 6, 7, 8)) return false;
-    if (dropRow<1>(m) != mat2x3(1, 2, 5, 6, 7, 8)) return false;
-    if (dropRow<2>(m) != mat2x3(1, 2, 3, 4, 7, 8)) return false;
-    if (dropRow<3>(m) != mat2x3(1, 2, 3, 4, 5, 6)) return false;
+    REQUIRE(dropRow<0>(m) == mat2x3(3, 4, 5, 6, 7, 8));
+    REQUIRE(dropRow<1>(m) == mat2x3(1, 2, 5, 6, 7, 8));
+    REQUIRE(dropRow<2>(m) == mat2x3(1, 2, 3, 4, 7, 8));
+    REQUIRE(dropRow<3>(m) == mat2x3(1, 2, 3, 4, 5, 6));
+  }
 
-    if (dropRow<0>(n) != vec4(5, 6, 7, 8)) return false;
-    if (dropRow<1>(n) != vec4(1, 2, 3, 4)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(dropRow<0>(m) == vec4(5, 6, 7, 8));
+    REQUIRE(dropRow<1>(m) == vec4(1, 2, 3, 4));
+  }
+}
 
-  auto drs1 = UnitTest("matrix reduction function dropRows (1)", +[] {
+TEST_CASE("matrix reduction function dropRows", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (dropRows<0>(m) != mat2(1, 2, 3, 4)) return false;
-    if (dropRows<1>(m) != vec2(3, 4)) return false;
+    REQUIRE(dropRows<0>(m) == mat2(1, 2, 3, 4));
+    REQUIRE(dropRows<1>(m) == vec2(3, 4));
+  }
 
-    if (dropRows<0>(n) != mat3(1, 2, 3, 4, 5, 6, 7, 8, 9)) return false;
-    if (dropRows<1>(n) != mat3x2(4, 5, 6, 7, 8, 9)) return false;
-    if (dropRows<2>(n) != vec3(7, 8, 9)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (dropRows<0>(o) != mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
-    if (dropRows<1>(o) != mat4x3(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
-    if (dropRows<2>(o) != mat4x2(9, 10, 11, 12, 13, 14, 15, 16)) return false;
-    if (dropRows<3>(o) != vec4(13, 14, 15, 16)) return false;
+    REQUIRE(dropRows<0>(m) == mat3(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    REQUIRE(dropRows<1>(m) == mat3x2(4, 5, 6, 7, 8, 9));
+    REQUIRE(dropRows<2>(m) == vec3(7, 8, 9));
+  }
 
-    return true;
-  });
-  auto drs2 = UnitTest("matrix reduction function dropRows (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(dropRows<0>(m) == mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
+    REQUIRE(dropRows<1>(m) == mat4x3(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
+    REQUIRE(dropRows<2>(m) == mat4x2(9, 10, 11, 12, 13, 14, 15, 16));
+    REQUIRE(dropRows<3>(m) == vec4(13, 14, 15, 16));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (dropRows<0>(m) != mat2x4(1, 2, 3, 4, 5, 6, 7, 8)) return false;
-    if (dropRows<1>(m) != mat2x3(3, 4, 5, 6, 7, 8)) return false;
-    if (dropRows<2>(m) != mat2(5, 6, 7, 8)) return false;
-    if (dropRows<3>(m) != vec2(7, 8)) return false;
+    REQUIRE(dropRows<0>(m) == mat2x4(1, 2, 3, 4, 5, 6, 7, 8));
+    REQUIRE(dropRows<1>(m) == mat2x3(3, 4, 5, 6, 7, 8));
+    REQUIRE(dropRows<2>(m) == mat2(5, 6, 7, 8));
+    REQUIRE(dropRows<3>(m) == vec2(7, 8));
+  }
 
-    if (dropRows<0>(n) != mat4x2(1, 2, 3, 4, 5, 6, 7, 8)) return false;
-    if (dropRows<1>(n) != vec4(5, 6, 7, 8)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(dropRows<0>(m) == mat4x2(1, 2, 3, 4, 5, 6, 7, 8));
+    REQUIRE(dropRows<1>(m) == vec4(5, 6, 7, 8));
+  }
+}
 
-  auto tc1 = UnitTest("matrix reduction function takeColumn (1)", +[] {
+TEST_CASE("matrix reduction function takeColumn", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (takeColumn<0>(m) != vec2(1, 3)) return false;
-    if (takeColumn<1>(m) != vec2(2, 4)) return false;
+    REQUIRE(takeColumn<0>(m) == vec2(1, 3));
+    REQUIRE(takeColumn<1>(m) == vec2(2, 4));
+  }
 
-    if (takeColumn<0>(n) != vec3(1, 4, 7)) return false;
-    if (takeColumn<1>(n) != vec3(2, 5, 8)) return false;
-    if (takeColumn<2>(n) != vec3(3, 6, 9)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (takeColumn<0>(o) != vec4(1, 5, 9, 13)) return false;
-    if (takeColumn<1>(o) != vec4(2, 6, 10, 14)) return false;
-    if (takeColumn<2>(o) != vec4(3, 7, 11, 15)) return false;
-    if (takeColumn<3>(o) != vec4(4, 8, 12, 16)) return false;
+    REQUIRE(takeColumn<0>(m) == vec3(1, 4, 7));
+    REQUIRE(takeColumn<1>(m) == vec3(2, 5, 8));
+    REQUIRE(takeColumn<2>(m) == vec3(3, 6, 9));
+  }
 
-    return true;
-  });
-  auto tc2 = UnitTest("matrix reduction function takeColumn (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(takeColumn<0>(m) == vec4(1, 5, 9, 13));
+    REQUIRE(takeColumn<1>(m) == vec4(2, 6, 10, 14));
+    REQUIRE(takeColumn<2>(m) == vec4(3, 7, 11, 15));
+    REQUIRE(takeColumn<3>(m) == vec4(4, 8, 12, 16));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (takeColumn<0>(m) != vec4(1, 3, 5, 7)) return false;
-    if (takeColumn<1>(m) != vec4(2, 4, 6, 8)) return false;
+    REQUIRE(takeColumn<0>(m) == vec4(1, 3, 5, 7));
+    REQUIRE(takeColumn<1>(m) == vec4(2, 4, 6, 8));
+  }
 
-    if (takeColumn<0>(n) != vec2(1, 5)) return false;
-    if (takeColumn<1>(n) != vec2(2, 6)) return false;
-    if (takeColumn<2>(n) != vec2(3, 7)) return false;
-    if (takeColumn<3>(n) != vec2(4, 8)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(takeColumn<0>(m) == vec2(1, 5));
+    REQUIRE(takeColumn<1>(m) == vec2(2, 6));
+    REQUIRE(takeColumn<2>(m) == vec2(3, 7));
+    REQUIRE(takeColumn<3>(m) == vec2(4, 8));
+  }
+}
 
-  auto tcs1 = UnitTest("matrix reduction function takeColumns (1)", +[] {
+TEST_CASE("matrix reduction function takeColumns", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (takeColumns<1>(m) != vec2(1, 3)) return false;
-    if (takeColumns<2>(m) != mat2(1, 2, 3, 4)) return false;
+    REQUIRE(takeColumns<1>(m) == vec2(1, 3));
+    REQUIRE(takeColumns<2>(m) == mat2(1, 2, 3, 4));
+  }
 
-    if (takeColumns<1>(n) != vec3(1, 4, 7)) return false;
-    if (takeColumns<2>(n) != mat2x3(1, 2, 4, 5, 7, 8)) return false;
-    if (takeColumns<3>(n) != mat3(1, 2, 3, 4, 5, 6, 7, 8, 9)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (takeColumns<1>(o) != vec4(1, 5, 9, 13)) return false;
-    if (takeColumns<2>(o) != mat2x4(1, 2, 5, 6, 9, 10, 13, 14)) return false;
-    if (takeColumns<3>(o) != mat3x4(1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15)) return false;
-    if (takeColumns<4>(o) != mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
+    REQUIRE(takeColumns<1>(m) == vec3(1, 4, 7));
+    REQUIRE(takeColumns<2>(m) == mat2x3(1, 2, 4, 5, 7, 8));
+    REQUIRE(takeColumns<3>(m) == mat3(1, 2, 3, 4, 5, 6, 7, 8, 9));
+  }
 
-    return true;
-  });
-  auto tcs2 = UnitTest("matrix reduction function takeColumns (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(takeColumns<1>(m) == vec4(1, 5, 9, 13));
+    REQUIRE(takeColumns<2>(m) == mat2x4(1, 2, 5, 6, 9, 10, 13, 14));
+    REQUIRE(takeColumns<3>(m) == mat3x4(1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15));
+    REQUIRE(takeColumns<4>(m) == mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (takeColumns<1>(m) != vec4(1, 3, 5, 7)) return false;
-    if (takeColumns<2>(m) != mat2x4(1, 2, 3, 4, 5, 6, 7, 8)) return false;
+    REQUIRE(takeColumns<1>(m) == vec4(1, 3, 5, 7));
+    REQUIRE(takeColumns<2>(m) == mat2x4(1, 2, 3, 4, 5, 6, 7, 8));
+  }
 
-    if (takeColumns<1>(n) != vec2(1, 5)) return false;
-    if (takeColumns<2>(n) != mat2(1, 2, 5, 6)) return false;
-    if (takeColumns<3>(n) != mat3x2(1, 2, 3, 5, 6, 7)) return false;
-    if (takeColumns<4>(n) != mat4x2(1, 2, 3, 4, 5, 6, 7, 8)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(takeColumns<1>(m) == vec2(1, 5));
+    REQUIRE(takeColumns<2>(m) == mat2(1, 2, 5, 6));
+    REQUIRE(takeColumns<3>(m) == mat3x2(1, 2, 3, 5, 6, 7));
+    REQUIRE(takeColumns<4>(m) == mat4x2(1, 2, 3, 4, 5, 6, 7, 8));
+  }
+}
 
-  auto dc1 = UnitTest("matrix reduction function dropColumn (1)", +[] {
+TEST_CASE("matrix reduction function dropColumn", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (dropColumn<0>(m) != vec2(2, 4)) return false;
-    if (dropColumn<1>(m) != vec2(1, 3)) return false;
+    REQUIRE(dropColumn<0>(m) == vec2(2, 4));
+    REQUIRE(dropColumn<1>(m) == vec2(1, 3));
+  }
 
-    if (dropColumn<0>(n) != mat2x3(2, 3, 5, 6, 8, 9)) return false;
-    if (dropColumn<1>(n) != mat2x3(1, 3, 4, 6, 7, 9)) return false;
-    if (dropColumn<2>(n) != mat2x3(1, 2, 4, 5, 7, 8)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (dropColumn<0>(o) != mat3x4(2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15, 16)) return false;
-    if (dropColumn<1>(o) != mat3x4(1, 3, 4, 5, 7, 8, 9, 11, 12, 13, 15, 16)) return false;
-    if (dropColumn<2>(o) != mat3x4(1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16)) return false;
-    if (dropColumn<3>(o) != mat3x4(1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15)) return false;
+    REQUIRE(dropColumn<0>(m) == mat2x3(2, 3, 5, 6, 8, 9));
+    REQUIRE(dropColumn<1>(m) == mat2x3(1, 3, 4, 6, 7, 9));
+    REQUIRE(dropColumn<2>(m) == mat2x3(1, 2, 4, 5, 7, 8));
+  }
 
-    return true;
-  });
-  auto dc2 = UnitTest("matrix reduction function dropColumn (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(dropColumn<0>(m) == mat3x4(2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15, 16));
+    REQUIRE(dropColumn<1>(m) == mat3x4(1, 3, 4, 5, 7, 8, 9, 11, 12, 13, 15, 16));
+    REQUIRE(dropColumn<2>(m) == mat3x4(1, 2, 4, 5, 6, 8, 9, 10, 12, 13, 14, 16));
+    REQUIRE(dropColumn<3>(m) == mat3x4(1, 2, 3, 5, 6, 7, 9, 10, 11, 13, 14, 15));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (dropColumn<0>(m) != vec4(2, 4, 6, 8)) return false;
-    if (dropColumn<1>(m) != vec4(1, 3, 5, 7)) return false;
+    REQUIRE(dropColumn<0>(m) == vec4(2, 4, 6, 8));
+    REQUIRE(dropColumn<1>(m) == vec4(1, 3, 5, 7));
+  }
 
-    if (dropColumn<0>(n) != mat3x2(2, 3, 4, 6, 7, 8)) return false;
-    if (dropColumn<1>(n) != mat3x2(1, 3, 4, 5, 7, 8)) return false;
-    if (dropColumn<2>(n) != mat3x2(1, 2, 4, 5, 6, 8)) return false;
-    if (dropColumn<3>(n) != mat3x2(1, 2, 3, 5, 6, 7)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(dropColumn<0>(m) == mat3x2(2, 3, 4, 6, 7, 8));
+    REQUIRE(dropColumn<1>(m) == mat3x2(1, 3, 4, 5, 7, 8));
+    REQUIRE(dropColumn<2>(m) == mat3x2(1, 2, 4, 5, 6, 8));
+    REQUIRE(dropColumn<3>(m) == mat3x2(1, 2, 3, 5, 6, 7));
+  }
+}
 
-  auto dcs1 = UnitTest("matrix reduction function dropColumns (1)", +[] {
+TEST_CASE("matrix reduction function dropColumns", "[mat][red]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (dropColumns<0>(m) != mat2(1, 2, 3, 4)) return false;
-    if (dropColumns<1>(m) != vec2(2, 4)) return false;
+    REQUIRE(dropColumns<0>(m) == mat2(1, 2, 3, 4));
+    REQUIRE(dropColumns<1>(m) == vec2(2, 4));
+  }
 
-    if (dropColumns<0>(n) != mat3(1, 2, 3, 4, 5, 6, 7, 8, 9)) return false;
-    if (dropColumns<1>(n) != mat2x3(2, 3, 5, 6, 8, 9)) return false;
-    if (dropColumns<2>(n) != vec3(3, 6, 9)) return false;
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
-    if (dropColumns<0>(o) != mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)) return false;
-    if (dropColumns<1>(o) != mat3x4(2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15, 16)) return false;
-    if (dropColumns<2>(o) != mat2x4(3, 4, 7, 8, 11, 12, 15, 16)) return false;
-    if (dropColumns<3>(o) != vec4(4, 8, 12, 16)) return false;
+    REQUIRE(dropColumns<0>(m) == mat3(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    REQUIRE(dropColumns<1>(m) == mat2x3(2, 3, 5, 6, 8, 9));
+    REQUIRE(dropColumns<2>(m) == vec3(3, 6, 9));
+  }
 
-    return true;
-  });
-  auto dcs2 = UnitTest("matrix reduction function dropColumns (2)", +[] {
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+
+    REQUIRE(dropColumns<0>(m) == mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16));
+    REQUIRE(dropColumns<1>(m) == mat3x4(2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15, 16));
+    REQUIRE(dropColumns<2>(m) == mat2x4(3, 4, 7, 8, 11, 12, 15, 16));
+    REQUIRE(dropColumns<3>(m) == vec4(4, 8, 12, 16));
+  }
+
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1, 2, 3, 4, 5, 6, 7, 8);
-    mat4x2 n = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    if (dropColumns<0>(m) != mat2x4(1, 2, 3, 4, 5, 6, 7, 8)) return false;
-    if (dropColumns<1>(m) != vec4(2, 4, 6, 8)) return false;
+    REQUIRE(dropColumns<0>(m) == mat2x4(1, 2, 3, 4, 5, 6, 7, 8));
+    REQUIRE(dropColumns<1>(m) == vec4(2, 4, 6, 8));
+  }
 
-    if (dropColumns<0>(n) != mat4x2(1, 2, 3, 4, 5, 6, 7, 8)) return false;
-    if (dropColumns<1>(n) != mat3x2(2, 3, 4, 6, 7, 8)) return false;
-    if (dropColumns<2>(n) != mat2(3, 4, 7, 8)) return false;
-    if (dropColumns<3>(n) != vec2(4, 8)) return false;
+  SECTION("mat4x2") {
+    mat4x2 m = mat4x2(1, 2, 3, 4, 5, 6, 7, 8);
 
-    return true;
-  });
+    REQUIRE(dropColumns<0>(m) == mat4x2(1, 2, 3, 4, 5, 6, 7, 8));
+    REQUIRE(dropColumns<1>(m) == mat3x2(2, 3, 4, 6, 7, 8));
+    REQUIRE(dropColumns<2>(m) == mat2(3, 4, 7, 8));
+    REQUIRE(dropColumns<3>(m) == vec2(4, 8));
+  }
 }

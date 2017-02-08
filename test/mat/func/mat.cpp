@@ -1,178 +1,189 @@
-#include <unittest.hpp>
+#include <catch.hpp>
 #include <mmm.hpp>
 
-namespace {
-  using namespace mmm;
+using namespace mmm;
 
-  auto mcm1 = UnitTest("matrix function matrixCompMult (1)", +[] {
+TEST_CASE("matrix function matrixCompMult", "[mat]") {
+
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
     mat2 n = mat2(2, 3, 4, 5);
 
-    if (matrixCompMult(m, n) != mat2(2, 6, 12, 20)) return false;
-    if (matrixCompMult(n, m) != mat2(2, 6, 12, 20)) return false;
+    REQUIRE(matrixCompMult(m, n) == mat2(2, 6, 12, 20));
+    REQUIRE(matrixCompMult(n, m) == mat2(2, 6, 12, 20));
+  }
 
-    return true;
-  });
-  auto mcm2 = UnitTest("matrix function matrixCompMult (2)", +[] {
+  SECTION("mat3") {
     mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
     mat3 n = mat3(2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-    if (matrixCompMult(m, n) != mat3(2, 6, 12, 20, 30, 42, 56, 72, 90)) return false;
-    if (matrixCompMult(n, m) != mat3(2, 6, 12, 20, 30, 42, 56, 72, 90)) return false;
+    REQUIRE(matrixCompMult(m, n) == mat3(2, 6, 12, 20, 30, 42, 56, 72, 90));
+    REQUIRE(matrixCompMult(n, m) == mat3(2, 6, 12, 20, 30, 42, 56, 72, 90));
+  }
+}
 
-    return true;
-  });
+TEST_CASE("matrix function outerProduct", "[mat]") {
 
-  auto op1 = UnitTest("matrix function outerProduct (1)", +[] {
+  SECTION("scalar vector") {
     vec2 v = vec2(1, 2);
     vec3 u = vec3(1, 2, 3);
     vec4 t = vec4(1, 2, 3, 4);
 
-    if (outerProduct(1, v) != vec2(1, 2)) return false;
-    if (outerProduct(v, 2) != vec2(2, 4)) return false;
+    REQUIRE(outerProduct(1, v) == vec2(1, 2));
+    REQUIRE(outerProduct(3, u) == vec3(3, 6, 9));
+    REQUIRE(outerProduct(5, t) == vec4(5, 10, 15, 20));
+  }
 
-    if (outerProduct(3, u) != vec3(3, 6, 9)) return false;
-    if (outerProduct(u, 4) != vec3(4, 8, 12)) return false;
+  SECTION("vector scalar") {
+    vec2 v = vec2(1, 2);
+    vec3 u = vec3(1, 2, 3);
+    vec4 t = vec4(1, 2, 3, 4);
 
-    if (outerProduct(5, t) != vec4(5, 10, 15, 20)) return false;
-    if (outerProduct(t, 6) != vec4(6, 12, 18, 24)) return false;
+    REQUIRE(outerProduct(v, 2) == vec2(2, 4));
+    REQUIRE(outerProduct(u, 4) == vec3(4, 8, 12));
+    REQUIRE(outerProduct(t, 6) == vec4(6, 12, 18, 24));
+  }
 
-    return true;
-  });
-  auto op2 = UnitTest("matrix function outerProduct (2)", +[] {
+  SECTION("vector vector") {
     vec2 v = vec2(1, 2);
     vec3 u = vec3(3, 4, 5);
     vec4 t = vec4(6, 7, 8, 9);
 
-    if (outerProduct(v, u) != mat3x2(3, 4, 5, 6, 8, 10)) return false;
-    if (outerProduct(u, v) != mat2x3(3, 6, 4, 8, 5, 10)) return false;
+    REQUIRE(outerProduct(v, u) == mat3x2(3, 4, 5, 6, 8, 10));
+    REQUIRE(outerProduct(u, v) == mat2x3(3, 6, 4, 8, 5, 10));
 
-    if (outerProduct(v, t) != mat4x2(6, 7, 8, 9, 12, 14, 16, 18)) return false;
-    if (outerProduct(t, v) != mat2x4(6, 12, 7, 14, 8, 16, 9, 18)) return false;
+    REQUIRE(outerProduct(v, t) == mat4x2(6, 7, 8, 9, 12, 14, 16, 18));
+    REQUIRE(outerProduct(t, v) == mat2x4(6, 12, 7, 14, 8, 16, 9, 18));
 
-    if (outerProduct(u, t) != mat4x3(18, 21, 24, 27, 24, 28, 32, 36, 30, 35, 40, 45)) return false;
-    if (outerProduct(t, u) != mat3x4(18, 24, 30, 21, 28, 35, 24, 32, 40, 27, 36, 45)) return false;
+    REQUIRE(outerProduct(u, t) == mat4x3(18, 21, 24, 27, 24, 28, 32, 36, 30, 35, 40, 45));
+    REQUIRE(outerProduct(t, u) == mat3x4(18, 24, 30, 21, 28, 35, 24, 32, 40, 27, 36, 45));
+  }
+}
 
-    return true;
-  });
+TEST_CASE("matrix function transpose", "[mat]") {
 
-  auto trans1 = UnitTest("matrix function transpose (1)", +[] {
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
+    REQUIRE(transpose(m) == mat2(1, 3, 2, 4));
+  }
+
+  SECTION("mat3") {
     mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    REQUIRE(transpose(n) == mat3(1, 4, 7,2, 5, 8,3, 6, 9));
+  }
+
+  SECTION("mat4") {
     mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+    REQUIRE(transpose(o) == mat4(1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16));
+  }
 
-    if (transpose(m) != mat2(1, 3, 2, 4)) return false;
-    if (transpose(n) != mat3(1, 4, 7,2, 5, 8,3, 6, 9)) return false;
-    if (transpose(o) != mat4(1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16)) return false;
-
-    return true;
-  });
-  auto trans2 = UnitTest("matrix function transpose (2)", +[] {
+  SECTION("mat2x4") {
     mat2x4 m = mat2x4(1,2,3,4,5,6,7,8);
+    REQUIRE(transpose(m) == mat4x2(1, 3, 5, 7, 2, 4, 6, 8));
+  }
+
+  SECTION("mat4x2") {
     mat4x2 n = mat4x2(1,2,3,4,5,6,7,8);
+    REQUIRE(transpose(n) == mat2x4(1, 5, 2, 6, 3, 7, 4, 8));
+  }
+}
 
-    if (transpose(m) != mat4x2(1, 3, 5, 7, 2, 4, 6, 8)) return false;
-    if (transpose(n) != mat2x4(1, 5, 2, 6, 3, 7, 4, 8)) return false;
+TEST_CASE("matrix function determinant", "[mat]") {
 
-    return true;
-  });
+  SECTION("mat2") {
+    REQUIRE(determinant(mat2(0, -2, 1, 1)) == 2);
+    REQUIRE(determinant(mat2(2, -2, 0, 1)) == 2);
+    REQUIRE(determinant(mat2(2, 0, 0, 1)) == 2);
 
-  auto det1 = UnitTest("matrix function determinant (1)", +[] {
+    REQUIRE(determinant(mat2(0, 2, 1, 1)) == -2);
+    REQUIRE(determinant(mat2(3, 2, 0, 1)) == 3);
+    REQUIRE(determinant(mat2(3, 0, 0, 1)) == 3);
 
-    if (determinant(mat2(0, -2, 1, 1)) != 2) return false;
-    if (determinant(mat2(2, -2, 0, 1)) != 2) return false;
-    if (determinant(mat2(2, 0, 0, 1)) != 2) return false;
+    REQUIRE(determinant(mat2(0, 2, 0, -2)) == 0);
+    REQUIRE(determinant(mat2(3, 2, 2, -2)) == -10);
+    REQUIRE(determinant(mat2(3, 0, 2, 0)) == 0);
+  }
 
-    if (determinant(mat2(0, 2, 1, 1)) != -2) return false;
-    if (determinant(mat2(3, 2, 0, 1)) != 3) return false;
-    if (determinant(mat2(3, 0, 0, 1)) != 3) return false;
-
-    if (determinant(mat2(0, 2, 0, -2)) != 0) return false;
-    if (determinant(mat2(3, 2, 2, -2)) != -10) return false;
-    if (determinant(mat2(3, 0, 2, 0)) != 0) return false;
-
-    return true;
-  });
-  auto det2 = UnitTest("matrix function determinant (2)", +[] {
+  SECTION("identity") {
     mat2 m = mat2(1, 0, 0, 1);
     mat3 n = mat3(1, 0, 0, 0, 1, 0, 0, 0, 1);
     mat4 o = mat4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
-    if (determinant(m) != 1) return false;
-    if (determinant(n) != 1) return false;
-    if (determinant(o) != 1) return false;
+    REQUIRE(determinant(m) == 1);
+    REQUIRE(determinant(n) == 1);
+    REQUIRE(determinant(o) == 1);
+  }
+}
 
-    return true;
-  });
+TEST_CASE("matrix function cofactor", "[mat]") {
 
-  auto cof1 = UnitTest("matrix function cofactor (1)", +[] {
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
 
-    if (cofactor<0, 0>(m) != 4) return false;
-    if (cofactor<0, 1>(m) != -3) return false;
-    if (cofactor<1, 0>(m) != -2) return false;
-    if (cofactor<1, 1>(m) != 1) return false;
+    REQUIRE((cofactor<0, 0>(m)) == 4);
+    REQUIRE((cofactor<0, 1>(m)) == -3);
+    REQUIRE((cofactor<1, 0>(m)) == -2);
+    REQUIRE((cofactor<1, 1>(m)) == 1);
+  }
 
-    return true;
-  });
-  auto cof2 = UnitTest("matrix function cofactor (2)", +[] {
+  SECTION("mat3") {
     mat3 m = mat3(3, 0, 2, 2, 0, -2, 0, 1, 1);
 
-    if (cofactor<0, 0>(m) != 2) return false;
-    if (cofactor<0, 1>(m) != -2) return false;
-    if (cofactor<0, 2>(m) != 2) return false;
-    if (cofactor<1, 0>(m) != 2) return false;
-    if (cofactor<1, 1>(m) != 3) return false;
-    if (cofactor<1, 2>(m) != -3) return false;
-    if (cofactor<2, 0>(m) != 0) return false;
-    if (cofactor<2, 1>(m) != 10) return false;
-    if (cofactor<2, 2>(m) != 0) return false;
+    REQUIRE((cofactor<0, 0>(m)) == 2);
+    REQUIRE((cofactor<0, 1>(m)) == -2);
+    REQUIRE((cofactor<0, 2>(m)) == 2);
+    REQUIRE((cofactor<1, 0>(m)) == 2);
+    REQUIRE((cofactor<1, 1>(m)) == 3);
+    REQUIRE((cofactor<1, 2>(m)) == -3);
+    REQUIRE((cofactor<2, 0>(m)) == 0);
+    REQUIRE((cofactor<2, 1>(m)) == 10);
+    REQUIRE((cofactor<2, 2>(m)) == 0);
+  }
+}
 
-    return true;
-  });
+TEST_CASE("matrix function cofactors", "[mat]") {
 
-  auto cofs1 = UnitTest("matrix function cofactors (1)", +[] {
+  SECTION("mat2") {
     mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
-    mat4 o = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 
-    if (cofactors(m) != mat2(4, -3, -2, 1)) return false;
-    if (cofactors(n) != mat3(-3, 6, -3, 6, -12, 6, -3, 6, -3)) return false;
-    if (cofactors(o) != mat4(0)) return false;
+    REQUIRE(cofactors(m) == mat2(4, -3, -2, 1));
+  }
 
-    return true;
-  });
-  auto cofs2 = UnitTest("matrix function cofactors (2)", +[] {
-    mat3 m = mat3(3, 0, 2, 2, 0, -2, 0, 1, 1);
+  SECTION("mat3") {
+    mat3 m = mat3(1, 2, 3, 4, 5, 6, 7, 8, 9);
+    mat3 n = mat3(3, 0, 2, 2, 0, -2, 0, 1, 1);
+
+    REQUIRE(cofactors(m) == mat3(-3, 6, -3, 6, -12, 6, -3, 6, -3));
+    REQUIRE(cofactors(n) == mat3(2, -2, 2, 2, 3, -3, 0, 10, 0));
+  }
+
+  SECTION("mat4") {
+    mat4 m = mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
     mat4 n = mat4(1, -2, 3, 0, 5, 8, -1, 1, 2, 1, 1, 1, 1, 1, 1, 1);
 
-    if (cofactors(m) != mat3(2, -2, 2, 2, 3, -3, 0, 10, 0)) return false;
-    if (cofactors(n) != mat4(0, -2, -7, 9, 0, -3, -2, 5, -17, 14, 15, -12, 17, -11, -13, -10)) return false;
+    REQUIRE(cofactors(m) == mat4(0));
+    REQUIRE(cofactors(n) == mat4(0, -2, -7, 9, 0, -3, -2, 5, -17, 14, 15, -12, 17, -11, -13, -10));
+  }
+}
 
-    return true;
-  });
+TEST_CASE("matrix function adjugate", "[mat]") {
 
-  auto adj1 = UnitTest("matrix function adjugate (1)", +[] {
-    mat2 m = mat2(1, 2, 3, 4);
-    mat3 n = mat3(3, 0, 2, 2, 0, -2, 0, 1, 1);
-    mat4 o = mat4(1, -2, 3, 0, 5, 8, -1, 1, 2, 1, 1, 1, 1, 1, 1, 1);
+  mat2 m = mat2(1, 2, 3, 4);
+  mat3 n = mat3(3, 0, 2, 2, 0, -2, 0, 1, 1);
+  mat4 o = mat4(1, -2, 3, 0, 5, 8, -1, 1, 2, 1, 1, 1, 1, 1, 1, 1);
 
-    if (adjugate(m) != mat2(4, -2, -3, 1)) return false;
-    if (adjugate(n) != mat3(2, 2, 0, -2, 3, 10, 2, -3, 0)) return false;
-    if (adjugate(o) != mat4(0, 0, -17, 17, -2, -3, 14, -11, -7, -2, 15, -13, 9, 5, -12, -10)) return false;
+  REQUIRE(adjugate(m) == mat2(4, -2, -3, 1));
+  REQUIRE(adjugate(n) == mat3(2, 2, 0, -2, 3, 10, 2, -3, 0));
+  REQUIRE(adjugate(o) == mat4(0, 0, -17, 17, -2, -3, 14, -11, -7, -2, 15, -13, 9, 5, -12, -10));
+}
 
-    return true;
-  });
+TEST_CASE("matrix function inverse", "[mat]") {
 
-  auto inv = UnitTest("matrix function inverse", +[] {
-    mat2 m = mat2(1, 2, 3, 4);
-    mat3 t = mat3(1, 0, 2, 0, 1, 2, 0, 0, 1);
-    mat4 s = mat4(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1);
+  mat2 m = mat2(1, 2, 3, 4);
+  mat3 t = mat3(1, 0, 2, 0, 1, 2, 0, 0, 1);
+  mat4 s = mat4(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1);
 
-    if (inverse(m) != mat2(-2, 1, 1.5, -0.5)) return false;
-    if (inverse(t) != mat3(1, 0, -2, 0, 1, -2, 0, 0, 1)) return false;
-    if (inverse(s) != mat4(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 1)) return false;
-
-    return true;
-  });
+  REQUIRE(inverse(m) == mat2(-2, 1, 1.5, -0.5));
+  REQUIRE(inverse(t) == mat3(1, 0, -2, 0, 1, -2, 0, 0, 1));
+  REQUIRE(inverse(s) == mat4(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 1));
 }
