@@ -53,10 +53,45 @@ tmat<T, 4, 4> lookAt(const tvec<T, 3>& eye,
                      const tvec<T, 3>& up);
 
 template <typename T, typename = typefu::for_floating<T>>
+tmat<T, 4, 4> lookAt_l(const tvec<T, 3>& eye,
+                       const tvec<T, 3>& center,
+                       const tvec<T, 3>& up);
+
+template <typename T, typename = typefu::for_floating<T>>
+tmat<T, 4, 4> lookAt_r(const tvec<T, 3>& eye,
+                       const tvec<T, 3>& center,
+                       const tvec<T, 3>& up);
+
+
+template <typename T, typename = typefu::for_floating<T>>
 tmat<T, 4, 4> perspective(T fovy, T aspect, T near, T far);
 
 template <typename T, typename = typefu::for_floating<T>>
+tmat<T, 4, 4> perspective_l(T fovy, T aspect, T near, T far);
+
+template <typename T, typename = typefu::for_floating<T>>
+tmat<T, 4, 4> perspective_r(T fovy, T aspect, T near, T far);
+
+
+template <typename T, typename = typefu::for_floating<T>>
 constexpr tmat<T, 4, 4> ortho(T left, T right, T bottom, T top, T near, T far);
+
+template <typename T, typename = typefu::for_floating<T>>
+constexpr tmat<T, 4, 4> ortho_l(T left,
+                                T right,
+                                T bottom,
+                                T top,
+                                T near,
+                                T far);
+
+template <typename T, typename = typefu::for_floating<T>>
+constexpr tmat<T, 4, 4> ortho_r(T left,
+                                T right,
+                                T bottom,
+                                T top,
+                                T near,
+                                T far);
+
 
 template <typename T, typename = typefu::for_floating<T>>
 tvec<T, 3> unProject(const tvec<T, 3>& win,
