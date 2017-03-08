@@ -177,7 +177,7 @@ tvec<T, 3> unProject(const tvec<T, 3>& win,
                      const tmat<T, 4, 4>& proj,
                      const tvec<T, 4>& viewport) {
 
-  tvec<T, 4> d = vec4(win, T(1));
+  tvec<T, 4> d = tvec<T, 4>(win, T(1));
 
   d.x = (d.x - viewport.x) / viewport.z;
   d.y = (d.y - viewport.y) / viewport.w;
