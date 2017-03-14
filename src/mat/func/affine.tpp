@@ -61,13 +61,28 @@ constexpr tmat<T, 4, 4> rotate_z(T d) {
     0, 0, 1, 0,
     0, 0, 0, 1);
 }
+
+
 template <typename T, typename>
-constexpr tmat<T, 4, 4> rotate(T x, T y, T z) {
-  return rotate_z(z) * rotate_y(y) * rotate_x(x);
+tmat<T, 4, 4> rotate(T angle, T x, T y, T z) {
+  return rotate(angle, tvec<T, 3>(x, y, z));
 }
 template <typename T, typename>
-constexpr tmat<T, 4, 4> rotate(const tvec<T, 3>& v) {
-  return rotate_z(v.z) * rotate_y(v.y) * rotate_x(v.x);
+tmat<T, 4, 4> rotate(T angle, const tvec<T, 3>& axis) {
+  tvec<T, 3> a  = normalize(axis);
+  T          s  = sin(radians(angle));
+  T          c  = cos(radians(angle));
+  T          o  = T(1) - c;
+
+  tvec<T, 3> oa = o * a;
+  tvec<T, 3> sa = s * a;
+
+  return tmat<T, 4, 4>(
+    tvec<T, 4>(oa.x * a + tvec<T, 3>(c, -sa.z, sa.y), 0),
+    tvec<T, 4>(oa.y * a + tvec<T, 3>(sa.z, c, -sa.x), 0),
+    tvec<T, 4>(oa.z * a + tvec<T, 3>(-sa.y, sa.x, c), 0),
+    tvec<T, 4>(0, 0, 0, 1)
+  );
 }
 
 

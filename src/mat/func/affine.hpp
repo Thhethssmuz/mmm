@@ -33,11 +33,12 @@ constexpr tmat<T, 4, 4> rotate_y(T x);
 template <typename T, typename = typefu::for_floating<T>>
 constexpr tmat<T, 4, 4> rotate_z(T x);
 
-template <typename T, typename = typefu::for_floating<T>>
-constexpr tmat<T, 4, 4> rotate(T x, T y, T z);
 
 template <typename T, typename = typefu::for_floating<T>>
-constexpr tmat<T, 4, 4> rotate(const tvec<T, 3>& v);
+tmat<T, 4, 4> rotate(T angle, T x, T y, T z);
+
+template <typename T, typename = typefu::for_floating<T>>
+tmat<T, 4, 4> rotate(T angle, const tvec<T, 3>& v);
 
 
 template <typename T, typename = typefu::for_arithmetic<T>>
