@@ -108,6 +108,78 @@ TEST_CASE("affine matrix - rotate", "[mat][affine]") {
     REQUIRE(m[3][2] == Approx(0));
     REQUIRE(m[3][3] == Approx(1));
   }
+
+  SECTION("axis x") {
+    mat4 m = rotate(45.f, vec3(1, 0, 0));
+
+    REQUIRE(m[0][0] == Approx(1));
+    REQUIRE(m[0][1] == Approx(0));
+    REQUIRE(m[0][2] == Approx(0));
+    REQUIRE(m[0][3] == Approx(0));
+
+    REQUIRE(m[1][0] == Approx(0));
+    REQUIRE(m[1][1] == Approx(0.7071));
+    REQUIRE(m[1][2] == Approx(-0.7071));
+    REQUIRE(m[1][3] == Approx(0));
+
+    REQUIRE(m[2][0] == Approx(0));
+    REQUIRE(m[2][1] == Approx(0.7071));
+    REQUIRE(m[2][2] == Approx(0.7071));
+    REQUIRE(m[2][3] == Approx(0));
+
+    REQUIRE(m[3][0] == Approx(0));
+    REQUIRE(m[3][1] == Approx(0));
+    REQUIRE(m[3][2] == Approx(0));
+    REQUIRE(m[3][3] == Approx(1));
+  }
+
+  SECTION("axis y") {
+    mat4 m = rotate(45.f, vec3(0, 1, 0));
+
+    REQUIRE(m[0][0] == Approx(0.7071));
+    REQUIRE(m[0][1] == Approx(0));
+    REQUIRE(m[0][2] == Approx(0.7071));
+    REQUIRE(m[0][3] == Approx(0));
+
+    REQUIRE(m[1][0] == Approx(0));
+    REQUIRE(m[1][1] == Approx(1));
+    REQUIRE(m[1][2] == Approx(0));
+    REQUIRE(m[1][3] == Approx(0));
+
+    REQUIRE(m[2][0] == Approx(-0.7071));
+    REQUIRE(m[2][1] == Approx(0));
+    REQUIRE(m[2][2] == Approx(0.7071));
+    REQUIRE(m[2][3] == Approx(0));
+
+    REQUIRE(m[3][0] == Approx(0));
+    REQUIRE(m[3][1] == Approx(0));
+    REQUIRE(m[3][2] == Approx(0));
+    REQUIRE(m[3][3] == Approx(1));
+  }
+
+  SECTION("axis z") {
+    mat4 m = rotate(45.f, vec3(0, 0, 1));
+
+    REQUIRE(m[0][0] == Approx(0.7071));
+    REQUIRE(m[0][1] == Approx(-0.7071));
+    REQUIRE(m[0][2] == Approx(0));
+    REQUIRE(m[0][3] == Approx(0));
+
+    REQUIRE(m[1][0] == Approx(0.7071));
+    REQUIRE(m[1][1] == Approx(0.7071));
+    REQUIRE(m[1][2] == Approx(0));
+    REQUIRE(m[1][3] == Approx(0));
+
+    REQUIRE(m[2][0] == Approx(0));
+    REQUIRE(m[2][1] == Approx(0));
+    REQUIRE(m[2][2] == Approx(1));
+    REQUIRE(m[2][3] == Approx(0));
+
+    REQUIRE(m[3][0] == Approx(0));
+    REQUIRE(m[3][1] == Approx(0));
+    REQUIRE(m[3][2] == Approx(0));
+    REQUIRE(m[3][3] == Approx(1));
+  }
 }
 
 TEST_CASE("affine matrix - scale", "[mat][affine]") {
